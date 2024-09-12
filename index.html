@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>PITA_Tv - by@khaled_deragha</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع عرض القنوات</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>القنوات الرياضية والإخبارية</h1>
+        <div class="channels">
+            <!-- القنوات الرياضية -->
+            <div class="channel sports" onclick="showPopup('قناة الفجر الفلسطينية الرياضية 5', 'http://lb2.elahmad.com/tv704_www.elahmad.com_alfajertv5/tracks-v1a1/mono.m3u8?token=fad77c578b8d4ff0682c53fbdf7f387a8a727ca8-f3cde881829a257d4e8a8b85bca04339-1726182349-1726171549')">قناة الفجر الفلسطينية الرياضية 5</div>
+            <!-- بقية القنوات الرياضية -->
+            <div class="channel sports" onclick="showPopup('قناة الفجر الفلسطينية الرياضية 4', 'http://lb2.elahmad.com/tv704_www.elahmad.com_alfajertv4/tracks-v1a1/mono.m3u8?token=bd5b5779a785d829d06f4478e447767d10cf80c5-07934c773b816273fa5b66604e7d8f58-1726183708-1726172908')">قناة الفجر الفلسطينية الرياضية 4</div>
+            <div class="channel sports" onclick="showPopup('قناة الجزيرة الإخبارية', 'http://live-hls-web-aja.getaj.net/AJA/05.m3u8')">قناة االجزيرةالإخبارية</div>
+            <!-- ... -->
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة لمشاهدة القناة -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2 id="popup-title">اسم القناة</h2>
+            <video id="video-player" controls style="width: 100%; height: auto;" poster="poster.jpg"></video>
+        </div>
+    </div>
+
+    <footer>
+        <p>حقوق الملكية خاصة بالمهندس: خالد دراغة</p>
+        <div class="social-media">
+            <a href="https://www.facebook.com" target="_blank">Facebook</a> |
+            <a href="https://www.linkedin.com/in/khaled-deragha14" target="_blank">LinkedIn</a> |
+            <a href="https://www.youtube.com/@aindeheb853" target="_blank">YouTube</a> |
+            <a href="https://t.me/PITA_Community" target="_blank">Telegram Channel</a> |
+            <a href="mailto:gsmkhaledtiaret@gmail.com">Gmail</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
