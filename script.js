@@ -21,3 +21,21 @@ function closePopup() {
     video.pause();
     video.src = ''; // تفريغ المصدر لإيقاف البث
 }
+// تفعيل وضع ملء الشاشة
+function toggleFullScreen() {
+    const video = document.getElementById('video-player');
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) { // Firefox
+        video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) { // IE/Edge
+        video.msRequestFullscreen();
+    }
+}
+
+// دعم DLNA عبر توجيه المستخدم
+function showDlnaInstructions() {
+    alert("لإرسال الفيديو إلى تلفاز يدعم DLNA، استخدم متصفح خارجي مثل Web Video Caster وافتح الرابط.");
+}
