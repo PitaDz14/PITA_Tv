@@ -21,6 +21,7 @@ function closePopup() {
     video.pause();
     video.src = ''; // تفريغ المصدر لإيقاف البث
 }
+
 // تفعيل وضع ملء الشاشة
 function toggleFullScreen() {
     const video = document.getElementById('video-player');
