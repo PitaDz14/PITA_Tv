@@ -95,21 +95,17 @@
 <script>
 // يمكنك إضافة وظائف JavaScript هنا إذا كنت بحاجة إلى مزيد من التفاعلية
 </script>
-  
-</script>
-
 <h2>Ennahar HD</h2>
 <div class="new-tabs-wrapper">
-<div class="ss-tabs-list">
-<div id="tab-1" class="tab-content-server" style="display:block">
-    <div class="inner-tab-content">
-        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/ennaharonline.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
-   </div>
-</div> 
+    <div class="ss-tabs-list">
+        <div id="tab-1" class="tab-content-server" style="display:block">
+            <div class="inner-tab-content video-container">
+                <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/ennaharonline.php" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+            </div>
+        </div> 
+    </div>
 </div>
-</div>
-</div>
-  
+
 <style>
     .video-container {
         position: relative;
@@ -126,27 +122,11 @@
         height: 100%; /* الارتفاع 100% من الحاوية */
     }
 </style>
-  
-    <button id="ennaharBtn">قناة النهار</button>
 
-    <script>
-        // فتح نافذة منبثقة عند الضغط على الزر
-        document.getElementById('ennaharBtn').onclick = function() {
-            var popup = window.open("", "popupWindow", "width=800,height=600,scrollbars=no");
-            popup.document.write(`
-                <h2>Ennahar HD</h2>
-                <div class="new-tabs-wrapper">
-                <div class="ss-tabs-list">
-                <div id="tab-1" class="tab-content-server" style="display:block">
-                    <div class="inner-tab-content">
-                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/ennaharonline.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
-                   </div>
-                </div> 
-                </div>
-                </div>
-            `);
-        };
-    </script>
+<script>
+// يمكنك إضافة وظائف JavaScript هنا إذا كنت بحاجة إلى مزيد من التفاعلية
+</script> 
+
 
 </body>
     <!-- نافذة منبثقة لمشاهدة القناة -->
