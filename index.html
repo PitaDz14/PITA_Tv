@@ -25,68 +25,6 @@
             <div class="channel sports" onclick="showPopup('قناة تجريبية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة تجريبية</div>
             <div class="channel sports" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة االجزيرةالإخبارية</div>
             <!-- بقية القنوات الرياضية -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشغل قنوات فضائية</title>
-    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-    <style>
-        .channel {
-            cursor: pointer;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-
-        .channel:hover {
-            background-color: #ddd;
-        }
-
-        #videoPlayer {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="channel sports" onclick="showPopup('قناة Bein Sport 1', 'https://ssc1-ak.akamaized.net/out/v1/c696e4819b55414388a1a487e8a45ca1/index.mpd')">
-        قناة Bein Sport 1
-    </div>
-
-    <video id="videoPlayer" controls></video>
-
-    <script>
-        function showPopup(channelName, streamUrl) {
-            // إظهار اسم القناة (اختياري)
-            alert('تشغيل: ' + channelName);
-
-            // الحصول على عنصر مشغل الفيديو
-            var videoPlayer = document.getElementById('videoPlayer');
-            
-            // عرض مشغل الفيديو إذا كان مخفياً
-            videoPlayer.style.display = 'block';
-            
-            // التأكد من إعادة تعيين المشغل
-            if (videoPlayer.dashPlayer) {
-                videoPlayer.dashPlayer.reset();
-            }
-
-            // استخدام dash.js لتشغيل رابط .mpd
-            var url = streamUrl;
-            var player = dashjs.MediaPlayer().create();
-            player.initialize(videoPlayer, url, true);
-
-            // حفظ المشغل في العنصر لضمان إمكانية إعادة تعيينه لاحقاً
-            videoPlayer.dashPlayer = player;
-        }
-    </script>
-
-</body>
-</html>
             <div class="channel sports" onclick="showPopup('قناة Bein Sport 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">قناة Bein Sport 1</div>
             <div class="channel sports" onclick="showPopup('قناة Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">قناة Bein Sport 2</div>
             <div class="channel sports" onclick="showPopup('قناة Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">قناة Bein Sport 3</div>
