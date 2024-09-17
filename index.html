@@ -1,173 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>PITA_Tv - by@khaled_deragha</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع عرض القنوات</title>
+    <title>قنوات البث المباشر</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>القنوات الرياضية والإخبارية</h1>
-        <div class="channels">
-            <!-- القنوات العامة والإخبارية -->
-            <div class="channel sports" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
-            <div class="channel sports" onclick="showPopup('قناة تجريبية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة تجريبية</div>
-            <div class="channel sports" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة االجزيرةالإخبارية</div>
-            <!-- القنوات الرياضية القطرية Bein Sport -->
+        <h1>قنوات البث المباشر</h1>
+
+        <!-- تبويبات التصنيفات -->
+        <div class="channel-categories">
+            <button onclick="showCategory('all')">القنوات العامة</button>  
+            <button onclick="showCategory('sports')">القنوات الرياضية</button>
+            <button onclick="showCategory('news')">القنوات الإخبارية</button>
+            <button onclick="showCategory('kids')">قنوات الأطفال</button>
+        </div>
+        <!-- قنوات العامة -->
+        <div id="all" class="category" style="display:none;">
+            <div class="channel all" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
+            <div class="channel all" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
+        </div>
+        <!-- قنوات رياضية -->
+        <div id="sports" class="category">
             <div class="channel sports" onclick="showPopup('Bein Sport 1 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">Bein Sport 1 قناة</div>
             <div class="channel sports" onclick="showPopup('Bein Sport 2 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein Sport 2 قناة</div>
             <div class="channel sports" onclick="showPopup('Bein Sport 3 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">Bein Sport 3 قناة</div>
             <div class="channel sports" onclick="showPopup('Bein Sport 4 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">Bein Sport 4 قناة</div>
             <div class="channel sports" onclick="showPopup('Bein Sport 5 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">Bein Sport 5 قناة</div>
             <div class="channel sports" onclick="showPopup('Bein Sport 6 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6 قناة</div>
-            <!-- القنوات الرياضية السعودية SSC -->
+        <!-- القنوات الرياضية السعودية SSC -->
             <div class="channel sports" onclick="showPopup('SSC sport قناة', 'https://cdn.footballii.ir/hls2/ssc1s.m3u8')">SSC sport قناة</div>
-            <!-- قنوات الأطفال -->
-            <div class="channel sports" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
-            <!-- ... -->
-            <div class="tv">
-  <ul class="ServersList">
-    <li class="active" data-embed="https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0">
-    <li><span style="font-weight: bold; font-family: 'Arial Black', sans-serif;">BEIN NEWS</span></li>
-    <li data-embed="https://www.youtube.com/embed/rklYWxQZ6LU?autoplay=1&iv_load_policy=3&rel=0"></li>
-  </ul>
-
-  <div class="EmbedCode">
-    <div class="containera">
-      <iframe class="responsive-iframe" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript">
-  $('.ServersList > li').click(function(){
-    $('.ServersList > li').removeClass('active');
-    $(this).addClass('active');
-    $('.EmbedCode iframe').attr("src", $(this).data('embed'));
-  });
-
-  // Popup functionality for the 3D button
-  document.getElementById("popupButton").addEventListener("click", function(){
-    alert("3D Button clicked! You can customize this popup action.");
-  });
-
-  $('.Tabs > ul > li').click(function(){
-    $('.Tabs > ul > li').removeClass('active');
-    $(this).addClass('active');
-    $('.TabItem').removeClass('active');
-    $('.TabItem[data-tab="'+$(this).data('tab')+'"]').addClass('active');
-  });
-</script>
-
-<div class="share">
-  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-    <a class="a2a_button_facebook"></a>
-    <a class="a2a_button_twitter"></a>
-    <a class="a2a_button_whatsapp"></a>
-    <a class="a2a_button_facebook_messenger"></a>
-    <a class="a2a_button_email"></a>
-    <a class="a2a_button_copy_link"></a>
-    <a class="refresh" href="javascript:window.location.reload()" style="clear: right; display: block; float: right; padding: 1px 0px; text-align: center;">Reload &#10227;</a>
-  </div>
-  <script async="" src=""></script>
-</div>
-
-<style>
-  .share {
-    margin-left: 1px !important;
-    margin-right: 1px !important;
-  }
-
-
-</style>
-
         </div>
 
-    </div>
-<h2>Alfajertv PL HD</h2>
-<div class="new-tabs-wrapper">
-    <div class="ss-tabs-list">
-        <div id="tab-1" class="tab-content-server" style="display:block">
-            <div class="inner-tab-content video-container">
-                <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+        <!-- قنوات إخبارية -->
+        <div id="news" class="category" style="display:none;">
+            <div class="channel news" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة االجزيرةالإخبارية</div>
+        </div>
+
+        <!-- قنوات أطفال -->
+        <div id="kids" class="category" style="display:none;">
+            <div class="channel kids" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
+        </div>
+
+        <!-- نظام التعليقات -->
+        <div class="comment-section">
+            <h2>اترك تعليقًا</h2>
+            <textarea id="user-comment" placeholder="أدخل تعليقك هنا"></textarea>
+            <button onclick="submitComment()">إرسال التعليق</button>
+        </div>
+        <div id="comments-list"></div>
+
+        <!-- نافذة عرض الفيديو -->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h2 id="popup-title">اسم القناة</h2>
+                <video id="video-player" controls></video>
+                <button onclick="toggleFullScreen()">ملء الشاشة</button>
             </div>
-        </div> 
+        </div>
     </div>
-</div>
 
-<style>
-    .video-container {
-        position: relative;
-        width: 100%; /* تأكد من أن العرض 100% من الحاوية */
-        padding-bottom: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
-        height: 0; /* يتيح التحكم في نسبة العرض إلى الارتفاع */
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%; /* العرض 100% من الحاوية */
-        height: 100%; /* الارتفاع 100% من الحاوية */
-    }
-</style>
-</div>
-
-<h2>Ennahar HD</h2>
-<div class="new-tabs-wrapper">
-    <div class="ss-tabs-list">
-        <div id="tab-1" class="tab-content-server" style="display:block">
-            <div class="inner-tab-content video-container">
-                <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/ennaharonline.php" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
-            </div>
-        </div> 
-    </div>
-</div>
-
-<style>
-    .video-container {
-        position: relative;
-        width: 100%; /* تأكد من أن العرض 100% من الحاوية */
-        padding-bottom: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
-        height: 0; /* يتيح التحكم في نسبة العرض إلى الارتفاع */
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%; /* العرض 100% من الحاوية */
-        height: 100%; /* الارتفاع 100% من الحاوية */
-    }
-</style>
-
-<script>
-// يمكنك إضافة وظائف JavaScript هنا إذا كنت بحاجة إلى مزيد من التفاعلية
-</script> 
-
-
+    <script src="scripts.js"></script>
 </body>
-    <!-- نافذة منبثقة لمشاهدة القناة -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup()">&times;</span>
-            <h2 id="popup-title">اسم القناة</h2>
-            <video id="video-player" controls style="width: 100%; height: auto;" poster="poster.jpg"></video>
-        </div>
-    </div>
-
     <footer>
         <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
         <div class="social-media">
