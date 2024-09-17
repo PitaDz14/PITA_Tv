@@ -12,36 +12,25 @@
 
         <!-- تبويبات التصنيفات -->
         <div class="channel-categories">
-            <button onclick="showCategory('all')">القنوات العامة</button>  
             <button onclick="showCategory('sports')">القنوات الرياضية</button>
             <button onclick="showCategory('news')">القنوات الإخبارية</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
         </div>
-        <!-- قنوات العامة -->
-        <div id="all" class="category" style="display:none;">
-            <div class="channel all" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
-            <div class="channel all" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
-        </div>
+
         <!-- قنوات رياضية -->
         <div id="sports" class="category">
-            <div class="channel sports" onclick="showPopup('Bein Sport 1 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">Bein Sport 1 قناة</div>
-            <div class="channel sports" onclick="showPopup('Bein Sport 2 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein Sport 2 قناة</div>
-            <div class="channel sports" onclick="showPopup('Bein Sport 3 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">Bein Sport 3 قناة</div>
-            <div class="channel sports" onclick="showPopup('Bein Sport 4 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">Bein Sport 4 قناة</div>
-            <div class="channel sports" onclick="showPopup('Bein Sport 5 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">Bein Sport 5 قناة</div>
-            <div class="channel sports" onclick="showPopup('Bein Sport 6 قناة', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6 قناة</div>
-        <!-- القنوات الرياضية السعودية SSC -->
-            <div class="channel sports" onclick="showPopup('SSC sport قناة', 'https://cdn.footballii.ir/hls2/ssc1s.m3u8')">SSC sport قناة</div>
+            <div class="channel" onclick="showPopup('Bein Sport 1', 'url_to_video')">Bein Sport 1</div>
+            <div class="channel" onclick="showPopup('Bein Sport 2', 'url_to_video')">Bein Sport 2</div>
         </div>
 
         <!-- قنوات إخبارية -->
         <div id="news" class="category" style="display:none;">
-            <div class="channel news" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة االجزيرةالإخبارية</div>
+            <div class="channel" onclick="showPopup('الجزيرة', 'url_to_video')">الجزيرة</div>
         </div>
 
         <!-- قنوات أطفال -->
         <div id="kids" class="category" style="display:none;">
-            <div class="channel kids" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
+            <div class="channel" onclick="showPopup('Spacetoon', 'url_to_video')">Spacetoon</div>
         </div>
 
         <!-- نظام التعليقات -->
@@ -64,24 +53,5 @@
     </div>
 
     <script src="scripts.js"></script>
-</body>
-    <footer>
-        <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
-        <div class="social-media">
-            <a href="https://www.facebook.com" target="_blank">Facebook</a> |
-            <a href="https://www.linkedin.com/in/khaled-deragha14" target="_blank">LinkedIn</a> |
-            <a href="https://www.youtube.com/@aindeheb853" target="_blank">YouTube</a> |
-            <a href="https://t.me/PITA_Community" target="_blank">Telegram Channel</a> |
-            <a href="mailto:gsmkhaledtiaret@gmail.com">Gmail</a>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="script.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
 </body>
 </html>
