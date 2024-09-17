@@ -92,12 +92,62 @@
 
         </div>
         <!-- نظام التعليقات -->
-        <div class="comment-section">
-            <h2>اترك تعليقًا</h2>
-            <textarea id="user-comment" placeholder="أدخل تعليقك هنا"></textarea>
-            <button onclick="submitComment()">إرسال التعليق</button>
-        </div>
-        <div id="comments-list"></div>
+<div class="comment-section" style="text-align: right; direction: rtl;">
+    <h2>اترك تعليقًا</h2>
+    
+    <label for="user-name">الاسم:</label>
+    <input type="text" id="user-name" placeholder="أدخل اسمك هنا" style="width: 100%; margin-bottom: 10px;">
+
+    <label for="user-location">مكان الإقامة:</label>
+    <input type="text" id="user-location" placeholder="أدخل مكان إقامتك هنا" style="width: 100%; margin-bottom: 10px;">
+
+    <label for="user-comment">التعليق:</label>
+    <textarea id="user-comment" placeholder="أدخل تعليقك هنا" style="width: 100%; margin-bottom: 10px;"></textarea>
+    
+    <button onclick="submitComment()" style="width: 100%; background-color: #4CAF50; color: white;">إرسال التعليق</button>
+
+    <div id="comments-list" style="margin-top: 20px;">
+        <!-- التعليقات المضافة ستظهر هنا -->
+    </div>
+</div>
+
+<script>
+    function submitComment() {
+        // الحصول على البيانات من الحقول
+        var name = document.getElementById("user-name").value;
+        var location = document.getElementById("user-location").value;
+        var comment = document.getElementById("user-comment").value;
+
+        // التحقق من أن جميع الحقول مملوءة
+        if (name === "" || location === "" || comment === "") {
+            alert("الرجاء ملء جميع الحقول.");
+            return;
+        }
+
+        // إنشاء عنصر تعليق جديد
+        var commentSection = document.getElementById("comments-list");
+        var newComment = document.createElement("div");
+        newComment.style.marginBottom = "20px";
+        newComment.style.border = "1px solid #ccc";
+        newComment.style.padding = "10px";
+        newComment.style.borderRadius = "5px";
+        newComment.style.backgroundColor = "#f9f9f9";
+        newComment.style.direction = "rtl";
+        newComment.innerHTML = `
+            <strong>الاسم:</strong> ${name}<br>
+            <strong>مكان الإقامة:</strong> ${location}<br>
+            <strong>التعليق:</strong> ${comment}
+        `;
+
+        // إضافة التعليق الجديد إلى القائمة
+        commentSection.appendChild(newComment);
+
+        // تفريغ الحقول بعد الإرسال
+        document.getElementById("user-name").value = "";
+        document.getElementById("user-location").value = "";
+        document.getElementById("user-comment").value = "";
+    }
+</script>>
 
         <!-- نافذة عرض الفيديو -->
         <div id="popup" class="popup">
