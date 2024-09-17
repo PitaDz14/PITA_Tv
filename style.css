@@ -15,11 +15,22 @@ h1 {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.channels {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+.channel-categories {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff9800;
 }
 
 .channel {
@@ -27,25 +38,22 @@ h1 {
     height: 100px;
     background-color: #333;
     color: white;
+    display: inline-block;
+    margin: 10px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: transform 0.3s;
 }
 
 .channel:hover {
     transform: scale(1.1);
-    background-color: #ff9800;
-}
-
-.sports {
     background-color: #1e88e5;
 }
 
-/* النافذة المنبثقة */
+/* نافذة منبثقة للفيديو */
 .popup {
     display: none;
     position: fixed;
@@ -59,13 +67,11 @@ h1 {
 }
 
 .popup-content {
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     width: 80%;
     max-width: 800px;
-    text-align: center;
     position: relative;
 }
 
@@ -78,36 +84,31 @@ h1 {
 }
 
 video {
+    width: 100%;
+    height: auto;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-footer {
+.comment-section {
+    margin-top: 30px;
+    text-align: left;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#comments-list {
     margin-top: 20px;
-    color: #777;
-    font-size: 14px;
 }
 
-.social-media a {
-    color: #1e88e5;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.social-media a:hover {
-    text-decoration: underline;
-}
-.video-container {
-    position: relative;
-    width: 100%; /* حجم العرض يكون 100% من العنصر الحاوي */
-    padding-bottom: 56.25%; /* هذا النسبة تعطي نسبة عرض إلى ارتفاع 16:9 */
-    height: 0; /* يُستخدم لضبط النسبة الصحيحة للعنصر */
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* جعل العرض يمتد 100% */
-    height: 100%; /* جعل الارتفاع يمتد 100% */
+@media (max-width: 768px) {
+    .channel {
+        width: 100%;
+    }
 }
