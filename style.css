@@ -1,4 +1,6 @@
 body {
+    direction: rtl;
+    text-align: right;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
