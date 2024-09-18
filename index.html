@@ -44,153 +44,153 @@
         <!-- القنوات الإخبارية والعامة -->
         <div id="PL" class="category" style="display:none;">
             <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfajertv</title>
-    <style>
-        /* تنسيق الفيديو */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-        }
+            <html lang="ar">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Alfajertv</title>
+                <style>
+                    /* تنسيق الفيديو */
+                    .video-container {
+                        position: relative;
+                        width: 100%;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                    }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+                    .video-container iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
 
-        /* تنسيق الأزرار */
-        .three-d-button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            background-color: #008CBA;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 5px #666;
-            transition: all 0.3s ease;
-        }
+                    /* تنسيق الأزرار */
+                    .three-d-button {
+                        display: inline-block;
+                        padding: 15px 25px;
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: white;
+                        background-color: #008CBA;
+                        border: none;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        box-shadow: 0 5px #666;
+                        transition: all 0.3s ease;
+                    }
 
-        .three-d-button:hover {
-            background-color: #005f6a;
-        }
+                    .three-d-button:hover {
+                        background-color: #005f6a;
+                    }
 
-        .three-d-button:active {
-            box-shadow: 0 3px #666;
-            transform: translateY(2px);
-        }
+                    .three-d-button:active {
+                        box-shadow: 0 3px #666;
+                        transform: translateY(2px);
+                    }
 
-        /* تنسيق النافذة المنبثقة */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-        }
+                    /* تنسيق النافذة المنبثقة */
+                    .popup-overlay {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.7);
+                        z-index: 1000;
+                    }
 
-        .popup-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
+                    .popup-content {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 80%;
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                    }
 
-        .close-button {
-            background-color: #f44336;
-            color: white;
-        }
+                    .close-button {
+                        background-color: #f44336;
+                        color: white;
+                    }
 
-        .fullscreen-button {
-            background-color: #4CAF50;
-            color: white;
-        }
+                    .fullscreen-button {
+                        background-color: #4CAF50;
+                        color: white;
+                    }
 
-        /* تكامل التنسيق ثلاثي الأبعاد للأزرار في النافذة */
-        .popup-buttons button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 5px #666;
-            margin: 10px;
-        }
+                    /* تكامل التنسيق ثلاثي الأبعاد للأزرار في النافذة */
+                    .popup-buttons button {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        box-shadow: 0 5px #666;
+                        margin: 10px;
+                    }
 
-        .popup-buttons button:active {
-            box-shadow: 0 3px #666;
-            transform: translateY(2px);
-        }
-    </style>
-</head>
-<body>
+                    .popup-buttons button:active {
+                        box-shadow: 0 3px #666;
+                        transform: translateY(2px);
+                    }
+                </style>
+            </head>
+            <body>
 
-    <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
-    <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
+                <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
+                <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
 
-    <!-- النافذة المنبثقة -->
-    <div id="popup" class="popup-overlay">
-        <div class="popup-content">
-            <h2>Alfajertv PL HD</h2>
-            <div class="video-container">
-                <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
-            </div>
-            <div class="popup-buttons">
-                <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
-                <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-            </div>
-        </div>
-    </div>
+                <!-- النافذة المنبثقة -->
+                <div id="popup" class="popup-overlay">
+                    <div class="popup-content">
+                        <h2>Alfajertv PL HD</h2>
+                        <div class="video-container">
+                            <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+                        </div>
+                        <div class="popup-buttons">
+                            <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
+                            <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
+                        </div>
+                    </div>
+                </div>
 
-    <script>
-        // فتح النافذة المنبثقة
-        function openPopup() {
-            document.getElementById('popup').style.display = 'block';
-        }
+                <script>
+                    // فتح النافذة المنبثقة
+                    function openPopup() {
+                        document.getElementById('popup').style.display = 'block';
+                    }
+            
+                    // إغلاق النافذة المنبثقة
+                    function closePopup() {
+                        document.getElementById('popup').style.display = 'none';
+                    }
 
-        // إغلاق النافذة المنبثقة
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
+                    // ملء الشاشة
+                    function toggleFullscreen() {
+                        var iframe = document.getElementById('iframe-player-1');
+                        if (iframe.requestFullscreen) {
+                            iframe.requestFullscreen();
+                        } else if (iframe.mozRequestFullScreen) { // Firefox
+                            iframe.mozRequestFullScreen();
+                        } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                            iframe.webkitRequestFullscreen();
+                        } else if (iframe.msRequestFullscreen) { // IE/Edge
+                            iframe.msRequestFullscreen();
+                        }
+                    }
+                </script>
 
-        // ملء الشاشة
-        function toggleFullscreen() {
-            var iframe = document.getElementById('iframe-player-1');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) { // Firefox
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { // IE/Edge
-                iframe.msRequestFullscreen();
-            }
-        }
-    </script>
-
-</body>
-</html>
+            </body>
+            </html>
 
         </div>
 
