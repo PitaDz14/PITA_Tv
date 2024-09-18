@@ -204,62 +204,22 @@
 
         <!-- Alfajertv PL Channels -->
         <div id="PL" class="category">
-                <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
-                <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
-
-                <!-- النافذة المنبثقة -->
-                <div id="popup" class="popup-overlay">
-                    <div class="popup-content">
-                        <h2>Alfajertv PL HD</h2>
-                        <div class="video-container">
-                            <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
-                        </div>
-                        <div class="popup-buttons">
-                            <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
-                            <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-                        </div>
+            <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
+            <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
+            <!-- النافذة المنبثقة -->
+            <div id="popup" class="popup-overlay">
+                <div class="popup-content">
+                    <h2>Alfajertv PL HD</h2>
+                    <div class="video-container">
+                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+                    </div>
+                    <div class="popup-buttons">
+                        <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
+                        <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
                     </div>
                 </div>
-
-                <script>
-                    // فتح النافذة المنبثقة
-                    function openPopup() {
-                        document.getElementById('popup').style.display = 'block';
-                    }
-            
-                    // إغلاق النافذة المنبثقة
-                    function closePopup() {
-                        document.getElementById('popup').style.display = 'none';
-                    }
-
-                    // ملء الشاشة
-                    function toggleFullscreen() {
-                        var iframe = document.getElementById('iframe-player-1');
-                        if (iframe.requestFullscreen) {
-                            iframe.requestFullscreen();
-                        } else if (iframe.mozRequestFullScreen) { // Firefox
-                            iframe.mozRequestFullScreen();
-                        } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                            iframe.webkitRequestFullscreen();
-                        } else if (iframe.msRequestFullscreen) { // IE/Edge
-                            iframe.msRequestFullscreen();
-                        }
-                    }
-                </script>
+            </div>    
         </div>
-    </div>
-
-    <!-- Popup Window -->
-    <div id="popup" class="popup-overlay">
-        <div class="popup-content">
-            <h2 id="popup-title">مشاهدة القناة</h2>
-            <video id="video-player" controls></video>
-            <div class="popup-buttons">
-                <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-                <button class="close-button" onclick="closePopup()">إغلاق</button>
-            </div>
-        </div>
-    </div>
 
     <footer>
         <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
