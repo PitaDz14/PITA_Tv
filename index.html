@@ -64,36 +64,106 @@
           </div>
           </div>
          </div>
-         
-         <div
-                    <h2>Alfajertv PL HD</h2>
-          <div class="new-tabs-wrapper">
-              <div class="ss-tabs-list">
-                  <div id="tab-1" class="tab-content-server" style="display:block">
-                     <div class="inner-tab-content video-container">
-                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay; encrypted-media" allowautoplay="false"></iframe>
-                     </div>
-                  </div> 
-              </div>
+
+      <!-- زر فتح النافذة المنبثقة لقنوات الفجر الفلسطينية -->
+<button onclick="openPopup()" class="popup-button">قنوات الفجر الفلسطينية</button>
+
+<!-- النافذة المنبثقة -->
+<div id="popup" class="popup-window">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <h2>Alfajertv PL HD</h2>
+    <div class="new-tabs-wrapper">
+      <div class="ss-tabs-list">
+        <div id="tab-1" class="tab-content-server" style="display:block">
+          <div class="inner-tab-content video-container">
+            <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay; encrypted-media"></iframe>
           </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
 
-          <style>
-            .video-container {
-              position: relative;
-              width: 100%; /* تأكد من أن العرض 100% من الحاوية */
-              padding-bottom: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
-              height: 0; /* يتيح التحكم في نسبة العرض إلى الارتفاع */
-            }
+<!-- CSS لتنسيق النافذة المنبثقة والفيديو -->
+<style>
+  /* تنسيق زر فتح النافذة المنبثقة */
+  .popup-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 
-            .video-container iframe {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%; /* العرض 100% من الحاوية */
-              height: 100%; /* الارتفاع 100% من الحاوية */
-            }
-          </style>
-        </div>
+  .popup-button:hover {
+    background-color: #45a049;
+  }
+
+  /* تنسيق النافذة المنبثقة */
+  .popup-window {
+    display: none; /* تبدأ مخفية */
+    position: fixed; 
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .popup-content {
+    position: relative;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  /* زر إغلاق النافذة */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+
+  /* تنسيق حاوية الفيديو */
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
+    height: 0;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<!-- JavaScript لفتح وإغلاق النافذة المنبثقة -->
+<script>
+  function openPopup() {
+    document.getElementById("popup").style.display = "block";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+</script>
+
+         
         <!-- نافذة عرض الفيديو -->
         <div id="popup" class="popup">
             <div class="popup-content">
