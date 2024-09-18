@@ -7,37 +7,45 @@
     <style>
         /* CSS for the layout and styling */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #e9edf0;
             margin: 0;
             padding: 0;
         }
 
         .container {
-            width: 80%;
+            max-width: 1200px;
             margin: auto;
-            overflow: hidden;
+            padding: 20px;
         }
 
         h1 {
             text-align: center;
             margin: 20px 0;
+            font-size: 32px;
+            color: #333;
         }
 
         .channel-categories {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .channel-categories button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 18px;
             cursor: pointer;
             border: none;
-            background-color: #2196F3;
+            background-color: #007BFF;
             color: white;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .channel-categories button:hover {
+            background-color: #0056b3;
         }
 
         .category {
@@ -45,12 +53,13 @@
         }
 
         .channel {
-            margin: 10px;
-            padding: 10px;
-            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: white;
             cursor: pointer;
             border: 1px solid #ddd;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .channel:hover {
@@ -65,7 +74,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
         }
 
@@ -74,55 +83,51 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
+            width: 90%;
+            max-width: 800px;
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
         .close-button {
             background-color: #f44336;
             color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .close-button:hover {
+            background-color: #d32f2f;
         }
 
         .fullscreen-button {
             background-color: #4CAF50;
             color: white;
-        }
-
-        .popup-buttons button {
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-        }
-
-        .three-d-button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            background-color: #008CBA;
             border: none;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            box-shadow: 0 5px #666;
-            transition: all 0.3s ease;
+            float: left;
         }
 
-        .three-d-button:hover {
-            background-color: #005f6a;
+        .fullscreen-button:hover {
+            background-color: #388E3C;
         }
 
-        .three-d-button:active {
-            box-shadow: 0 3px #666;
-            transform: translateY(2px);
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
         }
 
         footer {
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             background-color: #333;
             color: white;
             margin-top: 20px;
@@ -132,6 +137,29 @@
             color: white;
             text-decoration: none;
             margin: 0 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+            .channel-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            .channel-categories button {
+                margin-bottom: 10px;
+            }
+            iframe {
+                height: 300px;
+            }
         }
     </style>
 </head>
@@ -166,20 +194,18 @@
 
         <!-- Alfajertv PL Channels -->
         <div id="PL" class="category">
-            <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
+            <div class="channel" onclick="showPopup('Alfajertv', 'https://www.elahmad.com/tv/alfajertv.php')">Alfajertv</div>
+        </div>
+    </div>
 
-            <!-- Alfajertv Popup -->
-            <div id="popup" class="popup-overlay">
-                <div class="popup-content">
-                    <h2>Alfajertv PL HD</h2>
-                    <div class="video-container">
-                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
-                    </div>
-                    <div class="popup-buttons">
-                        <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
-                        <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-                    </div>
-                </div>
+    <!-- Popup Window -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <h2 id="popup-title">مشاهدة القناة</h2>
+            <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
+            <div class="popup-buttons">
+                <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
+                <button class="close-button" onclick="closePopup()">إغلاق</button>
             </div>
         </div>
     </div>
@@ -190,13 +216,13 @@
             <a href="https://www.facebook.com" target="_blank">Facebook</a> |
             <a href="https://www.linkedin.com/in/khaled-deragha14" target="_blank">LinkedIn</a> |
             <a href="https://www.youtube.com/@aindeheb853" target="_blank">YouTube</a> |
-            <a href="https://t.me/PITA_Community" target="_blank">Telegram Channel</a> |
+            <a href="https://t.me/PITA_Community" target="_blank">Telegram</a> |
             <a href="mailto:gsmkhaledtiaret@gmail.com">Gmail</a>
         </div>
     </footer>
 
     <script>
-        // JavaScript to handle category display
+        // Show category function
         function showCategory(category) {
             var categories = document.getElementsByClassName('category');
             for (var i = 0; i < categories.length; i++) {
@@ -205,53 +231,29 @@
             document.getElementById(category).style.display = 'block';
         }
 
-        // Popup handling
+        // Show popup with selected channel
         function showPopup(title, url) {
-            var popup = document.getElementById('popup');
-            var videoPlayer = document.getElementById('video-player');
-            var popupTitle = document.getElementById('popup-title');
-
-            popupTitle.innerText = title;
-            videoPlayer.src = url;
-            popup.style.display = 'block';
-        }
-
-        function closePopup() {
-            var popup = document.getElementById('popup');
-            var videoPlayer = document.getElementById('video-player');
-            popup.style.display = 'none';
-            videoPlayer.src = '';
-        }
-
-        function toggleFullScreen() {
-            var videoPlayer = document.getElementById('video-player');
-            if (videoPlayer.requestFullscreen) {
-                videoPlayer.requestFullscreen();
-            } else if (videoPlayer.mozRequestFullScreen) { // Firefox
-                videoPlayer.mozRequestFullScreen();
-            } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                videoPlayer.webkitRequestFullscreen();
-            } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
-                videoPlayer.msRequestFullscreen();
-            }
-        }
-
-        // Alfajertv Popup handling
-        function openPopup() {
+            document.getElementById('popup-title').innerText = title;
+            document.getElementById('video-player').src = url;
             document.getElementById('popup').style.display = 'block';
         }
 
+        // Close popup
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
+            document.getElementById('video-player').src = '';
         }
 
+        // Toggle fullscreen mode
         function toggleFullscreen() {
-            var iframe = document.getElementById('iframe-player-1');
+            var iframe = document.getElementById('video-player');
             if (iframe.requestFullscreen) {
                 iframe.requestFullscreen();
-            } else if (iframe.webkitRequestFullscreen) { /* Safari */
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
                 iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { /* IE11 */
+            } else if (iframe.msRequestFullscreen) {
                 iframe.msRequestFullscreen();
             }
         }
