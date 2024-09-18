@@ -53,7 +53,7 @@
         }
 
         .channel {
-            margin: 10px 0;
+            margin: 10px auto;
             padding: 15px;
             background-color: white;
             cursor: pointer;
@@ -61,6 +61,7 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
             text-align: center;
+            max-width: 400px;
         }
 
         .channel:hover {
@@ -90,6 +91,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
         .close-button {
@@ -99,31 +101,15 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            float: right;
+            margin-top: 10px;
         }
 
         .close-button:hover {
             background-color: #d32f2f;
         }
 
-        .fullscreen-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            float: left;
-        }
-
-        .fullscreen-button:hover {
-            background-color: #388E3C;
-        }
-
         .popup-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            text-align: center;
         }
 
         footer {
@@ -144,6 +130,23 @@
             width: 100%;
             height: 450px;
             border-radius: 10px;
+        }
+
+        /* Colors for each category */
+        #sports .channel {
+            background-color: #ffeb3b;
+        }
+
+        #news .channel {
+            background-color: #03a9f4;
+        }
+
+        #kids .channel {
+            background-color: #ff9800;
+        }
+
+        #PL .channel {
+            background-color: #8bc34a;
         }
 
         /* Responsive design */
@@ -185,10 +188,6 @@
             <div class="channel" onclick="showPopup('Bein Sport 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">Bein Sport 1</div>
             <div class="channel" onclick="showPopup('Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein Sport 2</div>
             <div class="channel" onclick="showPopup('Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">Bein Sport 3</div>
-            <div class="channel" onclick="showPopup('Bein Sport 4', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">Bein Sport 4</div>
-            <div class="channel" onclick="showPopup('Bein Sport 5', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">Bein Sport 5</div>
-            <div class="channel" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6</div>
-            <div class="channel" onclick="showPopup('Bein / SSC', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein / SSC</div>
         </div>
 
         <!-- News Channels -->
@@ -203,22 +202,21 @@
 
         <!-- Alfajertv PL Channels -->
         <div id="PL" class="category">
-            <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
-            <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
-            <!-- النافذة المنبثقة -->
-            <div id="popup" class="popup-overlay">
-                <div class="popup-content">
-                    <h2>Alfajertv PL HD</h2>
-                    <div class="video-container">
-                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
-                    </div>
-                    <div class="popup-buttons">
-                        <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
-                        <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-                    </div>
-                </div>
-            </div>    
+            <div class="channel" onclick="showPopup('Alfajertv', 'https://www.elahmad.com/tv/alfajertv.php')">Alfajertv PL HD</div>
         </div>
+
+        <!-- Popup for video -->
+        <div id="popup" class="popup-overlay">
+            <div class="popup-content">
+                <h2 id="popup-title"></h2>
+                <video id="video-player" controls></video>
+                <div class="popup-buttons">
+                    <button class="close-button" onclick="closePopup()">إغلاق</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <footer>
         <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
@@ -266,17 +264,6 @@
             var video = document.getElementById('video-player');
             video.pause();
             video.src = '';
-        }
-
-        function toggleFullscreen() {
-            var video = document.getElementById('video-player');
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) {
-                video.msRequestFullscreen();
-            }
         }
     </script>
 </body>
