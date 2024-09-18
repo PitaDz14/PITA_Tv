@@ -1,219 +1,190 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>PITA_Tv - by@khaled_deragha</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html lang="ar">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قنوات البث المباشر</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>قنوات البث المباشر - PITA_Tv</title>
+    <style>
+        /* CSS for the layout and styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .channel-categories {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .channel-categories button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background-color: #2196F3;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .category {
+            display: none;
+        }
+
+        .channel {
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .channel:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Popup styling */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .fullscreen-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .popup-buttons button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .three-d-button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #008CBA;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px #666;
+            transition: all 0.3s ease;
+        }
+
+        .three-d-button:hover {
+            background-color: #005f6a;
+        }
+
+        .three-d-button:active {
+            box-shadow: 0 3px #666;
+            transform: translateY(2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .social-media a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>قنوات البث المباشر</h1>
 
-        <!-- تبويبات التصنيفات -->
+        <!-- Channel Categories -->
         <div class="channel-categories">
             <button onclick="showCategory('sports')">القنوات الرياضية</button>
             <button onclick="showCategory('news')">القنوات الإخبارية</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
-            <button onclick="showCategory('ather')">قنوات إضافية متنوعة</button>
             <button onclick="showCategory('PL')">قنوات الفجر الفلسطينية</button>
         </div>
 
-        <!-- قنوات رياضية -->
+        <!-- Sports Channels -->
         <div id="sports" class="category">
             <div class="channel" onclick="showPopup('Bein Sport 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">Bein Sport 1</div>
             <div class="channel" onclick="showPopup('Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein Sport 2</div>
             <div class="channel" onclick="showPopup('Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">Bein Sport 3</div>
-            <div class="channel" onclick="showPopup('Bein Sport 4', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">Bein Sport 4</div>
-            <div class="channel" onclick="showPopup('Bein Sport 5', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">Bein Sport 5</div>
-            <div class="channel" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6</div>
-            <div class="channel" onclick="showPopup('Bein/SSC 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein/SSC 1</div>
-            <div class="channel" onclick="showPopup('test', 'https://njbzae6tkqgv84y95xhcw2.cdnwitness.net:8443/hls/1v5atpaeezy3dws.m3u8?s=ml1R_TsfBeDsvU_jJn1itw&e=1726706327')">test 1</div>
-        </div>
-        <!-- قنوات الإخبارية والعامة -->
-        <div id="news" class="category" style="display:none;">
-            <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>        </div>
-        </div>
-        <!-- قنوات الأطفال  -->
-        <div id="kids" class="category" style="display:none;">
-            <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>        </div>
         </div>
 
-        <!-- القنوات الفجر الفلسطينية -->
-        <div id="PL" class="category" style="display:none;">
-            <!DOCTYPE html>
-            <html lang="ar">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Alfajertv</title>
-                <style>
-                    /* تنسيق الفيديو */
-                    .video-container {
-                        position: relative;
-                        width: 100%;
-                        padding-bottom: 56.25%;
-                        height: 0;
-                    }
+        <!-- News Channels -->
+        <div id="news" class="category">
+            <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
+        </div>
 
-                    .video-container iframe {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                    }
+        <!-- Kids Channels -->
+        <div id="kids" class="category">
+            <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
+        </div>
 
-                    /* تنسيق الأزرار */
-                    .three-d-button {
-                        display: inline-block;
-                        padding: 15px 25px;
-                        font-size: 18px;
-                        font-weight: bold;
-                        color: white;
-                        background-color: #008CBA;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        box-shadow: 0 5px #666;
-                        transition: all 0.3s ease;
-                    }
+        <!-- Alfajertv PL Channels -->
+        <div id="PL" class="category">
+            <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
 
-                    .three-d-button:hover {
-                        background-color: #005f6a;
-                    }
-
-                    .three-d-button:active {
-                        box-shadow: 0 3px #666;
-                        transform: translateY(2px);
-                    }
-
-                    /* تنسيق النافذة المنبثقة */
-                    .popup-overlay {
-                        display: none;
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.7);
-                        z-index: 1000;
-                    }
-
-                    .popup-content {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        width: 80%;
-                        background: white;
-                        padding: 20px;
-                        border-radius: 10px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                    }
-
-                    .close-button {
-                        background-color: #f44336;
-                        color: white;
-                    }
-
-                    .fullscreen-button {
-                        background-color: #4CAF50;
-                        color: white;
-                    }
-
-                    /* تكامل التنسيق ثلاثي الأبعاد للأزرار في النافذة */
-                    .popup-buttons button {
-                        display: inline-block;
-                        padding: 10px 20px;
-                        font-size: 16px;
-                        font-weight: bold;
-                        color: white;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        box-shadow: 0 5px #666;
-                        margin: 10px;
-                    }
-
-                    .popup-buttons button:active {
-                        box-shadow: 0 3px #666;
-                        transform: translateY(2px);
-                    }
-                </style>
-            </head>
-            <body>
-
-                <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
-                <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
-
-                <!-- النافذة المنبثقة -->
-                <div id="popup" class="popup-overlay">
-                    <div class="popup-content">
-                        <h2>Alfajertv PL HD</h2>
-                        <div class="video-container">
-                            <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
-                        </div>
-                        <div class="popup-buttons">
-                            <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
-                            <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-                        </div>
+            <!-- Alfajertv Popup -->
+            <div id="popup" class="popup-overlay">
+                <div class="popup-content">
+                    <h2>Alfajertv PL HD</h2>
+                    <div class="video-container">
+                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+                    </div>
+                    <div class="popup-buttons">
+                        <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
+                        <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
                     </div>
                 </div>
-
-                <script>
-                    // فتح النافذة المنبثقة
-                    function openPopup() {
-                        document.getElementById('popup').style.display = 'block';
-                    }
-            
-                    // إغلاق النافذة المنبثقة
-                    function closePopup() {
-                        document.getElementById('popup').style.display = 'none';
-                    }
-
-                    // ملء الشاشة
-                    function toggleFullscreen() {
-                        var iframe = document.getElementById('iframe-player-1');
-                        if (iframe.requestFullscreen) {
-                            iframe.requestFullscreen();
-                        } else if (iframe.mozRequestFullScreen) { // Firefox
-                            iframe.mozRequestFullScreen();
-                        } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                            iframe.webkitRequestFullscreen();
-                        } else if (iframe.msRequestFullscreen) { // IE/Edge
-                            iframe.msRequestFullscreen();
-                        }
-                    }
-                </script>
-
-            </body>
-            </html>
-
-        </div>
-
-         
-        <!-- نافذة عرض الفيديو -->
-        <div id="popup" class="popup">
-            <div class="popup-content">
-                <span class="close" onclick="closePopup()">&times;</span>
-                <h2 id="popup-title">اسم القناة</h2>
-                <video id="video-player" controls></video>
-                <button onclick="toggleFullScreen()">ملء الشاشة</button>
             </div>
         </div>
-  </div>
-  <footer>
+    </div>
+
+    <footer>
         <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
         <div class="social-media">
             <a href="https://www.facebook.com" target="_blank">Facebook</a> |
@@ -222,13 +193,68 @@
             <a href="https://t.me/PITA_Community" target="_blank">Telegram Channel</a> |
             <a href="mailto:gsmkhaledtiaret@gmail.com">Gmail</a>
         </div>
-  </footer>
-  
-    <script src="scripts.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
+    </footer>
 
+    <script>
+        // JavaScript to handle category display
+        function showCategory(category) {
+            var categories = document.getElementsByClassName('category');
+            for (var i = 0; i < categories.length; i++) {
+                categories[i].style.display = 'none';
+            }
+            document.getElementById(category).style.display = 'block';
+        }
+
+        // Popup handling
+        function showPopup(title, url) {
+            var popup = document.getElementById('popup');
+            var videoPlayer = document.getElementById('video-player');
+            var popupTitle = document.getElementById('popup-title');
+
+            popupTitle.innerText = title;
+            videoPlayer.src = url;
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            var popup = document.getElementById('popup');
+            var videoPlayer = document.getElementById('video-player');
+            popup.style.display = 'none';
+            videoPlayer.src = '';
+        }
+
+        function toggleFullScreen() {
+            var videoPlayer = document.getElementById('video-player');
+            if (videoPlayer.requestFullscreen) {
+                videoPlayer.requestFullscreen();
+            } else if (videoPlayer.mozRequestFullScreen) { // Firefox
+                videoPlayer.mozRequestFullScreen();
+            } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                videoPlayer.webkitRequestFullscreen();
+            } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
+                videoPlayer.msRequestFullscreen();
+            }
+        }
+
+        // Alfajertv Popup handling
+        function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function toggleFullscreen() {
+            var iframe = document.getElementById('iframe-player-1');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) { /* Safari */
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { /* IE11 */
+                iframe.msRequestFullscreen();
+            }
+        }
+    </script>
 </body>
 </html>
