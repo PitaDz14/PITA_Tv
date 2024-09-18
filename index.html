@@ -43,63 +43,156 @@
       
         <!-- القنوات الإخبارية والعامة -->
         <div id="PL" class="category" style="display:none;">
+            <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfajertv</title>
+    <style>
+        /* تنسيق الفيديو */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
 
-                   <h2>Alfajertv PL HD</h2>
-          <div class="new-tabs-wrapper">
-              <div class="ss-tabs-list">
-                  <div id="tab-1" class="tab-content-server" style="display:block">
-                     <div class="inner-tab-content video-container">
-                        <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay; encrypted-media" allowautoplay="false"></iframe>
-                     </div>
-                  </div> 
-              </div>
-          </div>
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-          <style>
-            .video-container {
-              position: relative;
-              width: 100%; /* تأكد من أن العرض 100% من الحاوية */
-              padding-bottom: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
-              height: 0; /* يتيح التحكم في نسبة العرض إلى الارتفاع */
+        /* تنسيق الأزرار */
+        .three-d-button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #008CBA;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px #666;
+            transition: all 0.3s ease;
+        }
+
+        .three-d-button:hover {
+            background-color: #005f6a;
+        }
+
+        .three-d-button:active {
+            box-shadow: 0 3px #666;
+            transform: translateY(2px);
+        }
+
+        /* تنسيق النافذة المنبثقة */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .fullscreen-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* تكامل التنسيق ثلاثي الأبعاد للأزرار في النافذة */
+        .popup-buttons button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px #666;
+            margin: 10px;
+        }
+
+        .popup-buttons button:active {
+            box-shadow: 0 3px #666;
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- زر "تشغيل قنوات الفجر الفلسطينية" -->
+    <button class="three-d-button" onclick="openPopup()">تشغيل قنوات الفجر الفلسطينية</button>
+
+    <!-- النافذة المنبثقة -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <h2>Alfajertv PL HD</h2>
+            <div class="video-container">
+                <iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+            </div>
+            <div class="popup-buttons">
+                <button class="three-d-button close-button" onclick="closePopup()">إغلاق</button>
+                <button class="three-d-button fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // فتح النافذة المنبثقة
+        function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // ملء الشاشة
+        function toggleFullscreen() {
+            var iframe = document.getElementById('iframe-player-1');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
             }
+        }
+    </script>
 
-            .video-container iframe {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%; /* العرض 100% من الحاوية */
-              height: 100%; /* الارتفاع 100% من الحاوية */
-            }
-          </style>
- 
-        </div>
-      
-      
-        <!-- القنوات الإخبارية والعامة -->
-        <div id="news" class="category" style="display:none;">
-            <div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
-            <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
-            <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
-        </div>
+</body>
+</html>
 
-        <!-- قنوات أطفال -->
-        <div id="kids" class="category" style="display:none;">
-            <div class="channel" onclick="showPopup('Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">Spacetoon</div>
         </div>
-
-        <!-- قنوات إضافية متنوعة -->
-        <div id="ather" class="category" style="display:none;">
-         <div
-          <ul class="ServersList">
-            <li><span style="font-weight: bold; font-family: 'Arial Black', sans-serif;">BEIN SPORT NEWS</span></li>
-          </ul>
-          <div class="EmbedCode">
-          <div class="containera">
-          <iframe class="responsive-iframe" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.youtube.com/embed/O_02mf1vpQo?iv_load_policy=3&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          </div>
-          </div>
-         </div>
 
          
         <!-- نافذة عرض الفيديو -->
