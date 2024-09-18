@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قنوات البث المباشر - PITA_Tv</title>
     <style>
-        /* CSS for the layout and styling */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #e9edf0;
@@ -17,20 +16,21 @@
             max-width: 1200px;
             margin: auto;
             padding: 20px;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
-            margin: 20px 0;
             font-size: 32px;
             color: #333;
+            margin-bottom: 20px;
         }
 
         .channel-categories {
             display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
+            justify-content: center;
+            gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
 
         .channel-categories button {
@@ -60,6 +60,7 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            text-align: center;
         }
 
         .channel:hover {
@@ -139,7 +140,7 @@
             margin: 0 10px;
         }
 
-        iframe {
+        #video-player {
             width: 100%;
             height: 450px;
             border-radius: 10px;
@@ -150,18 +151,22 @@
             h1 {
                 font-size: 28px;
             }
+
             .channel-categories {
                 flex-direction: column;
                 align-items: center;
             }
+
             .channel-categories button {
                 margin-bottom: 10px;
             }
-            iframe {
+
+            #video-player {
                 height: 300px;
             }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
     <div class="container">
@@ -181,9 +186,6 @@
             <div class="channel" onclick="showPopup('Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein Sport 2</div>
             <div class="channel" onclick="showPopup('Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">Bein Sport 3</div>
             <div class="channel" onclick="showPopup('Bein Sport 4', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">Bein Sport 4</div>
-            <div class="channel" onclick="showPopup('Bein Sport 5', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">Bein Sport 5</div>
-            <div class="channel" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6</div>
-            <div class="channel" onclick="showPopup('Bein Sport 7', 'https://live2.beinconnect.us/YallaGoalApp/beINSports7.m3u8')">Bein Sport 7</div>
         </div>
 
         <!-- News Channels -->
@@ -206,7 +208,7 @@
     <div id="popup" class="popup-overlay">
         <div class="popup-content">
             <h2 id="popup-title">مشاهدة القناة</h2>
-            <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
+            <video id="video-player" controls></video>
             <div class="popup-buttons">
                 <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
                 <button class="close-button" onclick="closePopup()">إغلاق</button>
@@ -226,7 +228,6 @@
     </footer>
 
     <script>
-        // Show category function
         function showCategory(category) {
             var categories = document.getElementsByClassName('category');
             for (var i = 0; i < categories.length; i++) {
@@ -235,30 +236,42 @@
             document.getElementById(category).style.display = 'block';
         }
 
-        // Show popup with selected channel
         function showPopup(title, url) {
             document.getElementById('popup-title').innerText = title;
-            document.getElementById('video-player').src = url;
+            var video = document.getElementById('video-player');
+
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.addEventListener('loadedmetadata', function () {
+                    video.play();
+                });
+            }
+
             document.getElementById('popup').style.display = 'block';
         }
 
-        // Close popup
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
-            document.getElementById('video-player').src = '';
+            var video = document.getElementById('video-player');
+            video.pause();
+            video.src = '';
         }
 
-        // Toggle fullscreen mode
         function toggleFullscreen() {
-            var iframe = document.getElementById('video-player');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) {
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
+            var video = document.getElementById('video-player');
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
             }
         }
     </script>
