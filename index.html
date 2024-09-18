@@ -26,6 +26,7 @@
             <button onclick="showCategory('news')">القنوات الإخبارية</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
             <button onclick="showCategory('ather')">قنوات إضافية متنوعة</button>
+            <button onclick="showCategory('PL')">قنوات الفجر الفلسطينية</button>
         </div>
 
         <!-- قنوات رياضية -->
@@ -38,34 +39,11 @@
             <div class="channel" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6</div>
             <div class="channel" onclick="showPopup('Bein/SSC 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein/SSC 1</div>
         </div>
-
+      
         <!-- القنوات الإخبارية والعامة -->
-        <div id="news" class="category" style="display:none;">
-            <div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
-            <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
-            <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
-        </div>
+        <div id="PL" class="category" style="display:none;">
 
-        <!-- قنوات أطفال -->
-        <div id="kids" class="category" style="display:none;">
-            <div class="channel" onclick="showPopup('Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">Spacetoon</div>
-        </div>
-
-        <!-- قنوات إضافية متنوعة -->
-        <div id="ather" class="category" style="display:none;">
-         <div
-          <ul class="ServersList">
-            <li><span style="font-weight: bold; font-family: 'Arial Black', sans-serif;">BEIN SPORT NEWS</span></li>
-          </ul>
-          <div class="EmbedCode">
-          <div class="containera">
-          <iframe class="responsive-iframe" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.youtube.com/embed/O_02mf1vpQo?iv_load_policy=3&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          </div>
-          </div>
-         </div>
-
-          <h2>Alfajertv PL HD</h2>
+                   <h2>Alfajertv PL HD</h2>
           <div class="new-tabs-wrapper">
               <div class="ss-tabs-list">
                   <div id="tab-1" class="tab-content-server" style="display:block">
@@ -92,6 +70,36 @@
               height: 100%; /* الارتفاع 100% من الحاوية */
             }
           </style>
+ 
+        </div>
+      
+      
+        <!-- القنوات الإخبارية والعامة -->
+        <div id="news" class="category" style="display:none;">
+            <div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
+            <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
+            <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
+        </div>
+
+        <!-- قنوات أطفال -->
+        <div id="kids" class="category" style="display:none;">
+            <div class="channel" onclick="showPopup('Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">Spacetoon</div>
+        </div>
+
+        <!-- قنوات إضافية متنوعة -->
+        <div id="ather" class="category" style="display:none;">
+         <div
+          <ul class="ServersList">
+            <li><span style="font-weight: bold; font-family: 'Arial Black', sans-serif;">BEIN SPORT NEWS</span></li>
+          </ul>
+          <div class="EmbedCode">
+          <div class="containera">
+          <iframe class="responsive-iframe" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="https://www.youtube.com/embed/O_02mf1vpQo?iv_load_policy=3&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          </div>
+          </div>
+         </div>
+
          
         <!-- نافذة عرض الفيديو -->
         <div id="popup" class="popup">
