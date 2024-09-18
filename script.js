@@ -35,20 +35,3 @@ function toggleFullScreen() {
         video.msRequestFullscreen();
     }
 }
-
-// نظام التعليقات
-let comments = [];
-
-function submitComment() {
-    const comment = document.getElementById('user-comment').value;
-    if (comment) {
-        comments.push(comment);
-        displayComments();
-        document.getElementById('user-comment').value = '';
-    }
-}
-
-function displayComments() {
-    const commentsList = document.getElementById('comments-list');
-    commentsList.innerHTML = comments.map(c => `<p>${c}</p>`).join('');
-}
