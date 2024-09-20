@@ -205,26 +205,7 @@
             <div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">قناة القرآن الكريم</div>
             <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
             <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', decryptURL('c2VjcmV0VXJsQ2FuYmU='))">قناة الأرضية الجزائرية</div>
-
-            <script>
-              // تشفير URL (Base64)
-              function decryptURL(encryptedURL) {
-                let decrypted = atob(encryptedURL); // تحويل Base64 إلى نص أصلي
-                return decrypted;
-              }
-            
-              function showPopup(channelName, url) {
-                // تأكد من أن القناة تعرض فقط من خلال نطاقك
-                if (window.location.hostname === 'pitadz14.github.io/PITA_Tv/') {
-                  // عرض النافذة المنبثقة بالمحتوى المطلوب
-                  alert('تشغيل ' + channelName);
-                  // هنا يمكنك إضافة أي أكواد لتشغيل القناة
-                  console.log('تشغيل القناة: ' + url);
-                } else {
-                  alert('لا يمكنك تشغيل القناة خارج الموقع!');
-                }
-              }
-            </script>
+            <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة الحرة ', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">قناة الحرة</div>
         </div>
 
