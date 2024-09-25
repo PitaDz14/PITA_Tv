@@ -191,8 +191,11 @@
             <div class="channel" onclick="showPopup('Bein Sport 4', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">Bein Sport 4</div>
             <div class="channel" onclick="showPopup('Bein Sport 5', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">Bein Sport 5</div>
             <div class="channel" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">Bein Sport 6</div>
-            <div class="channel" onclick="showPopup('Bein Sport/SSC', 'https://https://cdn.footballii.ir/hls2/ssc1s.m3u8')">Bein Sport/SSC</div>
-            <div class="channel" onclick="showPopup('SSC Sport1', 'https://cdn.footballii.ir/hls2/stream01.m3u8')">SSC Sport1</div>
+            <div class="channel" onclick="showPopup('Bein Sport/SSC', 'https://cdn.footballii.ir/hls2/ssc1s.m3u8')">Bein Sport/SSC</div>
+
+            <!-- Inserted SSC SPORT HD -->
+            <div class="channel" onclick="showIframePopup('SSC Sport 1')">SSC Sport 1</div>
+
             <div class="channel" onclick="showPopup('Canal Sport', 'http://78.130.250.2:8023/play/a02v/index.m3u8')">Canal Sport</div>
             <div class="channel" onclick="showPopup('Canal + Sport', 'http://78.130.250.2:8023/play/a02v/index.m3u8')">Canal + Sport</div>
             <div class="channel" onclick="showPopup('SSC Sport5', 'https://caldper.top:8080/live/431714716778004/68da21d2dca3/53241.m3u8')">SSC Sport5</div>
@@ -210,18 +213,19 @@
 
         <!-- Kids Channels -->
         <div id="kids" class="category">
-            <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
-        </div>
-        
-        <!-- Alfajer TV PL Channels -->
-        <div id="PL" class="category">
-            <div class="channel" onclick="showPopup('تشغيل قنوات الفجر الفلسطينية', 'رابط البث')">تشغيل قنوات الفجر الفلسطينية</div>
+            <div class="channel" onclick="showPopup('قناة براعم', 'http://78.130.250.2:8023/play/a021/index.m3u8')">قناة براعم</div>
+            <div class="channel" onclick="showPopup('قناة ماجد', 'https://livestream.konnect.kotobi.com/live/live.m3u8')">قناة ماجد</div>
         </div>
 
-        <!-- Popup for video -->
-        <div id="popup" class="popup-overlay">
+        <!-- Palestinian Channels -->
+        <div id="PL" class="category">
+            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية', 'https://jopa121.cdn.net-fs.com/media1/Live_121/index.m3u8')">قناة الفجر الفلسطينية</div>
+        </div>
+
+        <!-- Popup for showing video content -->
+        <div id="popup-overlay" class="popup-overlay">
             <div class="popup-content">
-                <h2 id="popup-title"></h2>
+                <h2 id="popup-title">قناة</h2>
                 <video id="video-player" controls></video>
                 <div class="popup-buttons">
                     <button class="close-button" onclick="closePopup()">إغلاق</button>
@@ -229,16 +233,23 @@
             </div>
         </div>
 
+        <!-- Popup for iframe -->
+        <div id="iframe-popup-overlay" class="popup-overlay">
+            <div class="popup-content">
+                <h2>SSC SPORT HD</h2>
+                <iframe width="560" height="315" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="popup-buttons">
+                    <button class="close-button" onclick="closeIframePopup()">إغلاق</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
-        <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
+        <p>© 2024 PITA_Tv. جميع الحقوق محفوظة.</p>
         <div class="social-media">
-            <a href="https://www.facebook.com" target="_blank">Facebook</a> |
-            <a href="https://www.linkedin.com/in/khaled-deragha14" target="_blank">LinkedIn</a> |
-            <a href="https://www.youtube.com/@aindeheb853" target="_blank">YouTube</a> |
-            <a href="https://t.me/PITA_Community" target="_blank">Telegram</a> |
-            <a href="mailto:gsmkhaledtiaret@gmail.com">Gmail</a>
+            <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
         </div>
     </footer>
 
@@ -251,32 +262,26 @@
             document.getElementById(category).style.display = 'block';
         }
 
-        function showPopup(title, url) {
-            document.getElementById('popup-title').innerText = title;
-            var video = document.getElementById('video-player');
-
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(url);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                    video.play();
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
-                video.addEventListener('loadedmetadata', function () {
-                    video.play();
-                });
-            }
-
-            document.getElementById('popup').style.display = 'block';
+        function showPopup(channelName, videoSrc) {
+            document.getElementById('popup-title').innerText = channelName;
+            var videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = videoSrc;
+            document.getElementById('popup-overlay').style.display = 'block';
         }
 
         function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-            var video = document.getElementById('video-player');
-            video.pause();
-            video.src = '';
+            document.getElementById('popup-overlay').style.display = 'none';
+            var videoPlayer = document.getElementById('video-player');
+            videoPlayer.pause();
+            videoPlayer.src = '';
+        }
+
+        function showIframePopup(channelName) {
+            document.getElementById('iframe-popup-overlay').style.display = 'block';
+        }
+
+        function closeIframePopup() {
+            document.getElementById('iframe-popup-overlay').style.display = 'none';
         }
     </script>
 </body>
