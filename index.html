@@ -212,8 +212,20 @@
         <div id="kids" class="category">
             <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
         </div>
-   
-    
+
+        <!-- Popup for video -->
+        <div id="popup" class="popup-overlay">
+            <div class="popup-content">
+                <h2 id="popup-title"></h2>
+                <video id="video-player" controls></video>
+                <div class="popup-buttons">
+                    <button class="close-button" onclick="closePopup()">إغلاق</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <footer>
         <h2>حقوق الملكية خاصة بالمهندس: خالد دراغة</h2>
         <div class="social-media">
