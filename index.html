@@ -214,74 +214,93 @@
         <!-- Kids Channels -->
         <div id="kids" class="category">
             <div class="channel" onclick="showPopup('قناة براعم', 'http://78.130.250.2:8023/play/a021/index.m3u8')">قناة براعم</div>
-            <div class="channel" onclick="showPopup('قناة ماجد', 'https://livestream.konnect.kotobi.com/live/live.m3u8')">قناة ماجد</div>
+            <div class="channel" onclick="showPopup('قناة سمسم', 'https://stream02.fasttelco.net/live/samahtv/samahtv.m3u8')">قناة سمسم</div>
         </div>
 
-        <!-- Palestinian Channels -->
+        <!-- PL Channels -->
         <div id="PL" class="category">
-            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية', 'https://jopa121.cdn.net-fs.com/media1/Live_121/index.m3u8')">قناة الفجر الفلسطينية</div>
+            <div class="channel" onclick="showIframePopup('قناة الفجر الفلسطينية')">قناة الفجر الفلسطينية</div>
         </div>
 
-        <!-- Popup for showing video content -->
-        <div id="popup-overlay" class="popup-overlay">
+        <!-- Popup Overlay -->
+        <div class="popup-overlay" id="popup-overlay">
             <div class="popup-content">
-                <h2 id="popup-title">قناة</h2>
-                <video id="video-player" controls></video>
+                <div id="video-container">
+                    <video id="video-player" controls></video>
+                </div>
                 <div class="popup-buttons">
                     <button class="close-button" onclick="closePopup()">إغلاق</button>
+                    <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
+                    <button class="dlna-button" onclick="activateDLNA()">إرسال عبر DLNA</button>
                 </div>
             </div>
         </div>
-
-        <!-- Popup for iframe -->
-        <div id="iframe-popup-overlay" class="popup-overlay">
-            <div class="popup-content">
-                <h2>SSC SPORT HD</h2>
-                <iframe width="560" height="315" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="popup-buttons">
-                    <button class="close-button" onclick="closeIframePopup()">إغلاق</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <footer>
-        <p>© 2024 PITA_Tv. جميع الحقوق محفوظة.</p>
         <div class="social-media">
-            <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+            <a href="#">فيسبوك</a> | <a href="#">تويتر</a> | <a href="#">إنستغرام</a>
         </div>
     </footer>
 
     <script>
-        function showCategory(category) {
-            var categories = document.getElementsByClassName('category');
-            for (var i = 0; i < categories.length; i++) {
-                categories[i].style.display = 'none';
-            }
-            document.getElementById(category).style.display = 'block';
+        function showCategory(categoryId) {
+            var categories = document.querySelectorAll('.category');
+            categories.forEach(function(category) {
+                category.style.display = 'none';
+            });
+            document.getElementById(categoryId).style.display = 'block';
         }
 
-        function showPopup(channelName, videoSrc) {
-            document.getElementById('popup-title').innerText = channelName;
+        function showPopup(channelName, videoUrl) {
             var videoPlayer = document.getElementById('video-player');
-            videoPlayer.src = videoSrc;
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoUrl);
+                hls.attachMedia(videoPlayer);
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                videoPlayer.src = videoUrl;
+            }
+            document.getElementById('popup-overlay').style.display = 'block';
+        }
+
+        function showIframePopup(channelName) {
+            var videoContainer = document.getElementById('video-container');
+            if (channelName === 'قناة الفجر الفلسطينية') {
+                videoContainer.innerHTML = '<iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>';
+            } else {
+                videoContainer.innerHTML = '<iframe id="video-player" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
+            }
             document.getElementById('popup-overlay').style.display = 'block';
         }
 
         function closePopup() {
-            document.getElementById('popup-overlay').style.display = 'none';
             var videoPlayer = document.getElementById('video-player');
-            videoPlayer.pause();
-            videoPlayer.src = '';
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.detachMedia();
+            } else {
+                videoPlayer.src = '';
+            }
+            document.getElementById('popup-overlay').style.display = 'none';
         }
 
-        function showIframePopup(channelName) {
-            document.getElementById('iframe-popup-overlay').style.display = 'block';
+        function toggleFullscreen() {
+            var videoPlayer = document.getElementById('video-player');
+            if (videoPlayer.requestFullscreen) {
+                videoPlayer.requestFullscreen();
+            } else if (videoPlayer.mozRequestFullScreen) {
+                videoPlayer.mozRequestFullScreen();
+            } else if (videoPlayer.webkitRequestFullscreen) {
+                videoPlayer.webkitRequestFullscreen();
+            } else if (videoPlayer.msRequestFullscreen) {
+                videoPlayer.msRequestFullscreen();
+            }
         }
 
-        function closeIframePopup() {
-            document.getElementById('iframe-popup-overlay').style.display = 'none';
+        function activateDLNA() {
+            // Function to trigger DLNA/DMR functionality
+            alert("خاصية DLNA DMR غير مفعلة حاليًا.");
         }
     </script>
 </body>
