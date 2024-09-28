@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">بقق
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,23 +219,55 @@
         </div>
 
         <!-- PL Channels -->
-        <div id="PL" class="category">
-            <div class="channel" onclick="showIframePopup('قناة الفجر الفلسطينية')">قناة الفجر الفلسطينية</div>
-        </div>
+<!-- PL Channels -->
+<div id="PL" class="category">
+    <div class="channel" onclick="showIframePopup('قناة الفجر الفلسطينية')">قناة الفجر الفلسطينية</div>
+</div>
 
-        <!-- Popup Overlay -->
-        <div class="popup-overlay" id="popup-overlay">
-            <div class="popup-content">
-                <div id="video-container">
-                    <video id="video-player" controls></video>
-                </div>
-                <div class="popup-buttons">
-                    <button class="close-button" onclick="closePopup()">إغلاق</button>
-                    <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-                    <button class="dlna-button" onclick="activateDLNA()">إرسال عبر DLNA</button>
-                </div>
-            </div>
+<!-- Popup Overlay -->
+<div class="popup-overlay" id="popup-overlay">
+    <div class="popup-content">
+        <div id="video-container">
+            <video id="video-player" controls></video>
         </div>
+        <div class="popup-buttons">
+            <button class="close-button" onclick="closePopup()">إغلاق</button>
+            <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
+            <button class="dlna-button" onclick="activateDLNA()">إرسال عبر DLNA</button>
+        </div>
+    </div>
+</div>
+
+<!-- CSS adjustments -->
+<style>
+    #video-container {
+        width: 100%; /* تملأ العرض بالكامل */
+        max-width: 1000px; /* أقصى عرض مناسب لشاشة الحاسوب */
+        height: auto;
+        margin: 0 auto; /* لضبطه في المنتصف */
+    }
+
+    #video-player {
+        width: 100%;
+        height: auto;
+    }
+
+    .popup-content {
+        width: 100%;
+        max-width: 1000px; /* تحديد أقصى عرض */
+        height: auto;
+        margin: 0 auto; /* لمحاذاة الإطار في الوسط */
+    }
+
+    /* إضافة خاصية ملء الشاشة */
+    .fullscreen-button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+</style>
     </div>
 
   <!-- حقوق الملكية -->
