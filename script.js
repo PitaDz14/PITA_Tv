@@ -21,21 +21,7 @@ function closePopup() {
     video.pause();
     video.src = '';
 }
-let mediaDisplay = document.querySelector('#media-display');
 
-// تكبير الإطار الذي يحتوي على الوسائط
-mediaDisplay.style.width = '90%';
-mediaDisplay.style.height = '80vh';  // تحديد ارتفاع مناسب للشاشة
-mediaDisplay.style.margin = '0 auto';  // توسيط الإطار في الصفحة
-mediaDisplay.style.display = 'flex';
-mediaDisplay.style.justifyContent = 'center';
-mediaDisplay.style.alignItems = 'center';
-
-// التأكد من تكبير الفيديو أو المحتوى داخل الإطار أيضًا
-let video = document.createElement('video');
-video.style.width = '100%';  // عرض الفيديو بنفس عرض الإطار
-video.style.height = '100%'; // ضبط الارتفاع تلقائيًا ليشغل كامل الإطار
-mediaDisplay.appendChild(video);
 // تفعيل وضع ملء الشاشة للفيديو
 function toggleFullScreen() {
     const video = document.getElementById('video-player');
