@@ -21,64 +21,21 @@ function closePopup() {
     video.pause();
     video.src = '';
 }
+let mediaDisplay = document.querySelector('#media-display');
+
+// تكبير الإطار الذي يحتوي على الوسائط
+mediaDisplay.style.width = '90%';
+mediaDisplay.style.height = '80vh';  // تحديد ارتفاع مناسب للشاشة
+mediaDisplay.style.margin = '0 auto';  // توسيط الإطار في الصفحة
+mediaDisplay.style.display = 'flex';
+mediaDisplay.style.justifyContent = 'center';
+mediaDisplay.style.alignItems = 'center';
+
+// التأكد من تكبير الفيديو أو المحتوى داخل الإطار أيضًا
 let video = document.createElement('video');
-
-// ضبط العرض والارتفاع لتتناسب مع حجم الشاشة، ولكن مع إبقاء الفيديو متجاوبًا
-video.style.width = '90%';
-video.style.height = 'auto';
-video.style.maxHeight = '80vh';  // ضمان ألا يتجاوز ارتفاع الفيديو ارتفاع الشاشة
-video.style.display = 'block';
-video.style.margin = '0 auto';  // توسيط الفيديو في الصفحة
-
-document.querySelector('#media-display').appendChild(video);
-
-let playBtn = document.querySelector('#play');
-let pauseBtn = document.querySelector('#pause');
-let stopBtn = document.querySelector('#stop');
-let progress = document.querySelector('#progress');
-let volume = document.querySelector('#volume');
-let fileInput = document.querySelector('#file-input');
-
-// تشغيل الفيديو من ملف خارجي يختاره المستخدم
-fileInput.addEventListener('change', (event) => {
-    let file = event.target.files[0];
-    let url = URL.createObjectURL(file);  // تحويل الملف إلى URL مؤقت
-    video.src = url;
-    video.play();
-});
-
-// تشغيل الوسائط
-playBtn.addEventListener('click', () => {
-    video.play();
-});
-
-// إيقاف مؤقت
-pauseBtn.addEventListener('click', () => {
-    video.pause();
-});
-
-// إيقاف الفيديو
-stopBtn.addEventListener('click', () => {
-    video.pause();
-    video.currentTime = 0;
-});
-
-// التحكم في مستوى الصوت
-volume.addEventListener('input', (e) => {
-    video.volume = e.target.value;
-});
-
-// تحديث شريط التقدم
-video.addEventListener('timeupdate', () => {
-    let value = (video.currentTime / video.duration) * 100;
-    progress.value = value;
-});
-
-// التحكم في شريط التقدم
-progress.addEventListener('input', (e) => {
-    let value = e.target.value;
-    video.currentTime = (value / 100) * video.duration;
-});
+video.style.width = '100%';  // عرض الفيديو بنفس عرض الإطار
+video.style.height = '100%'; // ضبط الارتفاع تلقائيًا ليشغل كامل الإطار
+mediaDisplay.appendChild(video);
 // تفعيل وضع ملء الشاشة للفيديو
 function toggleFullScreen() {
     const video = document.getElementById('video-player');
