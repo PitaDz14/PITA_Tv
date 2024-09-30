@@ -234,10 +234,41 @@
             <button class="close-button" onclick="closePopup()">إغلاق</button>
             <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
             <button class="dlna-button" onclick="activateDLNA()">إرسال عبر DLNA</button>
-            <button class="refresh-button" onclick="location.reload()">إغلاق</button> <!-- زر تحديث النافذة المنبثقة -->
+            <button class="refresh-button" onclick="location.reload()">إغلاق</button>
         </div>
     </div>
 </div>
+
+<style>
+/* تصميم الأزرار ثلاثية الأبعاد */
+.popup-buttons button {
+    background-color: #008CBA; /* لون الخلفية */
+    color: white; /* لون النص */
+    padding: 15px 20px; /* حشوة الأزرار */
+    margin: 10px; /* هامش بين الأزرار */
+    border: none; /* إزالة الحدود */
+    border-radius: 10px; /* جعل الحواف مستديرة */
+    box-shadow: 0 5px #666; /* تأثير الظل ثلاثي الأبعاد */
+    font-size: 16px;
+    cursor: pointer; /* مؤشر الفأرة */
+    transition: all 0.3s ease; /* حركة سلاسة عند التفاعل */
+}
+
+/* التأثير عند تمرير الفأرة */
+.popup-buttons button:hover {
+    background-color: #005f73; /* تغيير لون الخلفية عند التمرير */
+    box-shadow: 0 7px #444; /* تغيير الظل عند التمرير */
+    transform: translateY(-3px); /* رفع الزر قليلاً */
+}
+
+/* التأثير عند الضغط */
+.popup-buttons button:active {
+    background-color: #003f5f; /* تغيير لون الخلفية عند الضغط */
+    box-shadow: 0 3px #333; /* تقليل الظل عند الضغط */
+    transform: translateY(2px); /* الضغط على الزر للأسفل */
+}
+</style>
+
 
 <!-- CSS adjustments -->
 <style>
