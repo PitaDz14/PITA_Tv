@@ -180,7 +180,6 @@
             <button onclick="showCategory('sports')">القنوات الرياضية</button>
             <button onclick="showCategory('news')">القنوات الإخبارية والعامة</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
-            <button onclick="showCategory('PL')">قنوات الفجر الفلسطينية</button>
         </div>
 
         <!-- Sports Channels -->
@@ -212,24 +211,17 @@
             <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
             <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">قناة الأرضية الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة الحرة ', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">قناة الحرة</div>
-            <div class="channel" onclick="showPopup('قناة الأقصى  الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
+            <div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
             <div class="channel" onclick="showPopup('قناة الفجر الجزائرية', 'https://el2.elahmad.com/tv705_www.elahmad.com_el_fadjr_tv/tracks-v1a1/mono.m3u8?token=dc62355cf4dd471cd77c80e51a713f0f7a4ef393-bd5e376723fa6afadafa3312ad53e60b-1727735137-1727724337')">قناة الفجر الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة النهار الجزائرية', 'https://el1.elahmad.com/tv705_www.elahmad.com_ennahar/tracks-v1a1/mono.m3u8?token=5389abd72fcc94ead44637976f67f627b6290fac-930a2717dfcaad9ba76771a71258be16-1727736393-1727725593')">قناة النهار الجزائرية</div>
         </div>
 
         <!-- Kids Channels -->
         <div id="kids" class="category">
+            <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
             <div class="channel" onclick="showPopup('قناة براعم', 'http://78.130.250.2:8023/play/a021/index.m3u8')">قناة براعم</div>
             <div class="channel" onclick="showPopup('قناة سمسم', 'https://stream02.fasttelco.net/live/samahtv/samahtv.m3u8')">قناة سمسم</div>
-            <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
         </div>
-
-        <!-- PL Channels -->
-<!-- PL Channels -->
-<div id="PL" class="category">
-    <div class="channel" onclick="showIframePopup('قناة الفجر الفلسطينية')">قناة الفجر الفلسطينية</div>
-</div>
-
 <!-- Popup Overlay -->
 <div class="popup-overlay" id="popup-overlay">
     <div class="popup-content">
@@ -317,65 +309,6 @@
       <a href="https://instagram.com/khaled.draga" target="_blank">إنستجرام</a>
     </div>
   </footer>
-    <script>
-        function showCategory(categoryId) {
-            var categories = document.querySelectorAll('.category');
-            categories.forEach(function(category) {
-                category.style.display = 'none';
-            });
-            document.getElementById(categoryId).style.display = 'block';
-        }
 
-        function showPopup(channelName, videoUrl) {
-            var videoPlayer = document.getElementById('video-player');
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(videoUrl);
-                hls.attachMedia(videoPlayer);
-            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                videoPlayer.src = videoUrl;
-            }
-            document.getElementById('popup-overlay').style.display = 'block';
-        }
-
-        function showIframePopup(channelName) {
-            var videoContainer = document.getElementById('video-container');
-            if (channelName === 'قناة الفجر الفلسطينية') {
-                videoContainer.innerHTML = '<iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>';
-            } else {
-                videoContainer.innerHTML = '<iframe id="video-player" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
-            }
-            document.getElementById('popup-overlay').style.display = 'block';
-        }
-
-        function closePopup() {
-            var videoPlayer = document.getElementById('video-player');
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.detachMedia();
-            } else {
-                videoPlayer.src = '';
-            }
-            document.getElementById('popup-overlay').style.display = 'none';
-        }
-
-        function toggleFullscreen() {
-            var videoPlayer = document.getElementById('video-player');
-            if (videoPlayer.requestFullscreen) {
-                videoPlayer.requestFullscreen();
-            } else if (videoPlayer.mozRequestFullScreen) {
-                videoPlayer.mozRequestFullScreen();
-            } else if (videoPlayer.webkitRequestFullscreen) {
-                videoPlayer.webkitRequestFullscreen();
-            } else if (videoPlayer.msRequestFullscreen) {
-                videoPlayer.msRequestFullscreen();
-            }
-        }
-
-        function activateDLNA() {
-            // Function to trigger DLNA/DMR functionality
-            alert("خاصية DLNA DMR غير مفعلة حاليًا.");
-        }
-    </script>
 </body>
 </html>
