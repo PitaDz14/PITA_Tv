@@ -198,9 +198,9 @@
             <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية 4 HD', 'https://el2.elahmad.com/tv705_www.elahmad.com_alfajertv4/tracks-v1a1/mono.m3u8?token=87e2e304fe52f445314f8bc79dc93bc48726c938-d8c10bb19b16d6941304af7b2c3f6f9e-1727814326-1727803526')">قناة الفجر الفلسطينية 4 HD</div>
             <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية 5 HD', 'https://el2.elahmad.com/tv705_www.elahmad.com_alfajertv4/tracks-v1a1/mono.m3u8?token=87e2e304fe52f445314f8bc79dc93bc48726c938-d8c10bb19b16d6941304af7b2c3f6f9e-1727814326-1727803526')">قناة الفجر الفلسطينية 5 HD</div>
             <!-- Inserted SSC SPORT HD -->
-            <div class="channel" onclick="showIframePopup('SSC Sport')">SSC Sport</div>
+            <div class="channel" onclick="showIframePopup('SSC Sport')">SSC قنوات</div>
             <!-- PL Channels -->
-            <div class="channel" onclick="showIframePopup('قناة الفجر الفلسطينية')">قناة الفجر الفلسطينية</div>
+            <div class="channel" onclick="showIframePopup('قناة الفجر الفلسطينية')">قننوات الفجر الفلسطينية</div>
             <div class="channel" onclick="showPopup('قناة On Sport 1 المصرية', 'https://el1.elahmad.com/tv705_www.elahmad.com_on_sport/tracks-v1a1/mono.m3u8?token=3a1fd112622fb86db68f8a18d9058897a3af2e5f-fc8b7548c7ecd9f91cacb00612b53051-1727742086-1727731286')">قناة On Sport 1 المصرية</div>
             <div class="channel" onclick="showPopup('الشارقة الرياضية HD', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">الشارقة الرياضية HD</div>
         </div>
@@ -360,10 +360,10 @@
 
         function showIframePopup(channelName) {
             var videoContainer = document.getElementById('video-container');
-            if (channelName === 'قناة الفجر الفلسطينية') {
+            if (channelName === 'قننوات الفجر الفلسطينية') {
                 videoContainer.innerHTML = '<iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>';
             } else {
-                videoContainer.innerHTML = '<iframe id="video-player" src="http://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
+                videoContainer.innerHTML = '<iframe id="video-player" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
             }
             document.getElementById('popup-overlay').style.display = 'block';
         }
