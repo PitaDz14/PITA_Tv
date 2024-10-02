@@ -68,7 +68,6 @@
             background-color: #f1f1f1;
         }
 
-        /* Popup styling */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -86,7 +85,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 800px;
+            max-width: 1000px;
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -94,22 +93,34 @@
             text-align: center;
         }
 
-        .close-button {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+        .popup-buttons {
+            text-align: center;
             margin-top: 10px;
         }
 
-        .close-button:hover {
-            background-color: #d32f2f;
+        .popup-buttons button {
+            background-color: #008CBA;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px #666;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .popup-buttons {
-            text-align: center;
+        .popup-buttons button:hover {
+            background-color: #005f73;
+            box-shadow: 0 7px #444;
+            transform: translateY(-3px);
+        }
+
+        .popup-buttons button:active {
+            background-color: #003f5f;
+            box-shadow: 0 3px #333;
+            transform: translateY(2px);
         }
 
         footer {
@@ -126,66 +137,30 @@
             margin: 0 10px;
         }
 
-        #video-player {
+        #video-container {
             width: 100%;
             height: 450px;
             border-radius: 10px;
         }
-
-        /* Colors for each category */
-        #sports .channel {
-            background-color: #ffeb3b;
-        }
-
-        #news .channel {
-            background-color: #03a9f4;
-        }
-
-        #kids .channel {
-            background-color: #ff9800;
-        }
-
-        #PL .channel {
-            background-color: #8bc34a;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 28px;
-            }
-
-            .channel-categories {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .channel-categories button {
-                margin-bottom: 10px;
-            }
-
-            #video-player {
-                height: 300px;
-            }
-        }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/connect-sdk/1.6.0/connectsdk.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>قنوات البث المباشر</h1>
 
-        <!-- Channel Categories -->
         <div class="channel-categories">
             <button onclick="showCategory('sports')">القنوات الرياضية</button>
-            <button onclick="showCategory('news')">القنوات الإخبارية والعامة</button>
+                        <button onclick="showCategory('news')">القنوات الإخبارية والعامة</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
             <button onclick="showCategory('doc')">قنوات وثائقية</button>
-            <button onclick="showCategory('Foreign channels')">قنوات أجنبية</button>
+            <button onclick="showCategory('foreign')">قنوات أجنبية</button>
         </div>
 
         <!-- Sports Channels -->
         <div id="sports" class="category">
+            <div id="sports" class="category">
             <div class="channel" onclick="showPopup('Bein Sport 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">Bein Sport 1</div>
             <div class="channel" onclick="showPopup('Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">Bein Sport 2</div>
             <div class="channel" onclick="showPopup('Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">Bein Sport 3</div>
@@ -207,6 +182,7 @@
             <div class="channel" onclick="showPopup('Match TV Russia HD', 'https://31.148.48.15:80/Match_TV_HD/index.m3u8?token=test')">Match TV Russia HD</div>
             <div class="channel" onclick="showPopup('Sport Tv fr', 'https://newlife3.wanicelife.com:8880/live/6mmk250028/46751535/2829.m3u8?livesportint85905.m3u')">Sport tv fr</div>
             <div class="channel" onclick="showPopup('الشارقة الرياضية HD', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">الشارقة الرياضية HD</div>
+            <!-- Add more sports channels here -->
         </div>
 
         <!-- News Channels -->
@@ -225,6 +201,7 @@
             <div class="channel" onclick="showPopup('قناة النهار الجزائرية', 'https://el1.elahmad.com/tv705_www.elahmad.com_ennahar/tracks-v1a1/2024/10/01/08/21/59-10000.ts?token=1c409112e1d6207dd3e40546a0547f73adaacb96-cf5002e8b75e39af178276b82a410e0a-1727781431-1727770631')">قناة النهار الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة الشروق الإخبارية الجزائرية', 'https://el2.elahmad.com/tv705_www.elahmad.com_echorouk_news/tracks-v1a1/mono.m3u8?token=817f270ce2539781137392ec273eaed2a1e2cc8a-9b233e73afca0f0636d2ed3b1195025a-1727738667-1727727867')">قناة الشروق الإخبارية الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة الهداف الجزائرية', 'https://el1.elahmad.com/tv705_www.elahmad.com_elheddaf/tracks-v1a1/mono.m3u8?token=1cd35a57047f7d15acf42941cdc5d30f5504cee6-b87b57c7655f0703c282f23d7a8c0a99-1727743743-1727732943')">قناة الهداف الجزائرية</div>
+            <!-- Add more news channels here -->
         </div>
 
         <!-- Kids Channels -->
@@ -238,170 +215,122 @@
             <div class="channel" onclick="showPopup('قناة ماجد', 'https://live.elahmad.net/https://vo-live.cdb.cdn.orange.com/Content/Channel/MajidChildrenChannel/HLS/stream_04/index.m3u8')">قناة ماجد</div>
             <div class="channel" onclick="showPopup('قناة أطفال ومواهب', 'https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8')">قناة أطفال ومواهب</div>
             <div class="channel" onclick="showPopup('قناة طيور الجنة', 'https://el2.elahmad.com/tv705_www.elahmad.com_toyoraljanah/tracks-v1a1/mono.m3u8?token=e61d335cffd6788e13b6a491587cd57b45c8792a-054b1dc1fe3c6b896dc6b6a2a8c358cd-1727740760-1727729960')">قناة طيور الجنة</div>
+            <!-- Add more kids channels here -->
         </div>
-        
-        <!-- doc Channels -->
+
+        <!-- Documentary Channels -->
         <div id="doc" class="category">
             <div class="channel" onclick="showPopup('قناة الجزيرة الوثائقية', 'https://s1.ettehadlive.com/live/111/chunklist_w343419926.m3u8')">قناة الجزيرة الوثائقية</div>
             <div class="channel" onclick="showPopup('Documentary Germany', 'https://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5d767ae7b456c8cf265ce922/master.m3u8?advertisingId=&appName=web&appStoreUrl=&appVersion=DNT&app_name=&architecture=&buildVersion=&deviceDNT=0&deviceId=5d767ae7b456c8cf265ce922&deviceLat=51.2993&deviceLon=9.4910&deviceMake=web&deviceModel=web&deviceType=web&deviceVersion=DNT&includeExtendedEvents=false&marketingRegion=DE&serverSideAds=false&sid=301&terminate=false&userId=')">Documentary Germany</div>
-            <div class="channel" onclick="showPopup('National Geographic Wild HD', 'http://78.130.250.2:8023/play/a02c/index.m3u8')">National Geographic Wild HD</div>
+            <div class="channel" onclick="showPopup('National Geographic Wild HD', 'https://78.130.250.2:8023/play/a02c/index.m3u8')">National Geographic Wild HD</div>
+            <!-- Add more documentary channels here -->
         </div>
-        
-        <!-- Foreign channels Channels -->
-        <div id="Foreign channels" class="category">
+
+        <!-- Foreign Channels -->
+        <div id="foreign" class="category">
             <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
             <div class="channel" onclick="showPopup('Bein Sport 1 Eng', 'https://882486363865312683.of1030ok.xyz:80/play/jean81/jean09092022/312683.m3u8')">Bein Sport 1 Eng</div>
             <div class="channel" onclick="showPopup('Bein Sport 2 FR', 'https://882486363865312684.of1030ok.xyz:80/play/jean81/jean09092022/312684.m3u8')">Bein Sport 2 FR</div>
             <div class="channel" onclick="showPopup('قناة ZDF الألمانية', 'https://zdf-hls-15.akamaized.net/hls/live/2016498-b/de/23ce7d09760ca6fef4b6d59aee85b3c1/4/4.m3u8')">قناة ZDF الألمانية</div>
             <div class="channel" onclick="showPopup('قناة Das الألمانية', 'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master1080p5000.m3u8')">قناة Das الألمانية</div>
+            <!-- Add more foreign channels here -->
         </div>
-        
-<!-- Popup Overlay -->
-<div class="popup-overlay" id="popup-overlay">
-    <div class="popup-content">
-        <div id="video-container">
-            <video id="video-player" controls></video>
+
+        <!-- Popup Overlay -->
+        <div class="popup-overlay" id="popup-overlay">
+            <div class="popup-content">
+                <div id="video-container"></div>
+                <div class="popup-buttons">
+                    <button class="close-button" onclick="closePopup()">إغلاق</button>
+                    <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
+                    <button class="dlna-button" onclick="activateDLNA(currentVideoUrl)">إرسال عبر DLNA</button>
+                </div>
+            </div>
         </div>
-        <div class="popup-buttons">
-            <button class="refresh-button" onclick="location.reload()">إغلاق</button>
-            <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-            <button class="dlna-button" onclick="activateDLNA()">إرسال عبر DLNA</button>
-        </div>
-    </div>
-</div>
 
-<style>
-/* تصميم الأزرار ثلاثية الأبعاد */
-.popup-buttons button {
-    background-color: #008CBA; /* لون الخلفية */
-    color: white; /* لون النص */
-    padding: 15px 20px; /* حشوة الأزرار */
-    margin: 10px; /* هامش بين الأزرار */
-    border: none; /* إزالة الحدود */
-    border-radius: 10px; /* جعل الحواف مستديرة */
-    box-shadow: 0 5px #666; /* تأثير الظل ثلاثي الأبعاد */
-    font-size: 16px;
-    cursor: pointer; /* مؤشر الفأرة */
-    transition: all 0.3s ease; /* حركة سلاسة عند التفاعل */
-}
+        <footer>
+            <p>&copy; 2024 جميع الحقوق محفوظة للسيد خالد دراغة</p>
+            <p>تواصل معنا: <a href="mailto:gsmkhaledtiaret@gmail.com">gsmkhaledtiaret@gmail.com</a></p>
+            <div class="social-media">
+                <a href="https://t.me/+wPynnYT5ivtlY2Fk" target="_blank">قناة التليجرام</a> |
+                <a href="https://facebook.com/khaled.draga" target="_blank">فيسبوك</a> |
+                <a href="https://instagram.com/khaled.draga" target="_blank">إنستجرام</a>
+            </div>
+        </footer>
 
-/* التأثير عند تمرير الفأرة */
-.popup-buttons button:hover {
-    background-color: #005f73; /* تغيير لون الخلفية عند التمرير */
-    box-shadow: 0 7px #444; /* تغيير الظل عند التمرير */
-    transform: translateY(-3px); /* رفع الزر قليلاً */
-}
+        <script>
+            var currentVideoUrl = '';
 
-/* التأثير عند الضغط */
-.popup-buttons button:active {
-    background-color: #003f5f; /* تغيير لون الخلفية عند الضغط */
-    box-shadow: 0 3px #333; /* تقليل الظل عند الضغط */
-    transform: translateY(2px); /* الضغط على الزر للأسفل */
-}
-</style>
-
-
-<!-- CSS adjustments -->
-<style>
-    #video-container {
-        width: 100%; /* تملأ العرض بالكامل */
-        max-width: 1000px; /* أقصى عرض مناسب لشاشة الحاسوب */
-        height: auto;
-        margin: 0 auto; /* لضبطه في المنتصف */
-    }
-
-    #video-player {
-        width: 100%;
-        height: auto;
-    }
-
-    .popup-content {
-        width: 100%;
-        max-width: 1000px; /* تحديد أقصى عرض */
-        height: auto;
-        margin: 0 auto; /* لمحاذاة الإطار في الوسط */
-    }
-
-    /* إضافة خاصية ملء الشاشة */
-    .fullscreen-button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px;
-        border: none;
-        cursor: pointer;
-    }
-</style>
-    </div>
-
-  <!-- حقوق الملكية -->
-  <footer>
-    <p>&copy; 2024 جميع الحقوق محفوظة للسيد خالد دراغة</p>
-    <p>تواصل معنا: <a href="mailto:gsmkhaledtiaret@gmail.com">gsmkhaledtiaret@gmail.com</a></p>
-    <div class="social-media">
-      <a href="https://t.me/+wPynnYT5ivtlY2Fk" target="_blank">قناة التليجرام</a> |
-      <a href="https://facebook.com/khaled.draga" target="_blank">فيسبوك</a> |
-      <a href="https://instagram.com/khaled.draga" target="_blank">إنستجرام</a>
-    </div>
-  </footer>
-    <script>
-        function showCategory(categoryId) {
-            var categories = document.querySelectorAll('.category');
-            categories.forEach(function(category) {
-                category.style.display = 'none';
-            });
-            document.getElementById(categoryId).style.display = 'block';
-        }
-
-        function showPopup(channelName, videoUrl) {
-            var videoPlayer = document.getElementById('video-player');
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource(videoUrl);
-                hls.attachMedia(videoPlayer);
-            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                videoPlayer.src = videoUrl;
+            function showCategory(categoryId) {
+                var categories = document.querySelectorAll('.category');
+                categories.forEach(function(category) {
+                    category.style.display = 'none';
+                });
+                document.getElementById(categoryId).style.display = 'block';
             }
-            document.getElementById('popup-overlay').style.display = 'block';
-        }
 
-        function showIframePopup(channelName) {
-            var videoContainer = document.getElementById('video-container');
-            if (channelName === 'قنوات الفجر الفلسطينية') {
+            function showPopup(channelName, videoUrl) {
+                currentVideoUrl = videoUrl;
+                var videoContainer = document.getElementById('video-container');
+                videoContainer.innerHTML = '';
+                var player = new Clappr.Player({
+                    source: videoUrl,
+                    parentId: '#video-container',
+                    width: '100%',
+                    height: '450px',
+                    autoPlay: true,
+                    mute: false,
+                });
+                document.getElementById('popup-overlay').style.display = 'block';
+                }
+            function showIframePopup(channelName) {
+                var videoContainer = document.getElementById('video-container');
+                if (channelName === 'قنوات الفجر الفلسطينية') {
                 videoContainer.innerHTML = '<iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>';
-            } else {
+                } else {
                 videoContainer.innerHTML = '<iframe id="video-player" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
-            }
-            document.getElementById('popup-overlay').style.display = 'block';
-        }
+                }
+                document.getElementById('popup-overlay').style.display = 'block';
+                }
+            function closePopup() {
+                var videoContainer = document.getElementById('video-container');
+                                videoContainer.innerHTML = '';
+                document.getElementById('popup-overlay').style.display = 'none';
+                }
 
-        function closePopup() {
-            var videoPlayer = document.getElementById('video-player');
-            if (Hls.isSupported()) {
-                var hls = new Hls();
-                hls.detachMedia();
-            } else {
-                videoPlayer.src = '';
+            function toggleFullscreen() {
+                var videoContainer = document.getElementById('video-container');
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.mozRequestFullScreen) {
+                    videoContainer.mozRequestFullScreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
             }
-            document.getElementById('popup-overlay').style.display = 'none';
-        }
 
-        function toggleFullscreen() {
-            var videoPlayer = document.getElementById('video-player');
-            if (videoPlayer.requestFullscreen) {
-                videoPlayer.requestFullscreen();
-            } else if (videoPlayer.mozRequestFullScreen) {
-                videoPlayer.mozRequestFullScreen();
-            } else if (videoPlayer.webkitRequestFullscreen) {
-                videoPlayer.webkitRequestFullscreen();
-            } else if (videoPlayer.msRequestFullscreen) {
-                videoPlayer.msRequestFullscreen();
+            function activateDLNA(videoUrl) {
+                var discoveryManager = new DiscoveryManager();
+                discoveryManager.start();
+
+                var devices = discoveryManager.getDeviceList();
+                if (devices.length > 0) {
+                    var device = devices[0]; // افتراض الجهاز الأول المتاح
+                    device.getMediaPlayer().playMedia(videoUrl, "video/mp4", "عنوان الفيديو", {
+                        success: function() {
+                            alert("تم الإرسال بنجاح عبر DLNA.");
+                        },
+                        error: function() {
+                            alert("حدث خطأ أثناء الإرسال عبر DLNA.");
+                        }
+                    });
+                } else {
+                    alert("لم يتم العثور على جهاز DLNA.");
+                }
             }
-        }
-
-        function activateDLNA() {
-            // Function to trigger DLNA/DMR functionality
-            alert("خاصية DLNA DMR غير مفعلة حاليًا.");
-        }
-    </script>
+        </script>
+    </div>
 </body>
 </html>
