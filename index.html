@@ -299,107 +299,116 @@
         </div>
         
 <div class="popup" id="popup">
-    <button class="close-btn" onclick="closePopup()">&#x2715;</button>
-    <button class="refresh-btn" onclick="refreshStream()">&#x21bb;</button>
-    <h2 id="channel-name"></h2>
+    <div class="refresh-container">
+        <button class="refresh-btn" onclick="refreshStream()">&#10006;</button> <!-- زر الإغلاق برمز الإكس -->
+        <button class="refresh-btn-refresh" onclick="refreshIframe()">&#x21bb;</button> <!-- زر التحديث بسهم دائري -->
+    </div>
+    <h2 id="channel-name" style="color: white;"></h2> <!-- اسم القناة -->
     <iframe src="" id="iframe" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script>
-    function openPopup(channelName, channelUrl) {
-        document.getElementById('popup').style.display = 'block';
-        document.getElementById('iframe').src = channelUrl;
-        document.getElementById('channel-name').textContent = channelName;
-    }
+function openPopup(channelName, channelUrl) {
+    var popup = document.getElementById('popup');
+    var iframe = document.getElementById('iframe');
+    var name = document.getElementById('channel-name');
 
-    function closePopup() {
-        document.getElementById('popup').style.display = 'none';
-        document.getElementById('iframe').src = ''; // إيقاف البث عند الإغلاق
-    }
+    iframe.src = channelUrl; // تعيين رابط البث
+    name.textContent = channelName; // تعيين اسم القناة
+    popup.style.display = 'block';
+}
 
-    function refreshStream() {
-        document.getElementById('iframe').src += ''; // إعادة تحميل البث
-    }
+function refreshStream() {
+    window.location.reload(); // تحديث الصفحة بالكامل
+}
+
+function refreshIframe() {
+    var iframe = document.getElementById('iframe');
+    iframe.src = iframe.src; // تحديث الـ iframe فقط
+}
 </script>
 
 <style>
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
+/* تحسين الأزرار الرئيسية وجعلها عمودية */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* مسافة بسيطة بين الأزرار */
+    margin-bottom: 20px; /* مسافة أسفل الأزرار */
+}
 
-    .open-btn {
-        font-size: 20px;
-        padding: 15px 30px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1);
-    }
+.open-btn {
+    font-size: 20px;
+    padding: 15px 30px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1);
+}
 
-    .open-btn:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
-    }
+.open-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
+}
 
-    .popup {
-        display: none;
-        position: fixed;
-        top: 10%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 80%;
-        height: 60%;
-        background-color: #000;
-        border: 2px solid #fff;
-        z-index: 1000;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
+/* تحسين النافذة المنبثقة */
+.popup {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 80%;
+    height: 60%;
+    background-color: #000;
+    border: 2px solid #fff;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
 
-    .popup iframe {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-    }
+.popup iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
 
-    .close-btn, .refresh-btn {
-        position: absolute;
-        top: 10px;
-        font-size: 25px;
-        color: #fff;
-        padding: 5px 10px;
-        border-radius: 50%;
-        cursor: pointer;
-        background-color: red;
-        border: none;
-        transition: all 0.3s ease;
-    }
+/* زر الإغلاق والتحديث */
+.refresh-container {
+    position: absolute;
+    top: 10px;
+    left: 15px; 
+    display: flex;
+    gap: 10px; /* مسافة بين الزرين */
+}
 
-    .close-btn {
-        left: 15px;
-    }
+.refresh-btn, .refresh-btn-refresh {
+    font-size: 25px;
+    color: #fff;
+    cursor: pointer;
+    background-color: red;
+    padding: 5px 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: none;
+}
 
-    .refresh-btn {
-        left: 60px; /* زر التحديث بجانب زر الإغلاق */
-        background-color: green;
-    }
+.refresh-btn:hover, .refresh-btn-refresh:hover {
+    background-color: darkred;
+    transform: scale(1.2);
+}
 
-    .close-btn:hover {
-        background-color: darkred;
-        transform: scale(1.2);
-    }
+.refresh-btn-refresh {
+    background-color: blue; /* لون مختلف لزر التحديث */
+}
 
-    .refresh-btn:hover {
-        background-color: darkgreen;
-        transform: scale(1.2);
-    }
+.refresh-btn-refresh:hover {
+    background-color: darkblue;
+}
 </style>
         
 <!-- Popup Overlay -->
