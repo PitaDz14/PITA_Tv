@@ -254,6 +254,7 @@
         
         <!-- Foreign channels Channels -->
         <div id="Foreign channels" class="category">
+            <button class="open-btn" onclick="openPopup(222)">مشاهدة قناة الفجر</button>
             <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
             <div class="channel" onclick="showPopup('Bein Sport 1 Eng', 'https://882486363865312683.of1030ok.xyz:80/play/jean81/jean09092022/312683.m3u8')">Bein Sport 1 Eng</div>
             <div class="channel" onclick="showPopup('Bein Sport 2 FR', 'https://882486363865312684.of1030ok.xyz:80/play/jean81/jean09092022/312684.m3u8')">Bein Sport 2 FR</div>
@@ -261,6 +262,53 @@
             <div class="channel" onclick="showPopup('قناة Das الألمانية', 'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master1080p5000.m3u8')">قناة Das الألمانية</div>
         </div>
         
+ <div class="popup" id="222">
+    <span class="close-btn" onclick="closePopup()">&#x2715;</span>
+    <iframe src="" id="111" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+    function openPopup() {
+        var popup = document.getElementById('222');
+        var iframe = document.getElementById('111');
+        iframe.src = 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv'; // رابط البث
+        popup.style.display = 'block';
+    }
+
+    function closePopup() {
+        var popup = document.getElementById('222');
+        var iframe = document.getElementById('111');
+        iframe.src = ''; // تفريغ المحتوى عند إغلاق النافذة
+        popup.style.display = 'none';
+    }
+</script>
+
+<style>
+    .popup {
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 80%;
+        height: 60%;
+        background-color: #000;
+        border: 2px solid #fff;
+        z-index: 1000;
+    }
+    .popup iframe {
+        width: 100%;
+        height: 100%;
+    }
+    .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>       
 <!-- Popup Overlay -->
 <div class="popup-overlay" id="popup-overlay">
     <div class="popup-content">
