@@ -181,7 +181,6 @@
 
         <!-- Channel Categories -->
         <div class="channel-categories">
-            <button id="popupBtn">أدخل هنا لمشاهدة المباريات المباشرة</button>
             <button onclick="showCategory('sports')">القنوات الرياضية</button>
             <button onclick="showCategory('news')">القنوات الإخبارية والعامة</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
@@ -215,7 +214,7 @@
             <div class="channel" onclick="showPopup('Sport Tv fr', 'https://newlife3.wanicelife.com:8880/live/6mmk250028/46751535/2829.m3u8?livesportint85905.m3u8')">Sport tv fr</div>
             <div class="channel" onclick="showPopup('الشارقة الرياضية HD', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">الشارقة الرياضية HD</div>
             <div class="button-container">
-            <button class="open-btn" onclick="openPopup('قناة SSC1')">مشاهدة قنوات SSC</button>
+            <button class="open-btn" onclick="openPopup('قناة SSC1')">أدخل هنا لمشاهدة المباريات اليومية المباشرة</button>
             </div>
             <div class="button-container">
             <button class="open-btn" onclick="openPopup('قنوات الفجر الفلسطينية', 'https://www.elahmad.com/tv/alfajertv.php')">قنوات الفجر الفلسطينية</button>
@@ -234,7 +233,7 @@
         var name = document.getElementById('channel-name');
         
         // إخفاء الرابط داخل الشيفرة
-        var channelUrl = "https://www.elahmad.com/tv/ssc-sport-live.php";
+        var channelUrl = "https://www.hd44.net/";
 
         iframe.src = channelUrl; // تعيين رابط البث
         name.textContent = channelName; // تعيين اسم القناة
