@@ -258,7 +258,8 @@
         
         <!-- Foreign channels Channels -->
         <div id="Foreign channels" class="category">
-            <button class="open-btn" onclick="openPopup()">مشاهدة قناة الفجر الجزائرية</button>
+            <button class="open-btn" onclick="openPopup('قناة الفجر', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">مشاهدة قناة الفجر الجزائرية</button>
+            <button class="open-btn" onclick="openPopup('قناة طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">مشاهدة قناة طيور الجنة</button>
             <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
             <div class="channel" onclick="showPopup('Bein Sport 1 Eng', 'https://882486363865312683.of1030ok.xyz:80/play/jean81/jean09092022/312683.m3u8')">Bein Sport 1 Eng</div>
             <div class="channel" onclick="showPopup('Bein Sport 2 FR', 'https://882486363865312684.of1030ok.xyz:80/play/jean81/jean09092022/312684.m3u8')">Bein Sport 2 FR</div>
@@ -266,48 +267,51 @@
             <div class="channel" onclick="showPopup('قناة Das الألمانية', 'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master1080p5000.m3u8')">قناة Das الألمانية</div>
         </div>
         
-<div class="popup" id="222">
+<div class="popup" id="popup">
     <span class="close-btn" onclick="closePopup()">&#x2715;</span>
-    <iframe src="" id="111" frameborder="0" allowfullscreen></iframe>
+    <h2 id="channel-name" style="color: white;"></h2> <!-- اسم القناة -->
+    <iframe src="" id="iframe" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script>
-    function openPopup() {
-        var popup = document.getElementById('222');
-        var iframe = document.getElementById('111');
-        iframe.src = 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv'; // رابط البث
+    function openPopup(channelName, channelUrl) {
+        var popup = document.getElementById('popup');
+        var iframe = document.getElementById('iframe');
+        var name = document.getElementById('channel-name');
+
+        iframe.src = channelUrl; // تعيين رابط البث
+        name.textContent = channelName; // تعيين اسم القناة
         popup.style.display = 'block';
     }
 
     function closePopup() {
-        var popup = document.getElementById('222');
-        var iframe = document.getElementById('111');
+        var popup = document.getElementById('popup');
+        var iframe = document.getElementById('iframe');
+        
         iframe.src = ''; // تفريغ المحتوى عند إغلاق النافذة
         popup.style.display = 'none';
     }
 </script>
 
 <style>
-    /* تحسين الزر الرئيسي */
     .open-btn {
         font-size: 20px;
         padding: 15px 30px;
-        background-color: #28a745; /* لون أخضر */
+        background-color: #28a745;
         color: white;
         border: none;
         border-radius: 10px;
         cursor: pointer;
-        transition: all 0.3s ease; /* تأثير الانتقال عند التفاعل */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1); /* تأثير ثلاثي الأبعاد */
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1);
     }
 
     .open-btn:hover {
-        background-color: #218838; /* لون مختلف عند التمرير */
-        transform: scale(1.05); /* تكبير بسيط عند التمرير */
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15); /* تأثير ثلاثي الأبعاد عند التمرير */
+        background-color: #218838;
+        transform: scale(1.05);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
     }
 
-    /* تحسين النافذة المنبثقة */
     .popup {
         display: none;
         position: fixed;
@@ -319,33 +323,32 @@
         background-color: #000;
         border: 2px solid #fff;
         z-index: 1000;
-        border-radius: 10px; /* زوايا دائرية */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* ظل حول النافذة */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     .popup iframe {
         width: 100%;
         height: 100%;
-        border-radius: 10px; /* زوايا دائرية */
+        border-radius: 10px;
     }
 
-    /* تحسين زر الإغلاق */
     .close-btn {
         position: absolute;
         top: 10px;
-        left: 15px; /* تغيير المكان إلى اليسار */
+        left: 15px;
         font-size: 25px;
         color: #fff;
         cursor: pointer;
-        background-color: red; /* لون خلفية لزر الإغلاق */
+        background-color: red;
         padding: 5px 10px;
         border-radius: 50%;
         transition: all 0.3s ease;
     }
 
     .close-btn:hover {
-        background-color: darkred; /* لون مختلف عند التمرير */
-        transform: scale(1.2); /* تكبير الزر عند التمرير */
+        background-color: darkred;
+        transform: scale(1.2);
     }
 </style>
         
