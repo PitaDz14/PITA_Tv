@@ -299,34 +299,35 @@
         </div>
         
 <div class="popup" id="popup">
-    <button class="refresh-btn" onclick="refreshStream()">&#x2715;</button> <!-- زر التحديث -->
-    <h2 id="channel-name" style="color: white;"></h2> <!-- اسم القناة -->
+    <button class="close-btn" onclick="closePopup()">&#x2715;</button>
+    <button class="refresh-btn" onclick="refreshStream()">&#x21bb;</button>
+    <h2 id="channel-name"></h2>
     <iframe src="" id="iframe" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <script>
     function openPopup(channelName, channelUrl) {
-        var popup = document.getElementById('popup');
-        var iframe = document.getElementById('iframe');
-        var name = document.getElementById('channel-name');
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('iframe').src = channelUrl;
+        document.getElementById('channel-name').textContent = channelName;
+    }
 
-        iframe.src = channelUrl; // تعيين رابط البث
-        name.textContent = channelName; // تعيين اسم القناة
-        popup.style.display = 'block';
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('iframe').src = ''; // إيقاف البث عند الإغلاق
     }
 
     function refreshStream() {
-        window.location.reload(); // تحديث الصفحة بالكامل
+        document.getElementById('iframe').src += ''; // إعادة تحميل البث
     }
 </script>
 
 <style>
-    /* تحسين الأزرار الرئيسية وجعلها عمودية */
     .button-container {
         display: flex;
         flex-direction: column;
-        gap: 10px; /* مسافة بسيطة بين الأزرار */
-        margin-bottom: 20px; /* مسافة أسفل الأزرار */
+        gap: 10px;
+        margin-bottom: 20px;
     }
 
     .open-btn {
@@ -347,7 +348,6 @@
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
     }
 
-    /* تحسين النافذة المنبثقة */
     .popup {
         display: none;
         position: fixed;
@@ -369,23 +369,35 @@
         border-radius: 10px;
     }
 
-    /* زر التحديث برمز الإغلاق */
-    .refresh-btn {
+    .close-btn, .refresh-btn {
         position: absolute;
         top: 10px;
-        left: 15px; /* نفس مكان زر الإغلاق السابق */
         font-size: 25px;
         color: #fff;
-        cursor: pointer;
-        background-color: red;
         padding: 5px 10px;
         border-radius: 50%;
-        transition: all 0.3s ease;
+        cursor: pointer;
+        background-color: red;
         border: none;
+        transition: all 0.3s ease;
+    }
+
+    .close-btn {
+        left: 15px;
+    }
+
+    .refresh-btn {
+        left: 60px; /* زر التحديث بجانب زر الإغلاق */
+        background-color: green;
+    }
+
+    .close-btn:hover {
+        background-color: darkred;
+        transform: scale(1.2);
     }
 
     .refresh-btn:hover {
-        background-color: darkred;
+        background-color: darkgreen;
         transform: scale(1.2);
     }
 </style>
