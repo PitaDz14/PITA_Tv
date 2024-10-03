@@ -260,6 +260,10 @@
         <div id="Foreign channels" class="category">
             <button class="open-btn" onclick="openPopup('قناة الفجر', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">مشاهدة قناة الفجر الجزائرية</button>
             <button class="open-btn" onclick="openPopup('قناة طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">مشاهدة قناة طيور الجنة</button>
+            <div class="button-container">
+                <button class="open-btn" onclick="openPopup('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">مشاهدة قناة الفجر</button>
+                <button class="open-btn" onclick="openPopup('قناة طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">قناة طيور الجنة</button>
+            </div>
             <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
             <div class="channel" onclick="showPopup('Bein Sport 1 Eng', 'https://882486363865312683.of1030ok.xyz:80/play/jean81/jean09092022/312683.m3u8')">Bein Sport 1 Eng</div>
             <div class="channel" onclick="showPopup('Bein Sport 2 FR', 'https://882486363865312684.of1030ok.xyz:80/play/jean81/jean09092022/312684.m3u8')">Bein Sport 2 FR</div>
@@ -268,7 +272,7 @@
         </div>
         
 <div class="popup" id="popup">
-    <span class="close-btn" onclick="closePopup()">&#x2715;</span>
+    <button class="refresh-btn" onclick="refreshStream()">&#x2715;</button> <!-- زر التحديث -->
     <h2 id="channel-name" style="color: white;"></h2> <!-- اسم القناة -->
     <iframe src="" id="iframe" frameborder="0" allowfullscreen></iframe>
 </div>
@@ -284,16 +288,23 @@
         popup.style.display = 'block';
     }
 
-    function closePopup() {
-        var popup = document.getElementById('popup');
+    function refreshStream() {
         var iframe = document.getElementById('iframe');
-        
-        iframe.src = ''; // تفريغ المحتوى عند إغلاق النافذة
-        popup.style.display = 'none';
+        var currentSrc = iframe.src;
+        iframe.src = ''; // إفراغ المصدر مؤقتًا
+        iframe.src = currentSrc; // إعادة تحميل المصدر لتحديث البث
     }
 </script>
 
 <style>
+    /* تحسين الأزرار الرئيسية وجعلها عمودية */
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* مسافة بسيطة بين الأزرار */
+        margin-bottom: 20px; /* مسافة أسفل الأزرار */
+    }
+
     .open-btn {
         font-size: 20px;
         padding: 15px 30px;
@@ -312,6 +323,7 @@
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
     }
 
+    /* تحسين النافذة المنبثقة */
     .popup {
         display: none;
         position: fixed;
@@ -333,10 +345,11 @@
         border-radius: 10px;
     }
 
-    .close-btn {
+    /* زر التحديث برمز الإغلاق */
+    .refresh-btn {
         position: absolute;
         top: 10px;
-        left: 15px;
+        left: 15px; /* نفس مكان زر الإغلاق السابق */
         font-size: 25px;
         color: #fff;
         cursor: pointer;
@@ -344,9 +357,10 @@
         padding: 5px 10px;
         border-radius: 50%;
         transition: all 0.3s ease;
+        border: none;
     }
 
-    .close-btn:hover {
+    .refresh-btn:hover {
         background-color: darkred;
         transform: scale(1.2);
     }
