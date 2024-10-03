@@ -213,6 +213,26 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>تشغيل الفيديو</title>
                 <style>
+                    /* تنسيق الزر */
+                    button {
+                        background-color: #607d8b; /* لون الأزرق الرمادي */
+                        color: white;
+                        padding: 15px 30px;
+                        font-size: 16px;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }
+            
+                    /* تأثير عند التمرير بالفأرة */
+                    button:hover {
+                        transform: scale(1.05);
+                        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+                    }
+            
+                    /* إخفاء الفيديو مبدئيًا */
                     .EmbedCode {
                         display: none;
                         position: relative;
@@ -235,8 +255,9 @@
                 </script>
             </head>
             <body>
-
-                <button onclick="showPopup()">Bein Sport News</button>
+            
+                <!-- الزر لتشغيل الفيديو -->
+                <button onclick="showVideo()">تشغيل الفيديو</button>
             
                 <div class="EmbedCode">
                     <div class="containera" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
@@ -246,7 +267,9 @@
                             allowfullscreen=""
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
                     </div>
-                </div>    
+                </div>
+            
+            </body>  
         </div>
 
         <!-- News Channels -->
