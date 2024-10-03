@@ -258,7 +258,7 @@
         
         <!-- Foreign channels Channels -->
         <div id="Foreign channels" class="category">
-            <button class="open-btn" onclick="openPopup(222)">مشاهدة قناة الفجر</button>
+            <button class="open-btn" onclick="openPopup()">مشاهدة قناة الفجر الجزائرية</button>
             <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
             <div class="channel" onclick="showPopup('Bein Sport 1 Eng', 'https://882486363865312683.of1030ok.xyz:80/play/jean81/jean09092022/312683.m3u8')">Bein Sport 1 Eng</div>
             <div class="channel" onclick="showPopup('Bein Sport 2 FR', 'https://882486363865312684.of1030ok.xyz:80/play/jean81/jean09092022/312684.m3u8')">Bein Sport 2 FR</div>
@@ -288,6 +288,26 @@
 </script>
 
 <style>
+    /* تحسين الزر الرئيسي */
+    .open-btn {
+        font-size: 20px;
+        padding: 15px 30px;
+        background-color: #28a745; /* لون أخضر */
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease; /* تأثير الانتقال عند التفاعل */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1); /* تأثير ثلاثي الأبعاد */
+    }
+
+    .open-btn:hover {
+        background-color: #218838; /* لون مختلف عند التمرير */
+        transform: scale(1.05); /* تكبير بسيط عند التمرير */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15); /* تأثير ثلاثي الأبعاد عند التمرير */
+    }
+
+    /* تحسين النافذة المنبثقة */
     .popup {
         display: none;
         position: fixed;
@@ -299,20 +319,36 @@
         background-color: #000;
         border: 2px solid #fff;
         z-index: 1000;
+        border-radius: 10px; /* زوايا دائرية */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* ظل حول النافذة */
     }
+
     .popup iframe {
         width: 100%;
         height: 100%;
+        border-radius: 10px; /* زوايا دائرية */
     }
+
+    /* تحسين زر الإغلاق */
     .close-btn {
         position: absolute;
-        top: 5px;
-        right: 10px;
-        font-size: 20px;
+        top: 10px;
+        right: 15px;
+        font-size: 25px;
         color: #fff;
         cursor: pointer;
+        background-color: red; /* لون خلفية لزر الإغلاق */
+        padding: 5px 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
     }
-</style>       
+
+    .close-btn:hover {
+        background-color: darkred; /* لون مختلف عند التمرير */
+        transform: scale(1.2); /* تكبير الزر عند التمرير */
+    }
+</style>
+        
 <!-- Popup Overlay -->
 <div class="popup-overlay" id="popup-overlay">
     <div class="popup-content">
