@@ -177,6 +177,7 @@
 
         <!-- Channel Categories -->
         <div class="channel-categories">
+            <button id="popupBtn">أدخل هنا لمشاهدة القنوات العربية والعالمية المباشرة</button>
             <button onclick="showCategory('sports')">القنوات الرياضية</button>
             <button onclick="showCategory('news')">القنوات الإخبارية والعامة</button>
             <button onclick="showCategory('kids')">قنوات الأطفال</button>
@@ -224,7 +225,6 @@
             <div class="channel" onclick="showPopup('قناة الحرة ', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">قناة الحرة</div>
             <div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
             <div class="channel" onclick="showPopup('قناة الفجر الجزائرية', 'https://el2.elahmad.com/tv705_www.elahmad.com_el_fadjr_tv/tracks-v1a1/mono.m3u8?token=0ac05e62ad3c3995d3a720c9e2c5e31a1dec4969-0ed1bbf9412b3153e6daeae4d0d69921-1727781222-1727770422')">قناة الفجر الجزائرية</div>
-            <button id="popupBtn">مشاهدة البث المباشر</button>
             <div class="channel" onclick="showPopup('قناة النهار الجزائرية', 'https://el1.elahmad.com/tv705_www.elahmad.com_ennahar/tracks-v1a1/2024/10/01/08/21/59-10000.ts?token=1c409112e1d6207dd3e40546a0547f73adaacb96-cf5002e8b75e39af178276b82a410e0a-1727781431-1727770631')">قناة النهار الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة الشروق الإخبارية الجزائرية', 'https://el2.elahmad.com/tv705_www.elahmad.com_echorouk_news/tracks-v1a1/mono.m3u8?token=817f270ce2539781137392ec273eaed2a1e2cc8a-9b233e73afca0f0636d2ed3b1195025a-1727738667-1727727867')">قناة الشروق الإخبارية الجزائرية</div>
             <div class="channel" onclick="showPopup('قناة الهداف الجزائرية', 'https://el1.elahmad.com/tv705_www.elahmad.com_elheddaf/tracks-v1a1/mono.m3u8?token=1cd35a57047f7d15acf42941cdc5d30f5504cee6-b87b57c7655f0703c282f23d7a8c0a99-1727743743-1727732943')">قناة الهداف الجزائرية</div>
@@ -413,7 +413,7 @@
       // إضافة مستمع للنقر على الزر
       popupBtn.addEventListener("click", function() {
         // إنشاء نافذة منبثقة جديدة مع الرابط الخاص بالبث
-        var popupWindow = window.open("https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv", "popupWindow", "width=800,height=600");
+        var popupWindow = window.open("https://www.elahmad.com/tv/mobile_tv_live/", "popupWindow", "width=800,height=600");
         // التركيز على النافذة الجديدة (مفيدة إذا كانت النافذة قد تم إنشاؤها بالفعل)    
         if (popupWindow) {
           popupWindow.focus();
