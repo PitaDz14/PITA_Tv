@@ -287,10 +287,7 @@
     }
 
     function refreshStream() {
-        var iframe = document.getElementById('iframe');
-        var currentSrc = iframe.src;
-        iframe.src = ''; // إفراغ المصدر مؤقتًا
-        iframe.src = currentSrc; // إعادة تحميل المصدر لتحديث البث
+        window.location.reload(); // تحديث الصفحة بالكامل
     }
 </script>
 
