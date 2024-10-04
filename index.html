@@ -561,6 +561,16 @@ function refreshIframe() {
             // Function to trigger DLNA/DMR functionality
             alert("خاصية DLNA DMR غير مفعلة حاليًا.");
         }
+        document.getElementById('dlnaButton').addEventListener('click', function() {
+       // حدد رابط البث الخاص بك
+       var streamUrl = 'http://example.com/stream';
+    
+       // إنشاء رابط مشاركة مع Web Video Caster
+       var intentUrl = 'intent://' + encodeURIComponent(streamUrl) + '#Intent;package=com.instantbits.cast.webvideo;scheme=http;end;';
+    
+       // فتح الرابط باستخدام نافذة جديدة أو توجيه المستخدم
+       window.location.href = intentUrl;
+       });
     </script>
 </body>
 </html>
