@@ -399,6 +399,7 @@ function refreshIframe() {
             <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button>
             <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button>
             <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button>
+            <button class="category-refresh-button" onclick="returnToCategory()" title="العودة إلى قائمة القنوات">&#x21BA;</button>
         </div>
     </div>
 </div>
@@ -407,8 +408,8 @@ function refreshIframe() {
 /* تصميم الأزرار الرمزية */
 .popup-buttons {
     position: absolute;
-    top: 10px; /* وضع الأزرار في الجزء العلوي */
-    right: 10px; /* وضع الأزرار في الجزء الأيسر */
+    top: 30px; /* إزاحة الأزرار بعيداً عن الحافة العلوية */
+    right: 30px; /* إزاحة الأزرار بعيداً عن الحافة اليمنى */
     display: flex; /* ترتيب الأزرار بجانب بعضها */
     gap: 10px; /* مسافة بسيطة بين الأزرار */
 }
@@ -443,6 +444,10 @@ function refreshIframe() {
     background-color: #2196F3;
 }
 
+.category-refresh-button {
+    background-color: #FFC107; /* لون مميز للزر الجديد */
+}
+
 /* التأثير عند تمرير الفأرة */
 .popup-buttons button:hover {
     opacity: 0.8;
@@ -457,37 +462,33 @@ function refreshIframe() {
     transform: translateY(1px);
 }
 </style>
-<!-- CSS adjustments -->
-<style>
-    #video-container {
-        width: 100%; /* تملأ العرض بالكامل */
-        max-width: 1000px; /* أقصى عرض مناسب لشاشة الحاسوب */
-        height: auto;
-        margin: 0 auto; /* لضبطه في المنتصف */
-    }
 
-    #video-player {
-        width: 100%;
-        aspect-ratio: 16/9; /* تحديد نسبة العرض إلى الارتفاع 16:9 */
-        height: auto; /* اجعل الارتفاع يعتمد على العرض */
+<script>
+function toggleFullscreen() {
+    let video = document.getElementById("video-player");
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen(); // Firefox
+    } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen(); // Chrome, Safari, Opera
+    } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen(); // IE/Edge
     }
+}
 
-    .popup-content {
-        width: 100%;
-        max-width: 1000px; /* تحديد أقصى عرض */
-        height: auto;
-        margin: 0 auto; /* لمحاذاة الإطار في الوسط */
-    }
+function activateDLNA() {
+    // كود تفعيل الـ DLNA
+    alert("تفعيل إرسال DLNA");
+}
 
-    /* إضافة خاصية ملء الشاشة */
-    .fullscreen-button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px;
-        border: none;
-        cursor: pointer;
-    }
-</style>
+function returnToCategory() {
+    // افتراض أن صفحة قائمة القنوات هي السابقة
+    window.history.back(); // يعود إلى الصفحة السابقة (التي هي قائمة القنوات)
+    document.getElementById('popup-overlay').style.display = 'none'; // يغلق النافذة المنبثقة
+}
+</script>
+
 
   <!-- حقوق الملكية -->
   <footer>
