@@ -397,12 +397,17 @@ function refreshIframe() {
 <div class="popup-overlay" id="popup-overlay">
     <div class="popup-content">
         <div id="video-container">
-            <video id="video-player" controls></video>
+            <iframe id="video-iframe" src="your-video-source.mp4" style="width:100%; height:400px;" frameborder="0"></iframe>
         </div>
         <div class="popup-buttons">
-            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button>
+            <!-- زر تحديث -->
+            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x2302;</button> <!-- تغيير رمز الإغلاق إلى منزل -->
+            <!-- زر ملء الشاشة -->
             <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button>
+            <!-- زر إرسال عبر DLNA -->
             <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button>
+            <!-- زر إغلاق الـ iframe -->
+            <button class="close-iframe-button" onclick="closeIframe()" title="إغلاق الـ Iframe">&#x274C;</button>
         </div>
     </div>
 </div>
@@ -447,6 +452,10 @@ function refreshIframe() {
     background-color: #2196F3;
 }
 
+.close-iframe-button {
+    background-color: #9C27B0; /* لون جديد لزر إغلاق الـ iframe */
+}
+
 /* التأثير عند تمرير الفأرة */
 .popup-buttons button:hover {
     opacity: 0.8;
@@ -461,6 +470,28 @@ function refreshIframe() {
     transform: translateY(1px);
 }
 </style>
+
+<script>
+/* دالة ملء الشاشة */
+function toggleFullscreen() {
+    let elem = document.getElementById("video-container");
+    if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(err => {
+            alert(`Error attempting to enable full-screen mode: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+/* دالة إغلاق iframe */
+function closeIframe() {
+    let iframe = document.getElementById("video-iframe");
+    if (iframe) {
+        iframe.parentElement.removeChild(iframe);
+    }
+}
+</script>
 
 <!-- CSS adjustments -->
 <style>
