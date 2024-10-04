@@ -414,21 +414,21 @@ function refreshIframe() {
     top: 10px; /* وضع الأزرار في الجزء العلوي */
     left: 10px; /* وضع الأزرار في الجزء الأيسر */
     display: flex; /* ترتيب الأزرار بجانب بعضها */
-    gap: 5px; /* المسافة بين الأزرار */
+    gap: 10px; /* مسافة بسيطة بين الأزرار */
 }
 
 .popup-buttons button {
     color: white;
-    padding: 5px; /* تقليل الحشوة */
+    padding: 10px; /* تعديل الحشوة */
     margin: 0; /* إزالة الهامش */
     border: none;
-    border-radius: 50%;
-    box-shadow: 0 2px #666;
-    font-size: 10px; /* حجم الأيقونات */
+    border-radius: 50%; /* حواف دائرية للأزرار */
+    box-shadow: 0 4px #666; /* ظل ثلاثي الأبعاد */
+    font-size: 16px; /* حجم الأيقونات */
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 10px; /* حجم الأزرار 10 بكسل */
-    height: 10px; /* حجم الأزرار 10 بكسل */
+    width: 30px; /* حجم الأزرار 30 بكسل */
+    height: 30px; /* حجم الأزرار 30 بكسل */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -450,14 +450,14 @@ function refreshIframe() {
 /* التأثير عند تمرير الفأرة */
 .popup-buttons button:hover {
     opacity: 0.8;
-    box-shadow: 0 3px #444;
-    transform: translateY(-1px);
+    box-shadow: 0 5px #444;
+    transform: translateY(-2px);
 }
 
 /* التأثير عند الضغط */
 .popup-buttons button:active {
     opacity: 0.9;
-    box-shadow: 0 2px #333;
+    box-shadow: 0 3px #333;
     transform: translateY(1px);
 }
 </style>
