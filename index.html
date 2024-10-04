@@ -202,7 +202,6 @@
             <div class="channel" onclick="showPopup('Bein sport 1 Fr', 'http://51.178.65.238/BeinSport/mono.m3u8')">Bein sport 1 Fr</div>
              <!-- Inserted SSC SPORT HD -->
             <div class="channel" onclick="showIframePopup('SSC Sport')">SSC قنوات</div>
-            <!-- PL Channels -->
             <div class="open-btn" onclick="openPopup('قنوات الفجر الفلسطينية', 'https://www.elahmad.com/tv/alfajertv.php')">قنوات الفجر الفلسطينية</button></div>
             <div class="channel" onclick="showPopup('قناة Sport تجريبية', 'https://kwv8semyftqgz46c793hd2.cdnministry.net:8443/hls/1v5atpaeezy3dws.m3u8?s=_vGs2t4X-3D3QHM95RqHgA&e=1727917352')">قناة Sport تجريبية</div>
             <div class="channel" onclick="showPopup('TNT Sport 1', 'https://ja.zikiviki.website/hls/EJJJ.m3u8')">TNT Sport 1</div>
@@ -518,7 +517,7 @@ function refreshIframe() {
 
         function showIframePopup(channelName) {
             var videoContainer = document.getElementById('video-container');
-            if (channelName === 'قنوات الفجر الفلسطينية') {
+            if (channelName === 'SSC Sport') {
                 videoContainer.innerHTML = '<iframe id="video-player" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
             }
             document.getElementById('popup-overlay').style.display = 'block';
