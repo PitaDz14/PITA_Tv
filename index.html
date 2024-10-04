@@ -173,7 +173,7 @@
             }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -217,6 +217,8 @@
                 <button class="open-btn" onclick="openPopup('قناة الكأس القطرية Alkass 4', 'https://www.elahmad.com/tv/alkass_hd.php?id=4')">قناة الكأس القطرية Alkass 4</button>
                 <button class="open-btn" onclick="openPopup('قناة الكأس القطرية Alkass 5', 'https://www.elahmad.com/tv/alkass_hd.php?id=5')">قناة الكأس القطرية Alkass 5</button>
             </div>
+            <!-- مكان وضع مشغل الفيديو -->
+            <div id="player-container" style="width: 100%; height: 500px;"></div>
         </div>
         
         <!-- News Channels -->
@@ -244,6 +246,8 @@
                 <button class="open-btn" onclick="openPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</button>
                 <button class="open-btn" onclick="openPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</button>
                 <button class="open-btn" onclick="openPopup('قناة Samira TV الجزائرية', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=samiratv')">قناة Samira TV الجزائرية</button>
+                <!-- مكان وضع مشغل الفيديو -->
+                <div id="player-container" style="width: 100%; height: 500px;"></div>
             </div>
         </div>
 
@@ -263,6 +267,8 @@
             <div class="channel" onclick="showPopup('قناة ماجد', 'https://live.elahmad.net/https://vo-live.cdb.cdn.orange.com/Content/Channel/MajidChildrenChannel/HLS/stream_04/index.m3u8')">قناة ماجد</div>
             <div class="channel" onclick="showPopup('قناة أطفال ومواهب', 'https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8')">قناة أطفال ومواهب</div>
             <div class="channel" onclick="showPopup('قناة طيور الجنة', 'https://el2.elahmad.com/tv705_www.elahmad.com_toyoraljanah/tracks-v1a1/mono.m3u8?token=e61d335cffd6788e13b6a491587cd57b45c8792a-054b1dc1fe3c6b896dc6b6a2a8c358cd-1727740760-1727729960')">قناة طيور الجنة</div>
+            <!-- مكان وضع مشغل الفيديو -->
+            <div id="player-container" style="width: 100%; height: 500px;"></div>
         </div>
         
         <!-- doc Channels -->
@@ -270,6 +276,8 @@
             <div class="channel" onclick="showPopup('قناة الجزيرة الوثائقية', 'https://s1.ettehadlive.com/live/111/chunklist_w343419926.m3u8')">قناة الجزيرة الوثائقية</div>
             <div class="channel" onclick="showPopup('Documentary Germany', 'https://service-stitcher.clusters.pluto.tv/stitch/hls/channel/5d767ae7b456c8cf265ce922/master.m3u8?advertisingId=&appName=web&appStoreUrl=&appVersion=DNT&app_name=&architecture=&buildVersion=&deviceDNT=0&deviceId=5d767ae7b456c8cf265ce922&deviceLat=51.2993&deviceLon=9.4910&deviceMake=web&deviceModel=web&deviceType=web&deviceVersion=DNT&includeExtendedEvents=false&marketingRegion=DE&serverSideAds=false&sid=301&terminate=false&userId=')">Documentary Germany</div>
             <div class="channel" onclick="showPopup('National Geographic Wild HD', 'http://78.130.250.2:8023/play/a02c/index.m3u8')">National Geographic Wild HD</div>
+            <!-- مكان وضع مشغل الفيديو -->
+            <div id="player-container" style="width: 100%; height: 500px;"></div>
         </div>
         
         <!-- Foreign channels Channels -->
@@ -279,7 +287,31 @@
             <div class="channel" onclick="showPopup('Bein Sport 2 FR', 'https://882486363865312684.of1030ok.xyz:80/play/jean81/jean09092022/312684.m3u8')">Bein Sport 2 FR</div>
             <div class="channel" onclick="showPopup('قناة ZDF الألمانية', 'https://zdf-hls-15.akamaized.net/hls/live/2016498-b/de/23ce7d09760ca6fef4b6d59aee85b3c1/4/4.m3u8')">قناة ZDF الألمانية</div>
             <div class="channel" onclick="showPopup('قناة Das الألمانية', 'https://derste247livede.akamaized.net/hls/live/658317/daserste_de/master1080p5000.m3u8')">قناة Das الألمانية</div>
+            <!-- مكان وضع مشغل الفيديو -->
+            <div id="player-container" style="width: 100%; height: 500px;"></div>
         </div>
+
+<div id="player-container"></div>
+
+<script>
+  function showPopup(channelName, streamUrl) {
+    // تنظيف المحتوى القديم من المشغل
+    document.getElementById('player-container').innerHTML = '';
+
+    // إنشاء مشغل Clappr جديد باستخدام رابط البث
+    var player = new Clappr.Player({
+      source: streamUrl,
+      parentId: '#player-container',
+      width: '100%',
+      height: '100%',
+      autoPlay: true,
+      mute: false
+    });
+    
+    // عرض اسم القناة إن أردت
+    alert('تشغيل قناة: ' + channelName);
+  }
+</script>
         
 <div class="popup" id="popup">
     <div class="refresh-container">
