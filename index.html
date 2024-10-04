@@ -174,6 +174,45 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <div id="player-container"></div>
+
+
+    <script>
+
+      function showPopup(channelName, streamUrl) {
+
+        // تنظيف المحتوى القديم من المشغل
+
+        document.getElementById('player-container').innerHTML = '';
+
+
+        // إنشاء مشغل Clappr جديد باستخدام رابط البث
+
+        var player = new Clappr.Player({
+
+          source: streamUrl,
+
+          parentId: '#player-container',
+
+          width: '100%',
+
+          height: '100%',
+
+          autoPlay: true,
+
+          mute: false
+
+        });
+
+        
+
+        // عرض اسم القناة إن أردت
+
+        alert('تشغيل قناة: ' + channelName);
+
+      }
+
+    </script>
 </head>
 <body>
     <div class="container">
@@ -290,28 +329,6 @@
             <!-- مكان وضع مشغل الفيديو -->
             <div id="player-container" style="width: 100%; height: 500px;"></div>
         </div>
-
-<div id="player-container"></div>
-
-<script>
-  function showPopup(channelName, streamUrl) {
-    // تنظيف المحتوى القديم من المشغل
-    document.getElementById('player-container').innerHTML = '';
-
-    // إنشاء مشغل Clappr جديد باستخدام رابط البث
-    var player = new Clappr.Player({
-      source: streamUrl,
-      parentId: '#player-container',
-      width: '100%',
-      height: '100%',
-      autoPlay: true,
-      mute: false
-    });
-    
-    // عرض اسم القناة إن أردت
-    alert('تشغيل قناة: ' + channelName);
-  }
-</script>
         
 <div class="popup" id="popup">
     <div class="refresh-container">
