@@ -394,50 +394,65 @@ function refreshIframe() {
 }
 </style>
         
-<!-- Popup Overlay -->
 <div class="popup-overlay" id="popup-overlay">
     <div class="popup-content">
         <div id="video-container">
             <video id="video-player" controls></video>
         </div>
         <div class="popup-buttons">
-            <button class="refresh-button" onclick="location.reload()">إغلاق</button>
-            <button class="fullscreen-button" onclick="toggleFullscreen()">ملء الشاشة</button>
-            <button class="dlna-button" onclick="activateDLNA()">إرسال عبر DLNA</button>
+            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button> <!-- رمز الإغلاق -->
+            <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button> <!-- رمز ملء الشاشة -->
+            <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button> <!-- رمز إرسال عبر DLNA -->
         </div>
     </div>
 </div>
 
 <style>
-/* تصميم الأزرار ثلاثية الأبعاد */
+/* تصميم الأزرار الرمزية */
 .popup-buttons button {
-    background-color: #008CBA; /* لون الخلفية */
     color: white; /* لون النص */
-    padding: 15px 20px; /* حشوة الأزرار */
+    padding: 15px; /* حشوة الأزرار */
     margin: 10px; /* هامش بين الأزرار */
     border: none; /* إزالة الحدود */
-    border-radius: 10px; /* جعل الحواف مستديرة */
+    border-radius: 50%; /* جعل الحواف مستديرة بالكامل (أزرار دائرية) */
     box-shadow: 0 5px #666; /* تأثير الظل ثلاثي الأبعاد */
-    font-size: 16px;
+    font-size: 24px; /* حجم الرمز */
     cursor: pointer; /* مؤشر الفأرة */
     transition: all 0.3s ease; /* حركة سلاسة عند التفاعل */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ألوان الأزرار حسب وظيفتها */
+.refresh-button {
+    background-color: #FF4C4C; /* لون أحمر للإغلاق */
+}
+
+.fullscreen-button {
+    background-color: #4CAF50; /* لون أخضر لملء الشاشة */
+}
+
+.dlna-button {
+    background-color: #2196F3; /* لون أزرق لـ DLNA */
 }
 
 /* التأثير عند تمرير الفأرة */
 .popup-buttons button:hover {
-    background-color: #005f73; /* تغيير لون الخلفية عند التمرير */
+    opacity: 0.8; /* تغيير الشفافية عند التمرير */
     box-shadow: 0 7px #444; /* تغيير الظل عند التمرير */
     transform: translateY(-3px); /* رفع الزر قليلاً */
 }
 
 /* التأثير عند الضغط */
 .popup-buttons button:active {
-    background-color: #003f5f; /* تغيير لون الخلفية عند الضغط */
+    opacity: 0.9; /* تقليل الشفافية عند الضغط */
     box-shadow: 0 3px #333; /* تقليل الظل عند الضغط */
     transform: translateY(2px); /* الضغط على الزر للأسفل */
 }
 </style>
-
 
 <!-- CSS adjustments -->
 <style>
