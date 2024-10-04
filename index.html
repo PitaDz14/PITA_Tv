@@ -396,10 +396,10 @@ function refreshIframe() {
             <video id="video-player" controls></video>
         </div>
         <div class="popup-buttons">
-            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button>
+            <button class="home-button" onclick="goHome()" title="العودة إلى الصفحة الرئيسية">&#x1F3E0;</button>
             <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button>
             <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button>
-            <button class="category-refresh-button" onclick="returnToCategory()" title="العودة إلى قائمة القنوات">&#x21BA;</button>
+            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button>
         </div>
     </div>
 </div>
@@ -432,8 +432,8 @@ function refreshIframe() {
 }
 
 /* ألوان الأزرار */
-.refresh-button {
-    background-color: #FF4C4C;
+.home-button {
+    background-color: #FF4C4C; /* لون أحمر للزر الصفحة الرئيسية */
 }
 
 .fullscreen-button {
@@ -444,7 +444,7 @@ function refreshIframe() {
     background-color: #2196F3;
 }
 
-.category-refresh-button {
+.refresh-button {
     background-color: #FFC107; /* لون مميز للزر الجديد */
 }
 
@@ -482,8 +482,11 @@ function activateDLNA() {
     alert("تفعيل إرسال DLNA");
 }
 
+function goHome() {
+    window.location.href = "/"; // يعيد المستخدم إلى الصفحة الرئيسية
+}
+
 function returnToCategory() {
-    // افتراض أن صفحة قائمة القنوات هي السابقة
     window.history.back(); // يعود إلى الصفحة السابقة (التي هي قائمة القنوات)
     document.getElementById('popup-overlay').style.display = 'none'; // يغلق النافذة المنبثقة
 }
