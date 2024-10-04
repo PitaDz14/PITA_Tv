@@ -400,57 +400,65 @@ function refreshIframe() {
             <video id="video-player" controls></video>
         </div>
         <div class="popup-buttons">
-            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button> <!-- رمز الإغلاق -->
-            <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button> <!-- رمز ملء الشاشة -->
-            <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button> <!-- رمز إرسال عبر DLNA -->
+            <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button>
+            <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button>
+            <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button>
         </div>
     </div>
 </div>
 
 <style>
 /* تصميم الأزرار الرمزية */
+.popup-buttons {
+    position: absolute;
+    top: 10px; /* وضع الأزرار في الجزء العلوي */
+    left: 10px; /* وضع الأزرار في الجزء الأيسر */
+    display: flex; /* ترتيب الأزرار بجانب بعضها */
+    gap: 5px; /* المسافة بين الأزرار */
+}
+
 .popup-buttons button {
-    color: white; /* لون النص */
-    padding: 15px; /* حشوة الأزرار */
-    margin: 10px; /* هامش بين الأزرار */
-    border: none; /* إزالة الحدود */
-    border-radius: 50%; /* جعل الحواف مستديرة بالكامل (أزرار دائرية) */
-    box-shadow: 0 5px #666; /* تأثير الظل ثلاثي الأبعاد */
-    font-size: 24px; /* حجم الرمز */
-    cursor: pointer; /* مؤشر الفأرة */
-    transition: all 0.3s ease; /* حركة سلاسة عند التفاعل */
-    width: 60px;
-    height: 60px;
+    color: white;
+    padding: 5px; /* تقليل الحشوة */
+    margin: 0; /* إزالة الهامش */
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px #666;
+    font-size: 10px; /* حجم الأيقونات */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 10px; /* حجم الأزرار 10 بكسل */
+    height: 10px; /* حجم الأزرار 10 بكسل */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* ألوان الأزرار حسب وظيفتها */
+/* ألوان الأزرار */
 .refresh-button {
-    background-color: #FF4C4C; /* لون أحمر للإغلاق */
+    background-color: #FF4C4C;
 }
 
 .fullscreen-button {
-    background-color: #4CAF50; /* لون أخضر لملء الشاشة */
+    background-color: #4CAF50;
 }
 
 .dlna-button {
-    background-color: #2196F3; /* لون أزرق لـ DLNA */
+    background-color: #2196F3;
 }
 
 /* التأثير عند تمرير الفأرة */
 .popup-buttons button:hover {
-    opacity: 0.8; /* تغيير الشفافية عند التمرير */
-    box-shadow: 0 7px #444; /* تغيير الظل عند التمرير */
-    transform: translateY(-3px); /* رفع الزر قليلاً */
+    opacity: 0.8;
+    box-shadow: 0 3px #444;
+    transform: translateY(-1px);
 }
 
 /* التأثير عند الضغط */
 .popup-buttons button:active {
-    opacity: 0.9; /* تقليل الشفافية عند الضغط */
-    box-shadow: 0 3px #333; /* تقليل الظل عند الضغط */
-    transform: translateY(2px); /* الضغط على الزر للأسفل */
+    opacity: 0.9;
+    box-shadow: 0 2px #333;
+    transform: translateY(1px);
 }
 </style>
 
