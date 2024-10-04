@@ -173,6 +173,7 @@
             }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
     <div class="container">
@@ -481,27 +482,7 @@ function refreshIframe() {
       <a href="https://instagram.com/" target="_blank">إنستجرام</a>
     </div>
   </footer>
-    <head>
-     <!-- إضافة مكتبة Clappr -->
-       <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-    </head>
-
-    <body>
-    <!-- عنصر لعرض الفيديو -->
-    <div id="player-container"></div>
-
-    <!-- نافذة منبثقة -->
-    <div id="popup-overlay" style="display:none;">
-        <div id="popup-content">
-            <div id="video-container">
-                <div id="player-container"></div>
-            </div>
-            <button onclick="closePopup()">إغلاق</button>
-        </div>
-    </div>
-
     <script>
-        // عرض الفئات
         function showCategory(categoryId) {
             var categories = document.querySelectorAll('.category');
             categories.forEach(function(category) {
@@ -510,38 +491,41 @@ function refreshIframe() {
             document.getElementById(categoryId).style.display = 'block';
         }
 
-        // تشغيل الفيديو باستخدام Clappr
         function showPopup(channelName, videoUrl) {
-            var playerElement = document.getElementById('player-container');
-            var player = new Clappr.Player({
-                source: videoUrl,
-                parentId: '#player-container',
-                width: '100%',
-                height: 360,
-                autoPlay: true,
-            });
+            var videoPlayer = document.getElementById('video-player');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoUrl);
+                hls.attachMedia(videoPlayer);
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                videoPlayer.src = videoUrl;
+            }
             document.getElementById('popup-overlay').style.display = 'block';
         }
 
-        // إغلاق النافذة المنبثقة
-        function closePopup() {
-            var playerElement = document.getElementById('player-container');
-            playerElement.innerHTML = ''; // مسح المحتوى
-            document.getElementById('popup-overlay').style.display = 'none';
-        }
-
-        // عرض الفيديو في Iframe
         function showIframePopup(channelName) {
             var videoContainer = document.getElementById('video-container');
-            if (channelName === 'SSC Sport') {
+            if (channelName === 'قنوات الفجر الفلسطينية') {
+                videoContainer.innerHTML = '<iframe id="iframe-player-1" src="https://www.elahmad.com/tv/alfajertv.php" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>';
+            } else {
                 videoContainer.innerHTML = '<iframe id="video-player" src="https://www.elahmad.com/tv/ssc-sport-live.php" frameborder="0" allowfullscreen></iframe>';
             }
             document.getElementById('popup-overlay').style.display = 'block';
         }
 
-        // تفعيل ملء الشاشة
+        function closePopup() {
+            var videoPlayer = document.getElementById('video-player');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.detachMedia();
+            } else {
+                videoPlayer.src = '';
+            }
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+
         function toggleFullscreen() {
-            var videoPlayer = document.getElementById('player-container');
+            var videoPlayer = document.getElementById('video-player');
             if (videoPlayer.requestFullscreen) {
                 videoPlayer.requestFullscreen();
             } else if (videoPlayer.mozRequestFullScreen) {
@@ -554,19 +538,9 @@ function refreshIframe() {
         }
 
         function activateDLNA() {
+            // Function to trigger DLNA/DMR functionality
             alert("خاصية DLNA DMR غير مفعلة حاليًا.");
         }
-
-        // نافذة منبثقة لفتح رابط خارجي
-        var popupBtn = document.getElementById("popupBtn");
-        popupBtn.addEventListener("click", function() {
-            var popupWindow = window.open("https://www.hd44.net/", "popupWindow", "width=800,height=600");
-            if (popupWindow) {
-                popupWindow.focus();
-            }
-        });
     </script>
-</body>
-
 </body>
 </html>
