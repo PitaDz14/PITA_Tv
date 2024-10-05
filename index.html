@@ -329,102 +329,120 @@ function refreshIframe() {
 }
 </script>
 
-<style>
-/* تحسين الأزرار الرئيسية وجعلها عمودية */
-.button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* مسافة بين الأزرار */
-    margin-bottom: 20px; /* مسافة أسفل الأزرار */
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup with Refresh and Close</title>
+    <style>
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-.open-btn {
-    font-size: 20px;
-    padding: 15px 30px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1);
-}
+        .open-btn {
+            font-size: 20px;
+            padding: 15px 30px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
 
-.open-btn:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
-}
+        .open-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 10px 14px rgba(0, 0, 0, 0.15);
+        }
 
-/* تحسين النافذة المنبثقة */
-.popup {
-    display: none;
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 80%;
-    height: 60%;
-    background-color: #000;
-    border: 2px solid #fff;
-    z-index: 1000;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
+        .popup {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 80%;
+            height: 60%;
+            background-color: #000;
+            border: 2px solid #fff;
+            z-index: 1000;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
 
-.popup iframe {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
+        .popup iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
 
-/* زر الإغلاق والتحديث */
-.refresh-container {
-    position: absolute;
-    top: 10px;
-    left: 15px; 
-    display: flex;
-    gap: 10px; /* مسافة بين الزرين */
-}
+        .refresh-container {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            display: flex;
+            gap: 10px;
+        }
 
-.refresh-btn, .refresh-btn-refresh {
-    font-size: 15px;
-    color: #fff;
-    cursor: pointer;
-    background-color: red;
-    padding: 5px 10px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    border: none;
-}
+        .refresh-btn-refresh, .refresh-btn-close {
+            font-size: 15px;
+            color: #fff;
+            cursor: pointer;
+            background-color: red;
+            padding: 5px 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: none;
+        }
 
-.refresh-btn:hover, .refresh-btn-refresh:hover {
-    background-color: darkred;
-    transform: scale(1.2);
-}
+        .refresh-btn-refresh {
+            background-color: blue;
+        }
 
-.refresh-btn-refresh {
-    background-color: blue; /* لون مختلف لزر التحديث */
-}
+        .refresh-btn-refresh:hover {
+            background-color: darkblue;
+        }
 
-.refresh-btn-refresh:hover {
-    background-color: darkblue;
-}
+        .refresh-btn-close:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="open-btn" onclick="openPopup()">Open Popup</button>
+    </div>
 
-/* تغيير رمز الإغلاق إلى منزل */
-.refresh-btn::before {
-    content: '🏠'; /* رمز المنزل */
-}
+    <div class="popup">
+        <div class="refresh-container">
+            <button class="refresh-btn-refresh" onclick="refreshIframe()">🔄</button>
+            <button class="refresh-btn-close" onclick="closePopup()">❌</button>
+        </div>
+        <iframe src="https://example.com"></iframe>
+    </div>
 
-/* إضافة زر جديد لإغلاق وتحديث */
-.close-refresh-btn {
-    background-color: darkblue;
-}
+    <script>
+        function openPopup() {
+            document.querySelector('.popup').style.display = 'block';
+        }
 
-.close-refresh-btn:hover {
-    background-color: navy;
-}
-</style>
+        function refreshIframe() {
+            var iframe = document.querySelector('.popup iframe');
+            iframe.src += ''; // Trigger a refresh
+        }
+
+        function closePopup() {
+            refreshIframe(); // Refresh the iframe first
+            setTimeout(function() {
+                document.querySelector('.popup').style.display = 'none'; // Then close the popup
+            }, 500); // Delay to allow iframe to load
+        }
+    </script>
+</body>
 
         
 <div class="popup-overlay" id="popup-overlay">
