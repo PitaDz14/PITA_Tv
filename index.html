@@ -334,7 +334,7 @@ function refreshIframe() {
 .button-container {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* مسافة بسيطة بين الأزرار */
+    gap: 10px; /* مسافة بين الأزرار */
     margin-bottom: 20px; /* مسافة أسفل الأزرار */
 }
 
@@ -410,7 +410,22 @@ function refreshIframe() {
 .refresh-btn-refresh:hover {
     background-color: darkblue;
 }
+
+/* تغيير رمز الإغلاق إلى منزل */
+.refresh-btn::before {
+    content: '🏠'; /* رمز المنزل */
+}
+
+/* إضافة زر جديد لإغلاق وتحديث */
+.close-refresh-btn {
+    background-color: darkblue;
+}
+
+.close-refresh-btn:hover {
+    background-color: navy;
+}
 </style>
+
         
 <div class="popup-overlay" id="popup-overlay">
     <div class="popup-content">
