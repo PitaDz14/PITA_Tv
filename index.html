@@ -313,6 +313,7 @@
 <div class="popup" id="popup">
     <div class="refresh-container">
         <button class="refresh-btn" onclick="refreshStream()">&#10006;</button> <!-- زر الإغلاق برمز الإكس -->
+        <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button>
         <button class="refresh-btn-refresh" onclick="refreshIframe()">&#x21bb;</button> <!-- زر التحديث بسهم دائري -->
     </div>
     <h2 id="channel-name" style="color: white;"></h2> <!-- اسم القناة -->
@@ -446,7 +447,6 @@ function refreshIframe() {
         <div class="popup-buttons">
             <button class="refresh-button" onclick="location.reload()" title="إغلاق">&#x274C;</button>
             <button class="fullscreen-button" onclick="toggleFullscreen()" title="ملء الشاشة">&#x26F6;</button>
-            <button class="dlna-button" onclick="activateDLNA()" title="إرسال عبر DLNA">&#x1F4E1;</button>
             <button class="category-refresh-button" onclick="returnToCategory()" title="العودة إلى قائمة القنوات">&#x21BA;</button>
         </div>
     </div>
