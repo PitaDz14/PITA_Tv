@@ -5,6 +5,7 @@
 <title>قنوات البث المباشر - PITA_Tv</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.8/dist/plyr.css">
 <style>
 body {
   font-family: 'Tajawal', sans-serif;
@@ -15,17 +16,17 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Add this line */
-  text-align: center; /* Add this line */
+  align-items: center;
+  text-align: center;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   flex: 1;
-  width: 100%; /* Add this line */
-  box-sizing: border-box; /* Add this line */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 header {
@@ -113,7 +114,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 30px;
-  justify-content: center; /* Add this line */
+  justify-content: center;
 }
 
 .channel {
@@ -125,12 +126,12 @@ h1 {
   transition: all 0.3s ease;
   cursor: pointer;
   overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .channel:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-  background: rgba(255,255,255,0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
 .channel img {
@@ -165,39 +166,29 @@ h1 {
 }
 
 .popup-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 900px;
-  background: #1a2a6c;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 0 50px rgba(253,187,45,0.3);
+  width: 95%;
+  max-width: 1200px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 #player {
+  flex: 1;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  position: relative;
+  height: 100%;
   border-radius: 10px;
   overflow: hidden;
 }
 
 .player-controls {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  top: 10px;
+  left: 10px;
   display: flex;
-  gap: 15px;
+  gap: 10px;
   z-index: 1001;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.player-controls:hover {
-  opacity: 1;
 }
 
 .player-btn {
@@ -205,19 +196,19 @@ h1 {
   color: #1a2a6c;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.2em;
+  transition: opacity 0.3s ease;
+  font-size: 1em;
+  opacity: 0.7;
 }
 
 .player-btn:hover {
-  background: #fdbb2d;
-  transform: scale(1.1);
+  opacity: 1;
 }
 
 footer {
@@ -225,7 +216,7 @@ footer {
   padding: 30px;
   background: rgba(0,0,0,0.7);
   margin-top: auto;
-  width: 100%; /* Add this line */
+  width: 100%;
 }
 
 footer p {
@@ -361,11 +352,11 @@ footer a:hover {
         <img src="https://via.placeholder.com/220x180?text=قناة+France+24+العربية" alt="قناة France 24 العربية logo" width="220" height="180">
         <h3>قناة France 24 العربية</h3>
       </div>
-      <div class="channel fade-in" onclick="showPopup('RT روسيا اليوم HD', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">
+      <div class="channel fade-in" onclick="showPopup('RT Russland HD', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">
         <img src="https://via.placeholder.com/220x180?text=RT+روسيا+اليوم+HD" alt="RT روسيا اليوم HD logo" width="220" height="180">
         <h3>RT روسيا اليوم HD</h3>
       </div>
-      <div class="channel fade-in" onclick="showPopup('RT روسيا اليوم', 'https://rt-arb.rttv.com/dvr/rtarab/playlist.m3u8')">
+      <div class="channel fade-in" onclick="showPopup('RT Russland', 'https://rt-arb.rttv.com/dvr/rtarab/playlist.m3u8')">
         <img src="https://via.placeholder.com/220x180?text=RT+روسيا+اليوم" alt="RT روسيا اليوم logo" width="220" height="180">
         <h3>RT روسيا اليوم</h3>
       </div>
@@ -440,6 +431,8 @@ footer a:hover {
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/plyr@3.6.8/dist/plyr.min.js"></script>
 <script>
 let player;
 let dlnaPlayer;
@@ -461,12 +454,21 @@ function showPopup(channelName, videoUrl) {
   if (player) {
     player.destroy();
   }
-  player = new Clappr.Player({
-    source: videoUrl,
-    parentId: "#player",
-    width: '100%',
-    height: '100%',
-    autoPlay: true,
+  const playerElement = document.getElementById('player');
+  playerElement.innerHTML = '<video id="video-player" controls></video>';
+  
+  const video = document.getElementById('video-player');
+  
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(videoUrl);
+    hls.attachMedia(video);
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoUrl;
+  }
+  
+  player = new Plyr('#video-player', {
+    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
   });
   
   document.getElementById('popup-overlay').style.display = 'flex';
@@ -489,24 +491,13 @@ function openPopup(channelName, url) {
   document.querySelector('.popup-content').classList.add('fade-in');
 }
 
-function showControls() {
-  const controls = document.querySelector('.player-controls');
-  controls.style.opacity = '1';
-  
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(() => {
-    controls.style.opacity = '0';
-  }, 3000);
-}
-
-function hideControls() {
-  const controls = document.querySelector('.player-controls');
-  controls.style.opacity = '0';
-}
-
 function closePopup() {
   if (player) {
     player.destroy();
+  }
+  const iframe = document.querySelector('#player iframe');
+  if (iframe) {
+    iframe.src = '';
   }
   document.getElementById('popup-overlay').style.display = 'none';
   document.querySelector('.popup-content').classList.remove('fade-in');
@@ -572,6 +563,21 @@ showCategory('sports');
 // Add event listeners for player controls
 document.getElementById('player').addEventListener('mousemove', showControls);
 document.getElementById('player').addEventListener('mouseleave', hideControls);
+
+function showControls() {
+  const controls = document.querySelector('.player-controls');
+  controls.style.opacity = '1';
+  
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(() => {
+    controls.style.opacity = '0';
+  }, 3000);
+}
+
+function hideControls() {
+  const controls = document.querySelector('.player-controls');
+  controls.style.opacity = '0';
+}
 
 // Lazy loading images
 document.addEventListener("DOMContentLoaded", function() {
