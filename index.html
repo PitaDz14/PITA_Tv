@@ -154,6 +154,12 @@ h1 {
   flex-direction: column;
   gap: 10px;
   z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.player-controls:hover {
+  opacity: 1;
 }
 
 .player-btn {
@@ -254,6 +260,42 @@ footer {
         <img src="https://via.placeholder.com/200x150?text=Al+Jazeera" alt="Al Jazeera logo" width="200" height="150">
         <h3>Al Jazeera</h3>
       </div>
+      <div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://al-ekhbaria-prod-dub.shahid.net/out/v1/9885cab0a3ec4008b53bae57a27ca76b/index_2.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+القرآن+الكريم" alt="قناة القرآن الكريم logo" width="200" height="150">
+        <h3>قناة القرآن الكريم</h3>
+      </div>
+      <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+الأرضية+الجزائرية" alt="قناة الأرضية الجزائرية logo" width="200" height="150">
+        <h3>قناة الأرضية الجزائرية</h3>
+      </div>
+      <div class="channel" onclick="showPopup('قناة الثالثة الجزائرية', 'https://bozztv.com/gin-36bay3/ga-algeriaoula1/tracks-v1a1/mono.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+الثالثة+الجزائرية" alt="قناة الثالثة الجزائرية logo" width="200" height="150">
+        <h3>قناة الثالثة الجزائرية</h3>
+      </div>
+      <div class="channel" onclick="showPopup('قناة BBC العربية', 'https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+BBC+العربية" alt="قناة BBC العربية logo" width="200" height="150">
+        <h3>قناة BBC العربية</h3>
+      </div>
+      <div class="channel" onclick="showPopup('قناة France 24 العربية', 'https://helga.iptv2022.com/sh/France24_ar/tracks-v1a1/mono.m3u8?filter.tracks=a1v1v2v3v4')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+France+24+العربية" alt="قناة France 24 العربية logo" width="200" height="150">
+        <h3>قناة France 24 العربية</h3>
+      </div>
+      <div class="channel" onclick="showPopup('RT روسيا اليوم HD', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=RT+روسيا+اليوم+HD" alt="RT روسيا اليوم HD logo" width="200" height="150">
+        <h3>RT روسيا اليوم HD</h3>
+      </div>
+      <div class="channel" onclick="showPopup('RT روسيا اليوم', 'https://rt-arb.rttv.com/dvr/rtarab/playlist.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=RT+روسيا+اليوم" alt="RT روسيا اليوم logo" width="200" height="150">
+        <h3>RT روسيا اليوم</h3>
+      </div>
+      <div class="channel" onclick="showPopup('قناة الحرة', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+الحرة" alt="قناة الحرة logo" width="200" height="150">
+        <h3>قناة الحرة</h3>
+      </div>
+      <div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=قناة+الأقصى+الفلسطينية" alt="قناة الأقصى الفلسطينية logo" width="200" height="150">
+        <h3>قناة الأقصى الفلسطينية</h3>
+      </div>
     </div>
   </div>
 
@@ -306,6 +348,7 @@ footer {
 <script>
 let player;
 let dlnaPlayer;
+let controlsTimeout;
 
 function showCategory(categoryId) {
   document.querySelectorAll('.category').forEach(cat => cat.style.display = 'none');
@@ -339,37 +382,26 @@ function showPopup(channelName, videoUrl) {
     </button>
   `;
   playerElement.appendChild(controlsDiv);
+
+  playerElement.addEventListener('mousemove', showControls);
+  playerElement.addEventListener('mouseleave', hideControls);
   
   document.getElementById('popup-overlay').style.display = 'flex';
 }
 
-function openPopup(channelName, webUrl) {
-  const iframe = document.createElement('iframe');
-  iframe.src = webUrl;
-  iframe.style.width = '100%';
-  iframe.style.height = '100%';
-  iframe.style.border = 'none';
+function showControls() {
+  const controls = document.querySelector('.player-controls');
+  controls.style.opacity = '1';
+  
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(() => {
+    controls.style.opacity = '0';
+  }, 3000);
+}
 
-  const playerElement = document.getElementById('player');
-  playerElement.innerHTML = '';
-  playerElement.appendChild(iframe);
-
-  const controlsDiv = document.createElement('div');
-  controlsDiv.className = 'player-controls';
-  controlsDiv.innerHTML = `
-    <button class="player-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
-      <i class="fas fa-expand"></i>
-    </button>
-    <button class="player-btn" onclick="toggleDLNA()" title="DLNA DMR">
-      <i class="fas fa-tv"></i>
-    </button>
-    <button class="player-btn" onclick="closePopup()" title="إغلاق">
-      <i class="fas fa-times"></i>
-    </button>
-  `;
-  playerElement.appendChild(controlsDiv);
-
-  document.getElementById('popup-overlay').style.display = 'flex';
+function hideControls() {
+  const controls = document.querySelector('.player-controls');
+  controls.style.opacity = '0';
 }
 
 function closePopup() {
@@ -378,6 +410,10 @@ function closePopup() {
   }
   document.getElementById('popup-overlay').style.display = 'none';
   document.getElementById('player').innerHTML = '';
+  
+  const playerElement = document.getElementById('player');
+  playerElement.removeEventListener('mousemove', showControls);
+  playerElement.removeEventListener('mouseleave', hideControls);
 }
 
 function toggleFullscreen() {
@@ -385,21 +421,21 @@ function toggleFullscreen() {
   if (!document.fullscreenElement) {
     if (playerElement.requestFullscreen) {
       playerElement.requestFullscreen();
-    } else if (playerElement.mozRequestFullScreen) { // Firefox
+    } else if (playerElement.mozRequestFullScreen) {
       playerElement.mozRequestFullScreen();
-    } else if (playerElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    } else if (playerElement.webkitRequestFullscreen) {
       playerElement.webkitRequestFullscreen();
-    } else if (playerElement.msRequestFullscreen) { // IE/Edge
+    } else if (playerElement.msRequestFullscreen) {
       playerElement.msRequestFullscreen();
     }
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { // Firefox
+    } else if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+    } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { // IE/Edge
+    } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
   }
