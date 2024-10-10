@@ -166,12 +166,15 @@ h1 {
 }
 
 .popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 95%;
   max-width: 1200px;
   height: 80vh;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 #player {
@@ -437,6 +440,8 @@ footer a:hover {
 let player;
 let dlnaPlayer;
 let controlsTimeout;
+let currentVideoUrl = '';
+let currentChannelName = '';
 
 function showCategory(categoryId) {
   document.querySelectorAll('.category').forEach(cat => {
@@ -451,6 +456,8 @@ function showCategory(categoryId) {
 }
 
 function showPopup(channelName, videoUrl) {
+  currentVideoUrl = videoUrl;
+  currentChannelName = channelName;
   if (player) {
     player.destroy();
   }
@@ -476,6 +483,8 @@ function showPopup(channelName, videoUrl) {
 }
 
 function openPopup(channelName, url) {
+  currentVideoUrl = url;
+  currentChannelName = channelName;
   const iframe = document.createElement('iframe');
   iframe.src = url;
   iframe.width = '100%';
@@ -497,52 +506,26 @@ function closePopup() {
   }
   const iframe = document.querySelector('#player iframe');
   if (iframe) {
-    iframe.src = '';
+    iframe.src = 'about:blank';
+    iframe.remove();
   }
   document.getElementById('popup-overlay').style.display = 'none';
   document.querySelector('.popup-content').classList.remove('fade-in');
+  currentVideoUrl = '';
+  currentChannelName = '';
 }
 
-function toggleFullscreen() {
-  const playerElement = document.getElementById('player');
-  if (!document.fullscreenElement) {
-    if (playerElement.requestFullscreen) {
-      playerElement.requestFullscreen();
-    } else if (playerElement.mozRequestFullScreen) {
-      playerElement.mozRequestFullScreen();
-    } else if (playerElement.webkitRequestFullscreen) {
-      playerElement.webkitRequestFullscreen();
-    } else if (playerElement.msRequestFullscreen) {
-      playerElement.msRequestFullscreen();
+window.addEventListener('orientationchange', function() {
+  setTimeout(function() {
+    if (currentVideoUrl) {
+      if (currentVideoUrl.includes('http')) {
+        openPopup(currentChannelName, currentVideoUrl);
+      } else {
+        showPopup(currentChannelName, currentVideoUrl);
+      }
     }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  }
-}
-
-function toggleDLNA() {
-  if (dlnaPlayer && dlnaPlayer.isPlaying()) {
-    dlnaPlayer.stop();
-    dlnaPlayer = null;
-    alert('تم إيقاف البث على DLNA DMR');
-  } else {
-    dlnaPlayer = {
-      play: function() { console.log('DLNA playback started'); },
-      stop: function() { console.log('DLNA playback stopped'); },
-      isPlaying: function() { return !!dlnaPlayer; }
-    };
-    dlnaPlayer.play();
-    alert('تم بدء البث على DLNA DMR');
-  }
-}
+  }, 100);
+});
 
 // Search functionality
 document.getElementById('search-input').addEventListener('input', function(e) {
