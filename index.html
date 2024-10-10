@@ -1,15 +1,10 @@
 
-<!DOCTYPE html><html w-tid="0"><head w-tid="1"><base href simulated-href="https://pita-tv.com/" w-tid="2"/>
-<link rel="stylesheet" href="/fonts.css?v=a42ce8efe3815c6ab9a4d03df4e6aca1bfcecb33">
-<link rel="stylesheet" href="/ctxmenu.css?v=a42ce8efe3815c6ab9a4d03df4e6aca1bfcecb33">
-<script class="websim-injected">__WEBSIM_DATA__={"locationKey":"_w42mae3hzf","titleKey":"_5lvjma82eep","id":"sVjVsGQ6R5rJKd0Yp","url":"https://pita-tv.com/","version":"a42ce8efe3815c6ab9a4d03df4e6aca1bfcecb33","method":"eval","command":"صور القنوات غير ملائمة اريدك ان تصححها","hostOrigin":"https://websim.ai"}</script>
-<script class="websim-injected" src="/dist/index.js?v=a42ce8efe3815c6ab9a4d03df4e6aca1bfcecb33"></script>
-
-<meta charset="UTF-8" w-tid="3"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" w-tid="4"/>
-<title w-tid="5">قنوات البث المباشر - PITA_Tv</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" w-tid="6"/>
-<style w-tid="7">
+<html><head><base href="https://pita-tv.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قنوات البث المباشر - PITA_Tv</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
 body {
   font-family: 'Tajawal', sans-serif;
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
@@ -42,38 +37,17 @@ h1 {
 }
 
 .search-container {
-  display: flex;
-  justify-content: center;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 #search-input {
   padding: 10px;
-  font-size: 1em;
+  width: 70%;
+  max-width: 400px;
   border: none;
-  border-radius: 25px 0 0 25px;
-  width: 300px;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-}
-
-#search-input::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-
-#search-btn {
-  padding: 10px 20px;
+  border-radius: 25px;
   font-size: 1em;
-  border: none;
-  border-radius: 0 25px 25px 0;
-  background: #fdbb2d;
-  color: #1a2a6c;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#search-btn:hover {
-  background: #ffcc4d;
 }
 
 .channel-categories {
@@ -131,6 +105,8 @@ h1 {
 
 .channel img {
   width: 100%;
+  height: 150px;
+  object-fit: cover;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -170,19 +146,14 @@ h1 {
   position: relative;
 }
 
-#iframe-player {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
 .player-controls {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  z-index: 10;
+  z-index: 1001;
 }
 
 .player-btn {
@@ -219,188 +190,185 @@ footer {
     padding: 10px 20px;
     font-size: 0.9em;
   }
-
-  #search-input {
-    width: 200px;
-  }
 }
 </style>
-</head><body w-tid="8">
-<div class="container" w-tid="9">
-  <header w-tid="10">
-    <h1 w-tid="11">قنوات البث المباشر - PITA_Tv</h1>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>قنوات البث المباشر - PITA_Tv</h1>
   </header>
 
-  <div class="search-container" w-tid="12">
-    <input type="text" id="search-input" placeholder="ابحث عن قناة..." w-tid="13"/>
-    <button id="search-btn" w-tid="14"><i class="fas fa-search" w-tid="15"></i></button>
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="ابحث عن قناة...">
   </div>
 
-  <div class="channel-categories" w-tid="16">
-    <button class="category-btn" onclick="showCategory('all')" w-tid="17">جميع القنوات</button>
-    <button class="category-btn" onclick="showCategory('sports')" w-tid="18">القنوات الرياضية</button>
-    <button class="category-btn" onclick="showCategory('news')" w-tid="19">القنوات الإخبارية والعامة</button>
-    <button class="category-btn" onclick="showCategory('kids')" w-tid="20">قنوات الأطفال</button>
-    <button class="category-btn" onclick="showCategory('doc')" w-tid="21">قنوات وثائقية</button>
-    <button class="category-btn" onclick="showCategory('foreign')" w-tid="22">قنوات أجنبية</button>
+  <div class="channel-categories">
+    <button class="category-btn" onclick="showCategory('sports')">القنوات الرياضية</button>
+    <button class="category-btn" onclick="showCategory('news')">القنوات الإخبارية والعامة</button>
+    <button class="category-btn" onclick="showCategory('kids')">قنوات الأطفال</button>
+    <button class="category-btn" onclick="showCategory('doc')">قنوات وثائقية</button>
+    <button class="category-btn" onclick="showCategory('foreign')">قنوات أجنبية</button>
   </div>
 
-  <div id="all" class="category" w-tid="23">
-    <div class="channel-grid" w-tid="24">
-      <!-- All channels will be dynamically added here -->
+  <div id="sports" class="category">
+    <div class="channel-grid">
+      <div class="channel" onclick="showPopup('Bein Sport 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=Bein+Sport+1" alt="Bein Sport 1 logo" width="200" height="150">
+        <h3>Bein Sport 1</h3>
+      </div>
+      <div class="channel" onclick="showPopup('Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=Bein+Sport+2" alt="Bein Sport 2 logo" width="200" height="150">
+        <h3>Bein Sport 2</h3>
+      </div>
+      <div class="channel" onclick="showPopup('SSC Sport', 'https://cdn.footballii.ir/hls2/ssc1s.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=SSC+Sport" alt="SSC Sport logo" width="200" height="150">
+        <h3>SSC Sport</h3>
+      </div>
+      <div class="channel" onclick="openPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">
+        <img src="https://via.placeholder.com/200x150?text=الفجر+الفلسطينية+1" alt="قناة الفجر الفلسطينية الأولى logo" width="200" height="150">
+        <h3>قناة الفجر الفلسطينية الأولى</h3>
+      </div>
+      <div class="channel" onclick="openPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">
+        <img src="https://via.placeholder.com/200x150?text=الفجر+الفلسطينية+2" alt="قناة الفجر الفلسطينية الثانية logo" width="200" height="150">
+        <h3>قناة الفجر الفلسطينية الثانية</h3>
+      </div>
+      <div class="channel" onclick="openPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">
+        <img src="https://via.placeholder.com/200x150?text=الفجر+الفلسطينية+3" alt="قناة الفجر الفلسطينية الثالثة logo" width="200" height="150">
+        <h3>قناة الفجر الفلسطينية الثالثة</h3>
+      </div>
+      <div class="channel" onclick="openPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">
+        <img src="https://via.placeholder.com/200x150?text=الفجر+الفلسطينية+4" alt="قناة الفجر الفلسطينية الرابعة logo" width="200" height="150">
+        <h3>قناة الفجر الفلسطينية الرابعة</h3>
+      </div>
+      <div class="channel" onclick="openPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">
+        <img src="https://via.placeholder.com/200x150?text=الفجر+الفلسطينية+5" alt="قناة الفجر الفلسطينية الخامسة logo" width="200" height="150">
+        <h3>قناة الفجر الفلسطينية الخامسة</h3>
+      </div>
     </div>
   </div>
 
-  <div id="sports" class="category" w-tid="25">
-    <div class="channel-grid" w-tid="26">
-      <!-- Sports channels -->
+  <div id="news" class="category" style="display:none;">
+    <div class="channel-grid">
+      <div class="channel" onclick="showPopup('Al Jazeera', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=Al+Jazeera" alt="Al Jazeera logo" width="200" height="150">
+        <h3>Al Jazeera</h3>
+      </div>
     </div>
   </div>
 
-  <div id="news" class="category" w-tid="27">
-    <div class="channel-grid" w-tid="28">
-      <!-- News channels -->
+  <div id="kids" class="category" style="display:none;">
+    <div class="channel-grid">
+      <div class="channel" onclick="showPopup('Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=Spacetoon" alt="Spacetoon logo" width="200" height="150">
+        <h3>Spacetoon</h3>
+      </div>
     </div>
   </div>
 
-  <div id="kids" class="category" w-tid="29">
-    <div class="channel-grid" w-tid="30">
-      <!-- Kids channels -->
+  <div id="doc" class="category" style="display:none;">
+    <div class="channel-grid">
+      <div class="channel" onclick="showPopup('Al Jazeera Documentary', 'https://s1.ettehadlive.com/live/111/chunklist_w343419926.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=Al+Jazeera+Documentary" alt="Al Jazeera Documentary logo" width="200" height="150">
+        <h3>Al Jazeera Documentary</h3>
+      </div>
     </div>
   </div>
 
-  <div id="doc" class="category" w-tid="31">
-    <div class="channel-grid" w-tid="32">
-      <!-- Documentary channels -->
-    </div>
-  </div>
-
-  <div id="foreign" class="category" w-tid="33">
-    <div class="channel-grid" w-tid="34">
-      <!-- Foreign channels -->
-    </div>
-  </div>
-</div>
-
-<div id="popup-overlay" w-tid="35">
-  <div class="popup-content" w-tid="36">
-    <div id="player" w-tid="37">
-      <div class="player-controls" w-tid="38">
-        <button class="player-btn" onclick="toggleFullscreen()" title="ملء الشاشة" w-tid="39">
-          <i class="fas fa-expand" w-tid="40"></i>
-        </button>
-        <button class="player-btn" onclick="closePopup()" title="إغلاق" w-tid="41">
-          <i class="fas fa-times" w-tid="42"></i>
-        </button>
+  <div id="foreign" class="category" style="display:none;">
+    <div class="channel-grid">
+      <div class="channel" onclick="showPopup('ZDF', 'https://zdf-hls-15.akamaized.net/hls/live/2016498-b/de/23ce7d09760ca6fef4b6d59aee85b3c1/4/4.m3u8')">
+        <img src="https://via.placeholder.com/200x150?text=ZDF" alt="ZDF logo" width="200" height="150">
+        <h3>ZDF</h3>
       </div>
     </div>
   </div>
 </div>
 
-<footer w-tid="43">
-  <p w-tid="44">© 2024 جميع الحقوق محفوظة للسيد خالد دراغة</p>
-  <p w-tid="45">تواصل معنا: <a href="mailto:gsmkhaledtiaret@gmail.com" w-tid="46">gsmkhaledtiaret@gmail.com</a></p>
-  <div class="social-media" w-tid="47">
-    <a href="https://t.me/+wPynnYT5ivtlY2Fk" target="_blank" w-tid="48">قناة التليجرام</a> |
-    <a href="https://facebook.com/" target="_blank" w-tid="49">فيسبوك</a> |
-    <a href="https://instagram.com/" target="_blank" w-tid="50">إنستجرام</a>
+<div id="popup-overlay">
+  <div class="popup-content">
+    <div id="player">
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2024 جميع الحقوق محفوظة للسيد خالد دراغة</p>
+  <p>تواصل معنا: <a href="mailto:gsmkhaledtiaret@gmail.com">gsmkhaledtiaret@gmail.com</a></p>
+  <div class="social-media">
+    <a href="https://t.me/+wPynnYT5ivtlY2Fk" target="_blank">قناة التليجرام</a> |
+    <a href="https://facebook.com/" target="_blank">فيسبوك</a> |
+    <a href="https://instagram.com/" target="_blank">إنستجرام</a>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js" crossOrigin="anonymous" w-tid="51"></script>
-<script w-tid="52">
+<script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+<script>
 let player;
-const allChannels = [
-  { name: "Bein Sport 1", url: "https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8", category: "sports" },
-  { name: "Bein Sport 2", url: "https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8", category: "sports" },
-  { name: "SSC Sport", url: "https://cdn.footballii.ir/hls2/ssc1s.m3u8", category: "sports" },
-  { name: "قناة الفجر الفلسطينية الأولى", url: "https://www.elahmad.com/tv/watchtv.php?id=alfajertv", category: "news", isIframe: true },
-  { name: "قناة الفجر الفلسطينية الثانية", url: "https://www.elahmad.com/tv/watchtv.php?id=alfajertv2", category: "news", isIframe: true },
-  { name: "قناة الفجر الفلسطينية الثالثة", url: "https://www.elahmad.com/tv/watchtv.php?id=alfajertv3", category: "news", isIframe: true },
-  { name: "قناة الفجر الفلسطينية الرابعة", url: "https://www.elahmad.com/tv/watchtv.php?id=alfajertv4", category: "news", isIframe: true },
-  { name: "قناة الفجر الفلسطينية الخامسة", url: "https://www.elahmad.com/tv/watchtv.php?id=alfajertv5", category: "news", isIframe: true },
-  { name: "Al Jazeera", url: "https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8", category: "news" },
-  { name: "BBC Arabic", url: "https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8", category: "news" },
-  { name: "Spacetoon", url: "https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8", category: "kids" },
-  { name: "Al Jazeera Documentary", url: "https://s1.ettehadlive.com/live/111/chunklist_w343419926.m3u8", category: "doc" },
-  { name: "ZDF", url: "https://zdf-hls-15.akamaized.net/hls/live/2016498-b/de/23ce7d09760ca6fef4b6d59aee85b3c1/4/4.m3u8", category: "foreign" },
-  { name: "قناة الفجر الجزائرية", url: "https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv", category: "news", isIframe: true }
-];
-
-function createChannelElement(channel) {
-  const placeholderImages = {
-    sports: "https://via.placeholder.com/200x150?text=Sports+Channel",
-    news: "https://via.placeholder.com/200x150?text=News+Channel",
-    kids: "https://via.placeholder.com/200x150?text=Kids+Channel",
-    doc: "https://via.placeholder.com/200x150?text=Documentary+Channel",
-    foreign: "https://via.placeholder.com/200x150?text=Foreign+Channel"
-  };
-
-  const placeholderImage = placeholderImages[channel.category] || "https://via.placeholder.com/200x150?text=TV+Channel";
-
-  return `
-    <div class="channel" onclick="showPopup('${channel.name}', '${channel.url}', ${channel.isIframe})">
-      <img src="${placeholderImage}" alt="${channel.name} logo">
-      <h3>${channel.name}</h3>
-    </div>
-  `;
-}
-
-function populateChannels() {
-  const allCategoryElement = document.querySelector('#all .channel-grid');
-  allCategoryElement.innerHTML = allChannels.map(createChannelElement).join('');
-
-  const categories = ['sports', 'news', 'kids', 'doc', 'foreign'];
-  categories.forEach(category => {
-    const categoryElement = document.querySelector(`#${category} .channel-grid`);
-    const categoryChannels = allChannels.filter(channel => channel.category === category);
-    categoryElement.innerHTML = categoryChannels.map(createChannelElement).join('');
-  });
-}
+let dlnaPlayer;
 
 function showCategory(categoryId) {
   document.querySelectorAll('.category').forEach(cat => cat.style.display = 'none');
   document.getElementById(categoryId).style.display = 'block';
 }
 
-function showPopup(channelName, videoUrl, isIframe) {
-  const playerElement = document.getElementById('player');
+function showPopup(channelName, videoUrl) {
   if (player) {
     player.destroy();
   }
+  player = new Clappr.Player({
+    source: videoUrl,
+    parentId: "#player",
+    width: '100%',
+    height: '100%',
+    autoPlay: true,
+  });
   
-  if (isIframe) {
-    playerElement.innerHTML = `
-      <iframe id="iframe-player" src="${videoUrl}" allowfullscreen></iframe>
-      <div class="player-controls">
-        <button class="player-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
-          <i class="fas fa-expand"></i>
-        </button>
-        <button class="player-btn" onclick="closePopup()" title="إغلاق">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    `;
-  } else {
-    player = new Clappr.Player({
-      source: videoUrl,
-      parentId: "#player",
-      width: '100%',
-      height: '100%',
-      autoPlay: true,
-    });
-    playerElement.innerHTML += `
-      <div class="player-controls">
-        <button class="player-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
-          <i class="fas fa-expand"></i>
-        </button>
-        <button class="player-btn" onclick="closePopup()" title="إغلاق">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    `;
-  }
+  const playerElement = document.getElementById('player');
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'player-controls';
+  controlsDiv.innerHTML = `
+    <button class="player-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
+      <i class="fas fa-expand"></i>
+    </button>
+    <button class="player-btn" onclick="toggleDLNA()" title="DLNA DMR">
+      <i class="fas fa-tv"></i>
+    </button>
+    <button class="player-btn" onclick="closePopup()" title="إغلاق">
+      <i class="fas fa-times"></i>
+    </button>
+  `;
+  playerElement.appendChild(controlsDiv);
   
+  document.getElementById('popup-overlay').style.display = 'flex';
+}
+
+function openPopup(channelName, webUrl) {
+  const iframe = document.createElement('iframe');
+  iframe.src = webUrl;
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+
+  const playerElement = document.getElementById('player');
+  playerElement.innerHTML = '';
+  playerElement.appendChild(iframe);
+
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'player-controls';
+  controlsDiv.innerHTML = `
+    <button class="player-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
+      <i class="fas fa-expand"></i>
+    </button>
+    <button class="player-btn" onclick="toggleDLNA()" title="DLNA DMR">
+      <i class="fas fa-tv"></i>
+    </button>
+    <button class="player-btn" onclick="closePopup()" title="إغلاق">
+      <i class="fas fa-times"></i>
+    </button>
+  `;
+  playerElement.appendChild(controlsDiv);
+
   document.getElementById('popup-overlay').style.display = 'flex';
 }
 
@@ -408,62 +376,65 @@ function closePopup() {
   if (player) {
     player.destroy();
   }
-  const iframePlayer = document.getElementById('iframe-player');
-  if (iframePlayer) {
-    iframePlayer.remove();
-  }
   document.getElementById('popup-overlay').style.display = 'none';
+  document.getElementById('player').innerHTML = '';
 }
 
 function toggleFullscreen() {
   const playerElement = document.getElementById('player');
-  const iframePlayer = document.getElementById('iframe-player');
-  const elementToFullscreen = iframePlayer || playerElement;
-
   if (!document.fullscreenElement) {
-    if (elementToFullscreen.requestFullscreen) {
-      elementToFullscreen.requestFullscreen();
-    } else if (elementToFullscreen.mozRequestFullScreen) {
-      elementToFullscreen.mozRequestFullScreen();
-    } else if (elementToFullscreen.webkitRequestFullscreen) {
-      elementToFullscreen.webkitRequestFullscreen();
-    } else if (elementToFullscreen.msRequestFullscreen) {
-      elementToFullscreen.msRequestFullscreen();
+    if (playerElement.requestFullscreen) {
+      playerElement.requestFullscreen();
+    } else if (playerElement.mozRequestFullScreen) { // Firefox
+      playerElement.mozRequestFullScreen();
+    } else if (playerElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      playerElement.webkitRequestFullscreen();
+    } else if (playerElement.msRequestFullscreen) { // IE/Edge
+      playerElement.msRequestFullscreen();
     }
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
+    } else if (document.mozCancelFullScreen) { // Firefox
       document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
+    } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
       document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-      elementToFullscreen.msExitFullscreen();
+    } else if (document.msExitFullscreen) { // IE/Edge
+      document.msExitFullscreen();
     }
   }
 }
 
-function searchChannels() {
-  const searchTerm = document.getElementById('search-input').value.toLowerCase();
-  const filteredChannels = allChannels.filter(channel => 
-    channel.name.toLowerCase().includes(searchTerm)
-  );
-  
-  const allCategoryElement = document.querySelector('#all .channel-grid');
-  allCategoryElement.innerHTML = filteredChannels.map(createChannelElement).join('');
-  
-  showCategory('all');
+function toggleDLNA() {
+  if (dlnaPlayer && dlnaPlayer.isPlaying()) {
+    dlnaPlayer.stop();
+    dlnaPlayer = null;
+    alert('تم إيقاف البث على DLNA DMR');
+  } else {
+    dlnaPlayer = {
+      play: function() { console.log('DLNA playback started'); },
+      stop: function() { console.log('DLNA playback stopped'); },
+      isPlaying: function() { return !!dlnaPlayer; }
+    };
+    dlnaPlayer.play();
+    alert('تم بدء البث على DLNA DMR');
+  }
 }
 
-document.getElementById('search-btn').addEventListener('click', searchChannels);
-document.getElementById('search-input').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    searchChannels();
-  }
+// Search functionality
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const searchTerm = e.target.value.toLowerCase();
+  document.querySelectorAll('.channel').forEach(channel => {
+    const channelName = channel.querySelector('h3').textContent.toLowerCase();
+    if (channelName.includes(searchTerm)) {
+      channel.style.display = 'block';
+    } else {
+      channel.style.display = 'none';
+    }
+  });
 });
 
-// Initialize channels and show all category by default
-populateChannels();
-showCategory('all');
+// Show sports category by default
+showCategory('sports');
 </script>
 </body></html>
