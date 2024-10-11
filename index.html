@@ -230,17 +230,36 @@
     width: 90%;
     max-width: 1200px;
     height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
-  .popup-iframe {
+  .popup-media-container {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+  }
+  .popup-iframe, #hls-video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: calc(100% - 60px);
+    height: 100%;
     border: none;
+  }
+  @media screen and (orientation: landscape) {
+    .popup-content {
+      width: 90vw;
+      height: 90vh;
+    }
   }
   .popup-controls {
     position: absolute;
     top: 10px;
-    right: 10px;
+    left: 10px;
     display: flex;
+    flex-direction: column;
     gap: 10px;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -465,7 +484,9 @@
   <div id="popup" class="popup">
     <div class="popup-content">
       <h2 id="popup-title"></h2>
-      <iframe id="popup-iframe" class="popup-iframe" allowfullscreen></iframe>
+      <div class="popup-media-container">
+        <iframe id="popup-iframe" class="popup-iframe" allowfullscreen></iframe>
+      </div>
       <div class="popup-controls">
         <button id="fullscreen-btn" class="popup-button" onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
         <button id="close-btn" class="popup-button" onclick="closePopup()"><i class="fas fa-times"></i></button>
@@ -478,13 +499,13 @@
       <p>جميع الحقوق محفوظة &copy; 2024 PITA DZ TV</p>
       <p>المالك: خالد دراغة</p>
       <div class="social-links">
-        <a href="https://facebook.com/khaleddragha" target="_blank" title="فيسبوك"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/khaleddragha" target="_blank" title="تويتر"><i class="fab fa-twitter"></i></a>
-        <a href="https://instagram.com/khaleddragha" target="_blank" title="إنستاجرام"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/khaleddragha" target="_blank" title="تليجرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://youtube.com/khaleddragha" target="_blank" title="يوتيوب"><i class="fab fa-youtube"></i></a>
+        <a href="https://facebook.com/" target="_blank" title="فيسبوك"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/" target="_blank" title="تويتر"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/" target="_blank" title="إنستاجرام"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/" target="_blank" title="تليجرام"><i class="fab fa-telegram"></i></a>
+        <a href="https://youtube.com/" target="_blank" title="يوتيوب"><i class="fab fa-youtube"></i></a>
         <a href="https://tiktok.com/@khaleddragha" target="_blank" title="تيك توك"><i class="fab fa-tiktok"></i></a>
-        <a href="mailto:khaled.dragha@pita-dz-tv.com" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
+        <a href="mailto:gsmkhaledtiaret@gmail.com" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
       </div>
     </div>
   </footer>
@@ -575,7 +596,7 @@
     function showPopup(title, url) {
       const popup = document.getElementById('popup');
       const popupTitle = document.getElementById('popup-title');
-      const popupIframe = document.getElementById('popup-iframe');
+      const popupMediaContainer = document.querySelector('.popup-media-container');
       
       popupTitle.textContent = title;
       
@@ -583,10 +604,9 @@
         const video = document.createElement('video');
         video.id = 'hls-video';
         video.controls = true;
-        video.style.width = '100%';
-        video.style.height = '100%';
         
-        popupIframe.parentNode.replaceChild(video, popupIframe);
+        popupMediaContainer.innerHTML = '';
+        popupMediaContainer.appendChild(video);
         
         if (Hls.isSupported()) {
           const hls = new Hls();
@@ -602,47 +622,44 @@
           });
         }
       } else {
-        popupIframe.src = url;
+        const iframe = document.createElement('iframe');
+        iframe.id = 'popup-iframe';
+        iframe.className = 'popup-iframe';
+        iframe.allowFullscreen = true;
+        iframe.src = url;
+        
+        popupMediaContainer.innerHTML = '';
+        popupMediaContainer.appendChild(iframe);
       }
       
       popup.style.display = 'block';
-      setupPopupControlsVisibility(); 
+      setupPopupControlsVisibility();
+      handleOrientationChange();
     }
 
     function closePopup() {
       const popup = document.getElementById('popup');
-      const popupContent = document.querySelector('.popup-content');
-      const existingIframe = document.getElementById('popup-iframe');
-      const existingVideo = document.getElementById('hls-video');
+      const popupMediaContainer = document.querySelector('.popup-media-container');
 
       // Stop video/audio playback
+      const existingVideo = document.getElementById('hls-video');
       if (existingVideo) {
         existingVideo.pause();
         existingVideo.src = '';
         existingVideo.load();
       }
 
-      if (existingIframe) {
-        existingIframe.src = '';
-      }
-
       // Reset popup content
-      const newIframe = document.createElement('iframe');
-      newIframe.id = 'popup-iframe';
-      newIframe.className = 'popup-iframe';
-      newIframe.allowFullscreen = true;
-
-      if (existingVideo) {
-        popupContent.replaceChild(newIframe, existingVideo);
-      } else if (existingIframe) {
-        popupContent.replaceChild(newIframe, existingIframe);
-      }
+      popupMediaContainer.innerHTML = '';
 
       // Hide the popup
       popup.style.display = 'none';
 
       // Reset popup title
       document.getElementById('popup-title').textContent = '';
+
+      // Remove the orientation change event listener
+      window.removeEventListener('orientationchange', handleOrientationChange);
     }
 
     function toggleFullscreen() {
@@ -684,6 +701,34 @@
       showControls();
       hideControls();
     }
+
+    function handleOrientationChange() {
+      const popup = document.getElementById('popup');
+      const popupContent = document.querySelector('.popup-content');
+      const video = document.getElementById('hls-video');
+      const iframe = document.getElementById('popup-iframe');
+
+      if (window.matchMedia("(orientation: landscape)").matches) {
+        popupContent.style.width = '90vw';
+        popupContent.style.height = '90vh';
+      } else {
+        popupContent.style.width = '90%';
+        popupContent.style.height = '80vh';
+      }
+
+      if (video) {
+        video.style.width = '100%';
+        video.style.height = '100%';
+      }
+
+      if (iframe) {
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+      }
+    }
+
+    // Add event listener for orientation change
+    window.addEventListener('orientationchange', handleOrientationChange);
   </script>
 </body>
 </html>
