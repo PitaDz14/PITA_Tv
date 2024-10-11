@@ -127,6 +127,8 @@ h1 {
   cursor: pointer;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: block !important;
+  opacity: 1 !important;
 }
 
 .channel:hover {
@@ -175,14 +177,52 @@ h1 {
   height: 80vh;
   display: flex;
   flex-direction: column;
-}
-
-#player {
-  flex: 1;
-  width: 100%;
-  height: 100%;
+  background-color: #000;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.popup-content.fullscreen-mode {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.popup-content.fullscreen-mode #player,
+.popup-content.fullscreen-mode #player iframe,
+.popup-content.fullscreen-mode #player video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 2000;
+}
+
+.fullscreen-mode .player-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 20px;
+  z-index: 2000;
+  transition: opacity 0.3s ease;
+}
+
+.fullscreen-mode .player-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 0.8em;
+}
+
+.fullscreen-mode .player-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .player-controls {
@@ -303,19 +343,19 @@ footer a:hover {
         <h3>Bein Sport 2</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+2" alt="Bein Sport 3 logo" width="220" height="180">
+        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+3" alt="Bein Sport 3 logo" width="220" height="180">
         <h3>Bein Sport 3</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 4', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+2" alt="Bein Sport 4 logo" width="220" height="180">
+        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+4" alt="Bein Sport 4 logo" width="220" height="180">
         <h3>Bein Sport 4</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 5', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+2" alt="Bein Sport 5 logo" width="220" height="180">
+        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+5" alt="Bein Sport 5 logo" width="220" height="180">
         <h3>Bein Sport 5</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+2" alt="Bein Sport 6 logo" width="220" height="180">
+        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+6" alt="Bein Sport 6 logo" width="220" height="180">
         <h3>Bein Sport 6</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('SSC Sport', 'https://s1.gokora.online/hls/0/stream.m3u8')">
@@ -475,17 +515,35 @@ let controlsTimeout;
 let currentVideoUrl = '';
 let currentChannelName = '';
 
+function debugChannels() {
+  console.log("Debugging channels:");
+  document.querySelectorAll('.category').forEach(category => {
+    console.log(`Category ${category.id}:`, category.querySelectorAll('.channel').length);
+  });
+}
+
 function showCategory(categoryId) {
+  console.log(`Showing category: ${categoryId}`);
   document.querySelectorAll('.category').forEach(cat => {
     cat.style.display = 'none';
     cat.classList.remove('active');
   });
   const selectedCategory = document.getElementById(categoryId);
-  selectedCategory.style.display = 'block';
-  setTimeout(() => {
-    selectedCategory.classList.add('active');
-  }, 50);
+  if (selectedCategory) {
+    selectedCategory.style.display = 'block';
+    setTimeout(() => {
+      selectedCategory.classList.add('active');
+    }, 50);
+    console.log(`Channels in ${categoryId}:`, selectedCategory.querySelectorAll('.channel').length);
+  } else {
+    console.error(`Category ${categoryId} not found`);
+  }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  debugChannels();
+  showCategory('sports'); // Make sure 'sports' category is shown by default
+});
 
 function showPopup(channelName, videoUrl) {
   currentVideoUrl = videoUrl;
@@ -547,73 +605,115 @@ function closePopup() {
   currentChannelName = '';
 }
 
-window.addEventListener('orientationchange', function() {
-  setTimeout(function() {
-    if (currentVideoUrl) {
-      if (currentVideoUrl.includes('http')) {
-        openPopup(currentChannelName, currentVideoUrl);
-      } else {
-        showPopup(currentChannelName, currentVideoUrl);
-      }
+function toggleFullscreen() {
+  const playerElement = document.querySelector('.popup-content');
+  const videoElement = document.querySelector('#player video, #player iframe');
+  
+  if (!document.fullscreenElement) {
+    if (playerElement.requestFullscreen) {
+      playerElement.requestFullscreen();
+    } else if (playerElement.mozRequestFullScreen) {
+      playerElement.mozRequestFullScreen();
+    } else if (playerElement.webkitRequestFullscreen) {
+      playerElement.webkitRequestFullscreen();
+    } else if (playerElement.msRequestFullscreen) {
+      playerElement.msRequestFullscreen();
     }
-  }, 100);
-});
-
-// Search functionality
-document.getElementById('search-input').addEventListener('input', function(e) {
-  const searchTerm = e.target.value.toLowerCase();
-  document.querySelectorAll('.channel').forEach(channel => {
-    const channelName = channel.querySelector('h3').textContent.toLowerCase();
-    if (channelName.includes(searchTerm)) {
-      channel.style.display = 'block';
-    } else {
-      channel.style.display = 'none';
+    playerElement.classList.add('fullscreen-mode');
+    if (videoElement) {
+      videoElement.style.width = '100%';
+      videoElement.style.height = '100%';
     }
-  });
-});
+    document.addEventListener('mousemove', handleMouseMove);
+    showControls(); // Show controls initially
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+    playerElement.classList.remove('fullscreen-mode');
+    if (videoElement) {
+      videoElement.style.width = '';
+      videoElement.style.height = '';
+    }
+    document.removeEventListener('mousemove', handleMouseMove);
+    clearTimeout(controlsTimeout);
+  }
+}
 
-// Show sports category by default
-showCategory('sports');
-
-// Add event listeners for player controls
-document.getElementById('player').addEventListener('mousemove', showControls);
-document.getElementById('player').addEventListener('mouseleave', hideControls);
-
+// Control Visibility Functions
 function showControls() {
   const controls = document.querySelector('.player-controls');
-  controls.style.opacity = '1';
-  
+  controls.classList.remove('hidden');
   clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(() => {
-    controls.style.opacity = '0';
-  }, 3000);
+  controlsTimeout = setTimeout(hideControls, 3000); // Hide after 3 seconds
 }
 
 function hideControls() {
   const controls = document.querySelector('.player-controls');
-  controls.style.opacity = '0';
+  controls.classList.add('hidden');
 }
 
-// Lazy loading images
-document.addEventListener("DOMContentLoaded", function() {
-  const lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+function handleMouseMove(event) {
+  const controls = document.querySelector('.player-controls');
+  const rect = controls.getBoundingClientRect();
+  const buffer = 50; // pixels
 
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target;
-          lazyImage.src = lazyImage.dataset.src;
-          lazyImage.classList.remove("lazy");
-          lazyImageObserver.unobserve(lazyImage);
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage);
-    });
+  if (
+    event.clientY > rect.top - buffer &&
+    event.clientY < rect.bottom + buffer &&
+    event.clientX > rect.left - buffer &&
+    event.clientX < rect.right + buffer
+  ) {
+    showControls();
   }
+}
+
+// Update the handleFullscreenChange function
+function handleFullscreenChange() {
+  const playerElement = document.querySelector('.popup-content');
+  const fullscreenBtn = document.querySelector('.player-btn[title="ملء الشاشة"] i');
+  const controls = document.querySelector('.player-controls');
+  
+  if (document.fullscreenElement) {
+    playerElement.classList.add('fullscreen-mode');
+    fullscreenBtn.classList.remove('fa-expand');
+    fullscreenBtn.classList.add('fa-compress');
+    fullscreenBtn.parentElement.title = "تصغير الشاشة";
+    showControls(); // Show controls initially when entering fullscreen
+  } else {
+    playerElement.classList.remove('fullscreen-mode');
+    fullscreenBtn.classList.remove('fa-compress');
+    fullscreenBtn.classList.add('fa-expand');
+    fullscreenBtn.parentElement.title = "ملء الشاشة";
+    controls.classList.remove('hidden'); // Always show controls when exiting fullscreen
+    clearTimeout(controlsTimeout);
+  }
+}
+
+// Add touch event listener for mobile devices
+document.addEventListener('DOMContentLoaded', function() {
+  const playerControls = document.querySelector('.player-controls');
+  playerControls.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    showControls();
+  });
+});
+
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+// Search functionality
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const searchTerm = e.target.value.toLowerCase();
 });
 </script>
-</body></html>
+</body>
+</html>
