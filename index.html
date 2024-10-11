@@ -1,4 +1,3 @@
-
 <html><head><base href="https://pita-tv.com/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -232,6 +231,11 @@ h1 {
   display: flex;
   gap: 10px;
   z-index: 1001;
+  transition: opacity 0.3s ease;
+}
+
+.popup-content:not(:hover) .player-controls {
+  opacity: 0;
 }
 
 .player-btn {
@@ -335,54 +339,54 @@ footer a:hover {
   <div id="sports" class="category">
     <div class="channel-grid">
       <div class="channel fade-in" onclick="showPopup('Bein Sport 1', 'https://live2.beinconnect.us/YallaGoalApp/beINSports1.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+1" alt="Bein Sport 1 logo" width="220" height="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/1-HD.png/120px-1-HD.png" alt="Bein Sport 1 logo" width="220" height="180">
         <h3>Bein Sport 1</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 2', 'https://live2.beinconnect.us/YallaGoalApp/beINSports2.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+2" alt="Bein Sport 2 logo" width="220" height="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/2-HD.png/120px-2-HD.png" alt="Bein Sport 2 logo" width="220" height="180">
         <h3>Bein Sport 2</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 3', 'https://live2.beinconnect.us/YallaGoalApp/beINSports3.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+3" alt="Bein Sport 3 logo" width="220" height="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/3-HD.png/120px-3-HD.png" alt="Bein Sport 3 logo" width="220" height="180">
         <h3>Bein Sport 3</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 4', 'https://live2.beinconnect.us/YallaGoalApp/beINSports4.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+4" alt="Bein Sport 4 logo" width="220" height="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/4-HD.png/120px-4-HD.png" alt="Bein Sport 4 logo" width="220" height="180">
         <h3>Bein Sport 4</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 5', 'https://live2.beinconnect.us/YallaGoalApp/beINSports5.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+5" alt="Bein Sport 5 logo" width="220" height="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/5-HD.png/120px-5-HD.png" alt="Bein Sport 5 logo" width="220" height="180">
         <h3>Bein Sport 5</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('Bein Sport 6', 'https://live2.beinconnect.us/YallaGoalApp/beINSports6.m3u8')">
-        <img src="https://via.placeholder.com/220x180?text=Bein+Sport+6" alt="Bein Sport 6 logo" width="220" height="180">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/6-HD.png/120px-6-HD.png" alt="Bein Sport 6 logo" width="220" height="180">
         <h3>Bein Sport 6</h3>
       </div>
       <div class="channel fade-in" onclick="showPopup('SSC Sport', 'https://s1.gokora.online/hls/0/stream.m3u8')">
         <img src="https://via.placeholder.com/220x180?text=SSC+Sport" alt="SSC Sport logo" width="220" height="180">
         <h3>SSC Sport</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">
+      <div class="channel fade-in" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">
         <img src="https://via.placeholder.com/220x180?text=الفجر+الفلسطينية+1" alt="قناة الفجر الفلسطينية الأولى logo" width="220" height="180">
         <h3>قناة الفجر الفلسطينية الأولى</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">
+      <div class="channel fade-in" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">
         <img src="https://via.placeholder.com/220x180?text=الفجر+الفلسطينية+2" alt="قناة الفجر الفلسطينية الثانية logo" width="220" height="180">
         <h3>قناة الفجر الفلسطينية الثانية</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">
+      <div class="channel fade-in" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">
         <img src="https://via.placeholder.com/220x180?text=الفجر+الفلسطينية+3" alt="قناة الفجر الفلسطينية الثالثة logo" width="220" height="180">
         <h3>قناة الفجر الفلسطينية الثالثة</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">
+      <div class="channel fade-in" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">
         <img src="https://via.placeholder.com/220x180?text=الفجر+الفلسطينية+4" alt="قناة الفجر الفلسطينية الرابعة logo" width="220" height="180">
         <h3>قناة الفجر الفلسطينية الرابعة</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">
+      <div class="channel fade-in" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">
         <img src="https://via.placeholder.com/220x180?text=الفجر+الفلسطينية+5" alt="قناة الفجر الفلسطينية الخامسة logo" width="220" height="180">
         <h3>قناة الفجر الفلسطينية الخامسة</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة Bein Sport News', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0')">
+      <div class="channel fade-in" onclick="showPopup('قناة Bein Sport News', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0')">
         <img src="https://via.placeholder.com/220x180?text=SportNews+Bein+4" alt="قناة Bein Sport News logo" width="220" height="180">
         <h3>قناة Bein Sport News</h3>
       </div>   
@@ -403,15 +407,15 @@ footer a:hover {
         <img src="https://via.placeholder.com/220x180?text=قناة+الأرضية+الجزائرية" alt="قناة الأرضية الجزائرية logo" width="220" height="180">
         <h3>قناة الأرضية الجزائرية</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">
+      <div class="channel fade-in" onclick="showPopup('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">
         <img src="https://via.placeholder.com/220x180?text=الفجر+الجزائرية+4" alt="قناة الفجر الجزائرية logo" width="220" height="180">
         <h3>قناة الفجر الجزائرية</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('EchoroukNews الشروق نيوز', 'https://www.elahmad.com/tv/algeria_live.php?id=echorouk_news')">
+      <div class="channel fade-in" onclick="showPopup('EchoroukNews الشروق نيوز', 'https://www.elahmad.com/tv/algeria_live.php?id=echorouk_news')">
         <img src="https://via.placeholder.com/220x180?text=الشروق نيوز+الجزائرية+4" alt="EchoroukNews الشروق نيوز logo" width="220" height="180">
         <h3>EchoroukNews الشروق نيوز</h3>
       </div>
-      <div class="channel fade-in" onclick="openPopup('EchoroukHD الشروق تي في', 'https://www.elahmad.com/tv/radiant.php?id=echorouk_tvhd')">
+      <div class="channel fade-in" onclick="showPopup('EchoroukHD الشروق تي في', 'https://www.elahmad.com/tv/radiant.php?id=echorouk_tvhd')">
         <img src="https://via.placeholder.com/220x180?text=الشروقtv+الجزائرية+4" alt="EchoroukHD الشروق تي في logo" width="220" height="180">
         <h3>EchoroukHD الشروق تي في</h3>
       </div>
@@ -444,7 +448,7 @@ footer a:hover {
 
   <div id="kids" class="category" style="display:none;">
     <div class="channel-grid">
-      <div class="channel fade-in" onclick="openPopup('قناة براعم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=baraem')">
+      <div class="channel fade-in" onclick="showPopup('قناة براعم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=baraem')">
         <img src="https://via.placeholder.com/220x180?text=قناة+براعم+4" alt="قناة براعم logo" width="220" height="180">
         <h3>قناة براعم</h3>
       </div>
@@ -510,7 +514,6 @@ footer a:hover {
 <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.8/dist/plyr.min.js"></script>
 <script>
 let player;
-let dlnaPlayer;
 let controlsTimeout;
 let currentVideoUrl = '';
 let currentChannelName = '';
@@ -519,6 +522,12 @@ function debugChannels() {
   console.log("Debugging channels:");
   document.querySelectorAll('.category').forEach(category => {
     console.log(`Category ${category.id}:`, category.querySelectorAll('.channel').length);
+  });
+}
+
+function showAllChannels() {
+  document.querySelectorAll('.channel').forEach(channel => {
+    channel.style.display = 'block';
   });
 }
 
@@ -537,12 +546,14 @@ function showCategory(categoryId) {
     console.log(`Channels in ${categoryId}:`, selectedCategory.querySelectorAll('.channel').length);
   } else {
     console.error(`Category ${categoryId} not found`);
+    showAllChannels();
   }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   debugChannels();
   showCategory('sports'); // Make sure 'sports' category is shown by default
+  showAllChannels(); // Fallback to show all channels
 });
 
 function showPopup(channelName, videoUrl) {
@@ -552,80 +563,96 @@ function showPopup(channelName, videoUrl) {
     player.destroy();
   }
   const playerElement = document.getElementById('player');
-  playerElement.innerHTML = '<video id="video-player" controls></video>';
+  playerElement.innerHTML = '';
   
-  const video = document.getElementById('video-player');
-  
-  if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource(videoUrl);
-    hls.attachMedia(video);
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = videoUrl;
+  if (videoUrl.includes('elahmad.com') || videoUrl.includes('youtube.com')) {
+    // For web page links, use an iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = videoUrl;
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.frameBorder = '0';
+    iframe.allowFullscreen = true;
+    playerElement.appendChild(iframe);
+  } else {
+    // For direct video links, use Plyr
+    const video = document.createElement('video');
+    video.id = 'video-player';
+    video.controls = true;
+    playerElement.appendChild(video);
+    
+    player = new Plyr('#video-player', {
+      controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+    });
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        player.play();
+      });
+    } else {
+      player.source = {
+        type: 'video',
+        sources: [
+          {
+            src: videoUrl,
+            type: 'application/x-mpegURL'
+          }
+        ]
+      };
+    }
   }
-  
-  player = new Plyr('#video-player', {
-    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-  });
-  
-  document.getElementById('popup-overlay').style.display = 'flex';
-  document.querySelector('.popup-content').classList.add('fade-in');
+
+  document.getElementById('popup-overlay').style.display = 'block';
+  setupControlsAutoHide();
 }
 
-function openPopup(channelName, url) {
-  currentVideoUrl = url;
-  currentChannelName = channelName;
-  const iframe = document.createElement('iframe');
-  iframe.src = url;
-  iframe.width = '100%';
-  iframe.height = '100%';
-  iframe.frameBorder = '0';
-  iframe.allowFullscreen = true;
-  
-  const playerDiv = document.getElementById('player');
-  playerDiv.innerHTML = '';
-  playerDiv.appendChild(iframe);
-  
-  document.getElementById('popup-overlay').style.display = 'flex';
-  document.querySelector('.popup-content').classList.add('fade-in');
+function setupControlsAutoHide() {
+  const controls = document.querySelector('.player-controls');
+  let timeout;
+
+  function showControls() {
+    controls.style.opacity = '1';
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      controls.style.opacity = '0';
+    }, 3000);
+  }
+
+  const playerContent = document.querySelector('.popup-content');
+  playerContent.addEventListener('mousemove', showControls);
+  playerContent.addEventListener('touchstart', showControls, { passive: true });
+
+  showControls();
 }
 
 function closePopup() {
+  document.getElementById('popup-overlay').style.display = 'none';
   if (player) {
+    player.pause();
     player.destroy();
+    player = null;
   }
   const iframe = document.querySelector('#player iframe');
   if (iframe) {
     iframe.src = 'about:blank';
-    iframe.remove();
   }
-  document.getElementById('popup-overlay').style.display = 'none';
-  document.querySelector('.popup-content').classList.remove('fade-in');
-  currentVideoUrl = '';
-  currentChannelName = '';
 }
 
 function toggleFullscreen() {
-  const playerElement = document.querySelector('.popup-content');
-  const videoElement = document.querySelector('#player video, #player iframe');
-  
+  const element = document.querySelector('.popup-content');
   if (!document.fullscreenElement) {
-    if (playerElement.requestFullscreen) {
-      playerElement.requestFullscreen();
-    } else if (playerElement.mozRequestFullScreen) {
-      playerElement.mozRequestFullScreen();
-    } else if (playerElement.webkitRequestFullscreen) {
-      playerElement.webkitRequestFullscreen();
-    } else if (playerElement.msRequestFullscreen) {
-      playerElement.msRequestFullscreen();
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
     }
-    playerElement.classList.add('fullscreen-mode');
-    if (videoElement) {
-      videoElement.style.width = '100%';
-      videoElement.style.height = '100%';
-    }
-    document.addEventListener('mousemove', handleMouseMove);
-    showControls(); // Show controls initially
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
@@ -636,84 +663,12 @@ function toggleFullscreen() {
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
-    playerElement.classList.remove('fullscreen-mode');
-    if (videoElement) {
-      videoElement.style.width = '';
-      videoElement.style.height = '';
-    }
-    document.removeEventListener('mousemove', handleMouseMove);
-    clearTimeout(controlsTimeout);
   }
 }
 
-// Control Visibility Functions
-function showControls() {
-  const controls = document.querySelector('.player-controls');
-  controls.classList.remove('hidden');
-  clearTimeout(controlsTimeout);
-  controlsTimeout = setTimeout(hideControls, 3000); // Hide after 3 seconds
+function toggleDLNA() {
+  // Implementation for DLNA functionality
 }
-
-function hideControls() {
-  const controls = document.querySelector('.player-controls');
-  controls.classList.add('hidden');
-}
-
-function handleMouseMove(event) {
-  const controls = document.querySelector('.player-controls');
-  const rect = controls.getBoundingClientRect();
-  const buffer = 50; // pixels
-
-  if (
-    event.clientY > rect.top - buffer &&
-    event.clientY < rect.bottom + buffer &&
-    event.clientX > rect.left - buffer &&
-    event.clientX < rect.right + buffer
-  ) {
-    showControls();
-  }
-}
-
-// Update the handleFullscreenChange function
-function handleFullscreenChange() {
-  const playerElement = document.querySelector('.popup-content');
-  const fullscreenBtn = document.querySelector('.player-btn[title="ملء الشاشة"] i');
-  const controls = document.querySelector('.player-controls');
-  
-  if (document.fullscreenElement) {
-    playerElement.classList.add('fullscreen-mode');
-    fullscreenBtn.classList.remove('fa-expand');
-    fullscreenBtn.classList.add('fa-compress');
-    fullscreenBtn.parentElement.title = "تصغير الشاشة";
-    showControls(); // Show controls initially when entering fullscreen
-  } else {
-    playerElement.classList.remove('fullscreen-mode');
-    fullscreenBtn.classList.remove('fa-compress');
-    fullscreenBtn.classList.add('fa-expand');
-    fullscreenBtn.parentElement.title = "ملء الشاشة";
-    controls.classList.remove('hidden'); // Always show controls when exiting fullscreen
-    clearTimeout(controlsTimeout);
-  }
-}
-
-// Add touch event listener for mobile devices
-document.addEventListener('DOMContentLoaded', function() {
-  const playerControls = document.querySelector('.player-controls');
-  playerControls.addEventListener('touchstart', function(e) {
-    e.preventDefault();
-    showControls();
-  });
-});
-
-document.addEventListener('fullscreenchange', handleFullscreenChange);
-document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-
-// Search functionality
-document.getElementById('search-input').addEventListener('input', function(e) {
-  const searchTerm = e.target.value.toLowerCase();
-});
 </script>
 </body>
 </html>
