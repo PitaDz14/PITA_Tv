@@ -708,13 +708,52 @@
             const navButtons = document.querySelectorAll('.nav-button');
             const categories = document.querySelectorAll('.category');
             const searchInput = document.getElementById('search-input');
-            const subcategoryButtons = document.querySelectorAll('.subcategory-button');
-            const subcategories = document.querySelectorAll('.subcategory');
+
+            function showSubcategory(subcategoryId, category) {
+                const subcategories = category.querySelectorAll('.subcategory');
+                const subcategoryButtons = category.querySelectorAll('.subcategory-button');
+
+                subcategories.forEach(subcategory => {
+                    if (subcategory.id === subcategoryId) {
+                        subcategory.classList.add('active');
+                        subcategory.style.display = 'block';
+                    } else {
+                        subcategory.classList.remove('active');
+                        subcategory.style.display = 'none';
+                    }
+                });
+
+                subcategoryButtons.forEach(btn => {
+                    if (btn.getAttribute('data-subcategory') === subcategoryId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            function setupSubcategoryButtons(category) {
+                const subcategoryButtons = category.querySelectorAll('.subcategory-button');
+                subcategoryButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const subcategoryToShow = this.getAttribute('data-subcategory');
+                        showSubcategory(subcategoryToShow, category);
+                    });
+                });
+            }
 
             function showCategory(categoryId) {
                 categories.forEach(category => {
                     if (category.id === categoryId) {
                         category.style.display = 'block';
+                        const subcategoryNav = category.querySelector('.subcategory-nav');
+                        if (subcategoryNav) {
+                            const defaultSubcategory = subcategoryNav.querySelector('.subcategory-button');
+                            if (defaultSubcategory) {
+                                showSubcategory(defaultSubcategory.getAttribute('data-subcategory'), category);
+                            }
+                            setupSubcategoryButtons(category);
+                        }
                     } else {
                         category.style.display = 'none';
                     }
@@ -739,41 +778,45 @@
 
             searchInput.addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase().trim();
-                const allChannels = document.querySelectorAll('.channel');
                 let hasResults = false;
 
-                allChannels.forEach(channel => {
-                    const channelName = channel.querySelector('.channel-name').textContent.toLowerCase();
-                    if (channelName.includes(searchTerm)) {
-                        channel.style.display = 'flex';
-                        channel.closest('.category').style.display = 'block'; // Show the category containing the matching channel
-                        hasResults = true;
-                    } else {
-                        channel.style.display = 'none';
-                    }
-                });
+                categories.forEach(category => {
+                    const categoryChannels = category.querySelectorAll('.channel');
+                    let categoryHasResults = false;
 
-                // Show all categories when searching
-                if (searchTerm !== '') {
-                    categories.forEach(category => category.style.display = 'block');
-                } else {
-                    showCategory('general'); // Show default category when search is cleared
-                }
+                    categoryChannels.forEach(channel => {
+                        const channelName = channel.querySelector('.channel-name').textContent.toLowerCase();
+                        const isVisible = channelName.includes(searchTerm);
+                        channel.style.display = isVisible ? 'flex' : 'none';
+                        if (isVisible) {
+                            categoryHasResults = true;
+                            hasResults = true;
+                        }
+                    });
+
+                    category.style.display = categoryHasResults || searchTerm === '' ? 'block' : 'none';
+
+                    // Show/hide subcategories based on search results
+                    const subcategories = category.querySelectorAll('.subcategory');
+                    subcategories.forEach(subcategory => {
+                        const subcategoryChannels = subcategory.querySelectorAll('.channel');
+                        const subcategoryHasResults = Array.from(subcategoryChannels).some(channel => channel.style.display !== 'none');
+                        subcategory.classList.toggle('active', subcategoryHasResults || searchTerm === '');
+                    });
+                });
 
                 // Show/hide "No results" message
-                categories.forEach(category => {
-                    const noResultsMsg = category.querySelector('.no-results-message') || createNoResultsMessage(category);
-                    noResultsMsg.style.display = hasResults || searchTerm === '' ? 'none' : 'block';
-                });
+                const noResultsMsg = document.querySelector('.no-results-message') || createNoResultsMessage();
+                noResultsMsg.style.display = hasResults || searchTerm === '' ? 'none' : 'block';
             });
 
-            function createNoResultsMessage(category) {
+            function createNoResultsMessage() {
                 const msg = document.createElement('p');
                 msg.className = 'no-results-message';
                 msg.textContent = 'لا توجد نتائج للبحث';
                 msg.style.textAlign = 'center';
                 msg.style.display = 'none';
-                category.appendChild(msg);
+                document.querySelector('.container').appendChild(msg);
                 return msg;
             }
 
@@ -846,36 +889,6 @@
             popupMediaContainer.innerHTML = '';
             popup.style.display = 'none';
             document.getElementById('popup-title').textContent = '';
-            if (player) {
-                player.destroy();
-            }
-        }
-
-        function goBack() {
-            closePopup();
-        }
-
-        function toggleFullscreen() {
-            const popupContent = document.querySelector('.popup-content');
-            if (!document.fullscreenElement) {
-                if (popupContent.requestFullscreen) {
-                    popupContent.requestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        }
-
-        function setupIframeClickHandler(iframe) {
-            iframe.contentWindow.addEventListener('click', function(event) {
-                event.preventDefault();
-                const target = event.target.closest('a');
-                if (target && target.href) {
-                    showPopup('مباريات اليوم', target.href, true);
-                }
-            }, true);
         }
     </script>
 </body>
