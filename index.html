@@ -497,18 +497,8 @@
         <iframe id="popup-iframe" class="popup-iframe" allowfullscreen></iframe>
       </div>
       <div class="popup-controls">
-          <button id="fullscreen-btn" class="popup-button" onclick="toggleFullscreen()">
-              <i class="fas fa-expand"></i>
-          </button>
-          <button id="close-btn" class="popup-button" onclick="closePopup()">
-              <i class="fas fa-times"></i>
-          </button>
-          <button id="refresh-btn" class="popup-button" onclick="refreshPage()">
-              <i class="fas fa-sync"></i> تحديث
-          </button>
-          <button id="back-btn" class="popup-button" onclick="goBack()">
-              <i class="fas fa-arrow-left"></i> العودة
-          </button>
+        <button id="fullscreen-btn" class="popup-button" onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
+        <button id="close-btn" class="popup-button" onclick="closePopup()"><i class="fas fa-times"></i></button>
       </div>
     </div>
   </div>
@@ -680,15 +670,7 @@
       // Remove the orientation change event listener
       window.removeEventListener('orientationchange', handleOrientationChange);
     }
-      <script>
-          function refreshPage() {
-              location.reload(); // تحديث الصفحة
-          }
 
-          function goBack() {
-              window.history.back(); // العودة للقائمة السابقة
-          }
-      </script>
     function toggleFullscreen() {
       const popupContent = document.querySelector('.popup-content');
       const fullscreenBtn = document.getElementById('fullscreen-btn');
