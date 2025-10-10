@@ -520,14 +520,13 @@ button:hover, a:hover {
 <div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
 <div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
 <div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
-
 <!-- New subsection for foreign sports channels -->
 <h3 style="; text-align:center;">قنوات رياضية أجنبية</h3>
- <div class="channels foreign-sports">
- <div class="channel" onclick="showPopup('Bein Sport 1 FR', 'https://jokertv.ru/ccc/4/1')">Bein Sport 1 FR</div>
- <div class="channel" onclick="showPopup('Canal Plus Foot', 'https://matele.ru/plyz/4/12')">Canal Plus Foot</div>
- <div class="channel" onclick="showPopup('Canal Plus Sport', 'https://matele.ru/plyz/4/13')">Canal Plus Sport</div>
- <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
+<div class="channels foreign-sports">
+<div class="channel" onclick="showPopup('Bein Sport 1 FR', 'https://jokertv.ru/ccc/4/1')">Bein Sport 1 FR</div>
+<div class="channel" onclick="showPopup('Canal Plus Foot', 'https://matele.ru/plyz/4/12')">Canal Plus Foot</div>
+<div class="channel" onclick="showPopup('Canal Plus Sport', 'https://matele.ru/plyz/4/13')">Canal Plus Sport</div>
+<div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
 </div>
 </div></section>
 <section class="category" id="ISLAMIC">
@@ -643,22 +642,44 @@ button:hover, a:hover {
         });
       });
 
-      searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
+	  searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
         const allChannels = document.querySelectorAll('.channel');
-        
-        allChannels.forEach(channel => {
-          const channelName = channel.textContent.toLowerCase();
-          if (channelName.includes(searchTerm)) {
-            channel.style.display = 'block';
-            channel.closest('.subcategory-content').style.display = 'block';
-          } else {
-            channel.style.display = 'none';
-          }
-        });
+        const allCategories = document.querySelectorAll('.category');
+        const allSubcategories = document.querySelectorAll('.subcategory-content');
 
         if (searchTerm === '') {
+          // إرجاع الوضع العادي
+          allChannels.forEach(ch => ch.style.display = 'block');
+          allSubcategories.forEach(sub => sub.style.display = 'none');
           showCategory('general');
+          return;
+        }
+      
+        let foundAny = false;
+      
+        allCategories.forEach(cat => {
+          let foundInCategory = false;
+          const channels = cat.querySelectorAll('.channel');
+      
+          channels.forEach(channel => {
+            const name = channel.textContent.toLowerCase();
+            if (name.includes(searchTerm)) {
+              channel.style.display = 'block';
+              foundInCategory = true;
+              foundAny = true;
+              const sub = channel.closest('.subcategory-content');
+              if (sub) sub.style.display = 'block';
+            } else {
+        channel.style.display = 'none';
+            }
+          });
+      
+          cat.style.display = foundInCategory ? 'block' : 'none';
+        });
+      
+        if (!foundAny) {
+          allCategories.forEach(cat => cat.style.display = 'none');
         }
       });
 
