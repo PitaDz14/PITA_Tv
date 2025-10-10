@@ -1,10 +1,10 @@
-<html><head><base href="https://pita-dz-tv.com/">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html><head><base href="https://pita-dz-tv.com/"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>PITA DZ TV - بث مباشر للقنوات الفضائية</title>
 <style>
   :root {
-    --primary-color: #ff6b6b;
+    --primary-color: #6b2aa57a;
     --secondary-color: #4ecdc4;
     --background-color: #857474;
     --card-background: #a8adb5;
@@ -159,7 +159,7 @@
     padding: 20px 0;
   }
   .channel {
-    background: #ffffff;
+    background: #a10808;
     border-radius: 15px;
     padding: 20px;
     text-align: center;
@@ -305,244 +305,286 @@
     color: #fff;
   }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-</head>
-<body>
-  <header>
-    <div class="container">
-      <h1>PITA DZ TV</h1>
-      <p>بث مباشر للقنوات الفضائية</p>
-      <div class="search-container">
-        <input type="text" class="search-input" placeholder="ابحث عن قناة...">
-      </div>
-    </div>
-  </header>
-
-  <nav class="container">
-    <button class="nav-button" data-category="EVENT TV LIVE">بث مباشر للمباريات</button>
-    <button class="nav-button" data-category="general">عامة</button>
-    <button class="nav-button" data-category="news">الأخبار</button>
-    <button class="nav-button" data-category="sports">الرياضة</button>
-    <button class="nav-button" data-category="ISLAMIC">قنوات إسلامية</button>
-    <button class="nav-button" data-category="documentaries">الوثائقيات</button>
-    <button class="nav-button" data-category="kids">الأطفال</button>
-  </nav>
-
-  <div class="container">
-    <section id="EVENT TV LIVE" class="category">
-      <h2>بث مباشر للمباريات</h2>
-       <div class="post-body entry-content" id="post-body-5824180690288542074" itemprop="description articleBody">
-         <iframe src="https://href.li/?https://go.s96.net/p/s96.html?m=1" allowfullscreen="true" scrolling="no" style="width: 100%;height: 3000px;border: 0px none;" rel="nofollow" seamless=""></iframe>
-         <div style="clear: both;"></div>
-       </div>
-    </section>
-    <section id="general" class="category">
-      <h2>القنوات العامة</h2>
-      <div class="subcategories">
-        <button class="subcategory-button" data-subcategory="algerian">قنوات جزائرية</button>
-        <button class="subcategory-button" data-subcategory="moroccan">قنوات مغربية</button>
-        <button class="subcategory-button" data-subcategory="egyptian">قنوات مصرية</button>
-        <button class="subcategory-button" data-subcategory="palestinian">قنوات فلسطينية</button>
-        <button class="subcategory-button" data-subcategory="tunisian">قنوات تونسية</button>
-        <button class="subcategory-button" data-subcategory="french">قنوات فرنسية</button>
-      </div>
-      <div class="subcategory-channels">
-        <div id="algerian" class="subcategory-content">
-          <div class="channels">
-            <div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=entv_algerie')">قناة الأرضية الجزائرية</div>
-            <div class="channel" onclick="showPopup('قناة الجزائرية الثالثة', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=thalitha')">قناة الجزائرية الثالثة</div>
-            <div class="channel" onclick="showPopup('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">قناة الفجر الجزائرية</div>
-            <div class="channel" onclick="showPopup('Ennahar Tv النهارتي في', 'https://www.elahmad.com/tv/algeria_live.php?id=ennahartv')">Ennahar Tv النهار تي في</div>
-            <div class="channel" onclick="showPopup('EchoroukNews الشروق نيوز', 'https://www.elahmad.com/tv/algeria_live.php?id=echorouk_news')">EchoroukNews الشروق نيوز</div>
-            <div class="channel" onclick="showPopup('EchoroukHD الشروق تي في', 'https://www.elahmad.com/tv/radiant.php?id=echorouk_tvhd')">EchoroukHD الشروق تي في</div>
-            <div class="channel" onclick="showPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</div>
-            <div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
-            <div class="channel" onclick="showPopup('قناة Samira TV الجزائرية', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=samiratv')">قناة Samira TV الجزائرية</div>
-          </div>
-        </div>
-        <div id="moroccan" class="subcategory-content">
-          <div class="channels">
-            <div class="channel" onclick="showPopup('الاولى المغربية', 'https://www.elahmad.com/tv/radiant.php?id=aloula1')">الاولى المغربية</div>
-            <div class="channel" onclick="showPopup('AlAoula Laayoune', 'https://www.elahmad.com/tv/radiant.php?id=laayoune')">AlAoula Laayoune</div>
-            <div class="channel" onclick="showPopup('2M monde', 'https://www.elahmad.com/tv/radiant.php?id=2m_monde')">2M monde</div>
-            <div class="channel" onclick="showPopup('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">Arryadia3 الرياضية</div>
-            <!-- Add more Moroccan channels here -->
-          </div>
-        </div>
-        <div id="egyptian" class="subcategory-content">
-          <div class="channels">
-            <div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
-            <div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
-            <div class="channel" onclick="showPopup('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">Alwathaeqya الوثائقية المصرية</div>
-            <!-- Add more Egyptian channels here -->
-          </div>
-        </div>
-        <div id="palestinian" class="subcategory-content">
-          <div class="channels">
-            <div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
-            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">قناة الفجر الفلسطينية الأولى</div>
-            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">قناة الفجر الفلسطينية الثانية</div>
-            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">قناة الفجر الفلسطينية الثالثة</div>
-            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">قناة الفجر الفلسطينية الرابعة</div>
-            <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">قناة الفجر الفلسطينية الخامسة</div>
-            <!-- Add more Palestinian channels here -->
-          </div>
-        </div>
-        <div id="tunisian" class="subcategory-content">
-          <div class="channels">
-            <div class="channel" onclick="showPopup('alWataniya الوطنية التونسية 1', 'https://www.elahmad.com/tv/radiant.php?id=watania1')">alWataniya الوطنية التونسية 1</div>
-            <div class="channel" onclick="showPopup('alWataniya الوطنية التونسية 2', 'https://www.elahmad.com/tv/radiant.php?id=watania2')">alWataniya الوطنية التونسية 2</div>
-            <!-- Add more Tunisian channels هنا -->
-          </div>
-        </div>
-        <div id="french" class="subcategory-content">
-          <div class="channels">
-            <div class="channel" onclick="showPopup('Tf1', 'https://matele.ru/plyz/4/24')">Tf1</div>
-            <div class="channel" onclick="showPopup('Canal Plus', 'https://matele.ru/plyz/4/11')">Canal Plus</div>
-            <div class="channel" onclick="showPopup('France 2', 'https://matele.ru/plyz/4/28')">France 2</div>
-            <div class="channel" onclick="showPopup('France 3', 'https://matele.ru/plyz/4/29')">France 3</div>
-            <div class="channel" onclick="showPopup('France 4', 'https://matele.ru/plyz/4/30')">France 4</div>
-            <div class="channel" onclick="showPopup('M6', 'https://matele.ru/plyz/4/26')">M6</div>
-            <div class="channel" onclick="showPopup('TMC', 'https://matele.ru/plyz/4/25')">TMC</div>
-            <div class="channel" onclick="showPopup('W9', 'https://matele.ru/plyz/4/24')">W9</div>
-            <!-- Add more French channels هنا -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="news" class="category">
-      <h2>قنوات الأخبار</h2>
-      <div class="channels">
-        <div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
-        <div class="channel" onclick="showPopup('قناة BBC العربية', 'https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8')">قناة BBC العربية</div>
-        <div class="channel" onclick="showPopup('Dw tvarabia Tv', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=dwtvarabia')">Dw tvarabia Tv</div>
-        <div class="channel" onclick="showPopup('RT روسيا اليوم', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">RT روسيا اليوم HD</div>
-        <div class="channel" onclick="showPopup('RT روسيا اليوم HD', 'https://rt-arb.rttv.com/dvr/rtarab/playlist.m3u8')">RT روسيا اليوم</div>
-        <div class="channel" onclick="showPopup('قناة المنار al manar', 'https://www.elahmad.com/tv/radiant.php?id=manartv3')">قناة المنار al manar</div>
-        <div class="channel" onclick="showPopup('قناة الحرة ', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">قناة الحرة</div>
-        <div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
-        <div class="channel" onclick="showPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</div>
-        <div class="channel" onclick="showPopup('Alaraby TV التلفزيون العربي', 'https://www.elahmad.com/tv/radiant.php?id=alarabytv')">Alaraby TV التلفزيون العربي</div>
-      </div>
-    </section>
-
-    <section id="sports" class="category">
-      <h2>قنوات الرياضة</h2>
-      <div class="channels">
-        <div class="channel" onclick="showPopup('1080p قناة الفجر الفلسطينية الأولى', 'https://cdnfest.com/ftv1-1080p/tracks-v1a1/mono.m3u8')">1080p قناة الفجر الفلسطينية الأولى</div>
-        <div class="channel" onclick="showPopup('720p قناة الفجر الفلسطينية الأولى', 'https://cdnfest.com/ftv1-720p/tracks-v1a1/mono.m3u8')">720p قناة الفجر الفلسطينية الأولى</div>
-        <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">قناة الفجر الفلسطينية الأولى</div>
-        <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">قناة الفجر الفلسطينية الثانية</div>
-        <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">قناة الفجر الفلسطينية الثالثة</div>
-        <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">قناة الفجر الفلسطينية الرابعة</div>
-        <div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">قناة الفجر الفلسطينية الخامسة</div>
-      
-        <div class="channel" onclick="showPopup('قناة رياضية 1 تعمل أثناء المباريات فقط', 'https://tv.blogma.online/p/oo.html')">قناة رياضية 1 تعمل أثناء المباريات فقط</div>
-        <div class="channel" onclick="showPopup('Sport 1 bein HD', 'https://hornpot.net/embed/mt847b6')">Sport 1 bein HD</div>
-        <div class="channel" onclick="showPopup('قناة Bein Sport NEWS', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0')">قناة Bein Sport NEWS</div>
-        <div class="channel" onclick="showPopup('Bein Sport 1', 'https://balance.footballii.ir/hls2/bein1.m3u8')">Bein Sport 1</div>
-        <div class="channel" onclick="showPopup('A Sport 1 HD', 'https://gist.githubusercontent.com/geadgead9-alt/3c5b50f80a5f6eba7012a71ede47e1f5/raw/a86cc81c7b6ff8290aa3be738ac1256d4ea3e8a1/PITALIVE.m3u8')">A Sport 1 HD</div>
-        <div class="channel" onclick="showPopup('Sport 1 HD', 'https://yalla5.koora-online.club/chtv/ch1.php')">Sport 1 HD</div>
-        <div class="channel" onclick="showPopup('Sport 2 HD', 'https://yalla5.koora-online.club/chtv/ch2.php')">Sport 2 HD</div>
-        <div class="channel" onclick="showPopup('Sport 3 HD', 'https://yalla5.koora-online.club/chtv/ch3.php')">Sport 3 HD</div>
-        
-
-        <div class="channel" onclick="showPopup('SSC 1', 'https://af.ayassport.ir/hls2/ssc1.m3u8')">SSC 1</div>
-        <div class="channel" onclick="showPopup('SSC 1 HD', 'https://stream.sainaertebat.com/hls2/ssc1.m3u8')">SSC 1 HD</div>
-        <div class="channel" onclick="showPopup('SSC sport 1 HD', 'https://stream.sainaertebat.com/hls2/ssc1s.m3u8')">SSC sport 1 HD</div>
-        <div class="channel" onclick="showPopup('SSC 1 HD', 'https://www.ipslow.com/tv/canal.php?id=ssc1')">SSC 1 HD</div>
-        <div class="channel" onclick="showPopup('SSC 2', 'https://live.eighty-eight.tv:8880/eighty-eight_SSC-Sports-2_A/index.m3u8')">SSC 2</div>
-        <div class="channel" onclick="showPopup('SSC 1', 'https://www.elahmad.com/tv/live/shahid_shaka.php?id=ssc1')">SSC 3</div>
-        <div class="channel" onclick="showPopup('SSC 2 HD', 'https://www.ipslow.com/tv/canal.php?id=ssc2')">SSC 4 HD</div>
-        <div class="channel" onclick="showPopup('SSC 5 HD', 'https://bb.gggssjmjh756hgffreewguiijnbvcfg7.store/bein22/index.m3u8')">SSC 5 HD</div>
-        <div class="channel" onclick="showPopup('SSC 5 HD', 'https://bb.gggssjmjh756hgffreewguiijnbvcfg7.store/bein22/tracks-v1a1/mono.ts.m3u8')">SSC 5 HD</div>
-        <div class="channel" onclick="showPopup('SSC Extra 1 HD', 'rtmp://origin.wgstream.sx/cast?publishsign=aWQ9MTE1MDEmc2lnbj1URC9OVjNhK2toMVBmMk02SVVsSXpBPT0=')">SSC Extra 1 HD</div>
-        <div class="channel" onclick="showPopup('SSC Extra 2 HD', 'https://www.elahmad.com/tv/live/shahid_shaka.php?id=ssc_extra2')">SSC Extra 2 HD</div>
-        <div class="channel" onclick="showPopup('SSC Extra 2 HD', 'https://www.elahmad.com/tv/live/shahid_shaka.php?id=ssc_extra3')">SSC Extra 3 HD</div>
-        <div class="channel" onclick="showPopup('Abudhabi Sports 1 premium', 'https://cookiewebplay.xyz/embedlivetv.php?id=N0nZoHOXsC')">Abudhabi Sports 1 premium</div>
-        <div class="channel" onclick="showPopup('Abudhabi Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports2')">Abudhabi Sports 2</div>
-        <div class="channel" onclick="showPopup('Abudhabi Sports 3', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports3')">Abudhabi Sports 3</div>
-        <div class="channel" onclick="showPopup('Abudhabi Sports 4', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports4')">Abudhabi Sports 4</div>
-        <div class="channel" onclick="showPopup('الشارقة الرياضية HD', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">الشارقة الرياضية HD</div>
-        <div class="channel" onclick="showPopup('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">Arryadia3 الرياضية</div>
-        <div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
-        <div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
-        <div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
-      
-      <!-- New subsection for foreign sports channels -->
-      <h3>قنوات رياضية أجنبية</h3>
-      <div class="channels foreign-sports">
-        <div class="channel" onclick="showPopup('Bein Sport 1 FR', 'https://jokertv.ru/ccc/4/1')">Bein Sport 1 FR</div>
-        <div class="channel" onclick="showPopup('Canal Plus Foot', 'https://matele.ru/plyz/4/12')">Canal Plus Foot</div>
-        <div class="channel" onclick="showPopup('Canal Plus Sport', 'https://matele.ru/plyz/4/13')">Canal Plus Sport</div>
-        <div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
-      </div>
-    </section>
-    
-    <section id="ISLAMIC" class="category">
-      <h2>قنوات الإسلامية</h2>
-      <div class="channels">
-        <div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://live.kwikmotion.com/ksaquranlive/ksaquran.smil/ksaquranpublish/ksaquran_source/hdntl=exp=1740268219~acl=%2fksaquranlive%2fksaquran.smil%2f*~data=hdntl~hmac=16397a9247b2a585eadcb664a50257151f31fa018a102e9472f372babb7c5fe0/chunks_dvr.m3u8')">قناة القرآن الكريم</div>
-      </div>
-    </section>
-    <section id="documentaries" class="category">
-      <h2>القنوات الوثائقية</h2>
-      <div class="channels">
-        <div class="channel" onclick="showPopup('قناة الجزيرة الوثائقية', 'https://s1.ettehadlive.com/live/111/chunklist_w343419926.m3u8')">قناة الجزيرة الوثائقية</div>
-        <div class="channel" onclick="showPopup('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">Alwathaeqya الوثائقية المصرية</div>
-      </div>
-    </section>
-
-    <section id="kids" class="category">
-      <h2>قنوات الأطفال</h2>
-      <div class="channels">
-        <div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
-        <div class="channel" onclick="showPopup('قناة أطفال ومواهب', 'https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8')">قناة أطفال ومواهب</div>
-        <div class="channel" onclick="showPopup('قناة براعم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=baraem')">قناة براعم</div>
-        <div class="channel" onclick="showPopup('تلفزيون جيم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=jscc1')">تلفزيون جيم</div>
-        <div class="channel" onclick="showPopup('قناة طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">قناة طيور الجنة</div>
-        <div class="channel" onclick="showPopup('قناة المجد الروضة', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_rawda')">قناة المجد الروضة</div>
-        <div class="channel" onclick="showPopup('قناة المجد تغاريد', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_taghreed')">قناة المجد تغاريد</div>
-        <div class="channel" onclick="showPopup('قناة المجد بسمة', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_bassma')">قناة المجد بسمة</div>
-        <div class="channel" onclick="showPopup('قناة المجد أطفال', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_kids')">قناة المجد أطفال</div>
-      </div>
-    </section>
-  </div>
-
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <h2 id="popup-title"></h2>
-      <div class="popup-media-container">
-        <iframe id="popup-iframe" class="popup-iframe" allowfullscreen></iframe>
-      </div>
-      <div class="popup-controls">
-        <button id="fullscreen-btn" class="popup-button" onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
-        <button id="close-btn" class="popup-button" onclick="closePopup()"><i class="fas fa-times"></i></button>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="container">
-      <p>جميع الحقوق محفوظة &copy; 2024 PITA DZ TV</p>
-      <p>المالك: خالد دراغة</p>
-      <div class="social-links">
-        <a href="https://www.facebook.com/abdesalam.balhaje.5" target="_blank" title="فيسبوك"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/" target="_blank" title="تويتر"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/deragha_khaled/profilecard/?igsh=MTkydHVmdDR2dHlzOA==" target="_blank" title="إنستاجرام"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/Khaled_Deragha" target="_blank" title="تليجرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://www.youtube.com/@aindeheb853" target="_blank" title="يوتيوب"><i class="fab fa-youtube"></i></a>
-        <a href="https://tiktok.com/@khaled_deragha" target="_blank" title="تيك توك"><i class="fab fa-tiktok"></i></a>
-        <a href="mailto:gsmkhaledtiaret@gmail.com" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
+<style>
+body {
+    background-color: #121212;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+section {
+    padding: 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 1000px;
+    transition: background 0.8s ease;
+}
+h1, h2, h3 {
+    margin-top: 10px;
+    color: #ffffff;
+}
+button, a {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+button:hover, a:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+/* Section colors */
+.section-live { background: linear-gradient(135deg, #ff512f, #f09819); }
+.section-general { background: linear-gradient(135deg, #00bfa6, #1de9b6); }
+.section-sport { background: linear-gradient(135deg, #1abc9c, #16a085); }
+.section-islamic { background: linear-gradient(135deg, #b59f3b, #8c7b32); }
+.section-docs { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+.section-kids { background: linear-gradient(135deg, #ff80ab, #f50057); }
+/* Modal fix */
+.modal iframe {
+    width: 100%;
+    height: 56.25%; /* 16:9 ratio */
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+}
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.85);
+}
+</style></head>
+<body style=" background-color:#121212; color:#f0f0f0; text-align:center">
+<header>
+<div class="container">
+<h1 style="; text-align:center;">PITA DZ TV</h1>
+<p style="; text-align:center;">بث مباشر للقنوات الفضائية</p>
+<div class="search-container">
+<input class="search-input" placeholder="ابحث عن قناة..." type="text"/>
+</div>
+</div>
+</header>
+<nav class="container">
+<button class="nav-button" data-category="EVENT TV LIVE" style="; text-align:center;">بث مباشر للمباريات</button>
+<button class="nav-button" data-category="general" style="; text-align:center;">عامة</button>
+<button class="nav-button" data-category="news" style="; text-align:center;">الأخبار</button>
+<button class="nav-button" data-category="sports" style="; text-align:center;">الرياضة</button>
+<button class="nav-button" data-category="ISLAMIC" style="; text-align:center;">قنوات إسلامية</button>
+<button class="nav-button" data-category="documentaries" style="; text-align:center;">الوثائقيات</button>
+<button class="nav-button" data-category="kids" style="; text-align:center;">الأطفال</button>
+</nav>
+<div class="container">
+<section class="category" id="EVENT TV LIVE">
+<h2 style="; text-align:center;">بث مباشر للمباريات</h2>
+<div class="post-body entry-content" id="post-body-5824180690288542074" itemprop="description articleBody">
+<iframe allowfullscreen="true" rel="nofollow" scrolling="no" seamless="" src="https://href.li/?https://go.s96.net/p/s96.html?m=1" style="width: 100%;height: 3000px;border: 0px none;"></iframe>
+<div style="clear: both;"></div>
+</div>
+</section>
+<section class="category" id="general">
+<h2 style="; text-align:center;">القنوات العامة</h2>
+<div class="subcategories">
+<button class="subcategory-button" data-subcategory="algerian" style="; text-align:center;">قنوات جزائرية</button>
+<button class="subcategory-button" data-subcategory="moroccan" style="; text-align:center;">قنوات مغربية</button>
+<button class="subcategory-button" data-subcategory="egyptian" style="; text-align:center;">قنوات مصرية</button>
+<button class="subcategory-button" data-subcategory="palestinian" style="; text-align:center;">قنوات فلسطينية</button>
+<button class="subcategory-button" data-subcategory="tunisian" style="; text-align:center;">قنوات تونسية</button>
+<button class="subcategory-button" data-subcategory="french" style="; text-align:center;">قنوات فرنسية</button>
+</div>
+<div class="subcategory-channels">
+<div class="subcategory-content" id="algerian">
+<div class="channels">
+<div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=entv_algerie')">قناة الأرضية الجزائرية</div>
+<div class="channel" onclick="showPopup('قناة الجزائرية الثالثة', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=thalitha')">قناة الجزائرية الثالثة</div>
+<div class="channel" onclick="showPopup('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">قناة الفجر الجزائرية</div>
+<div class="channel" onclick="showPopup('Ennahar Tv النهارتي في', 'https://www.elahmad.com/tv/algeria_live.php?id=ennahartv')">Ennahar Tv النهار تي في</div>
+<div class="channel" onclick="showPopup('EchoroukNews الشروق نيوز', 'https://www.elahmad.com/tv/algeria_live.php?id=echorouk_news')">EchoroukNews الشروق نيوز</div>
+<div class="channel" onclick="showPopup('EchoroukHD الشروق تي في', 'https://www.elahmad.com/tv/radiant.php?id=echorouk_tvhd')">EchoroukHD الشروق تي في</div>
+<div class="channel" onclick="showPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</div>
+<div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
+<div class="channel" onclick="showPopup('قناة Samira TV الجزائرية', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=samiratv')">قناة Samira TV الجزائرية</div>
+</div>
+</div>
+<div class="subcategory-content" id="moroccan">
+<div class="channels">
+<div class="channel" onclick="showPopup('الاولى المغربية', 'https://www.elahmad.com/tv/radiant.php?id=aloula1')">الاولى المغربية</div>
+<div class="channel" onclick="showPopup('AlAoula Laayoune', 'https://www.elahmad.com/tv/radiant.php?id=laayoune')">AlAoula Laayoune</div>
+<div class="channel" onclick="showPopup('2M monde', 'https://www.elahmad.com/tv/radiant.php?id=2m_monde')">2M monde</div>
+<div class="channel" onclick="showPopup('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">Arryadia3 الرياضية</div>
+<!-- Add more Moroccan channels here -->
+</div>
+</div>
+<div class="subcategory-content" id="egyptian">
+<div class="channels">
+<div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
+<div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
+<div class="channel" onclick="showPopup('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">Alwathaeqya الوثائقية المصرية</div>
+<!-- Add more Egyptian channels here -->
+</div>
+</div>
+<div class="subcategory-content" id="palestinian">
+<div class="channels">
+<div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">قناة الفجر الفلسطينية الأولى</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">قناة الفجر الفلسطينية الثانية</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">قناة الفجر الفلسطينية الثالثة</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">قناة الفجر الفلسطينية الرابعة</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">قناة الفجر الفلسطينية الخامسة</div>
+<!-- Add more Palestinian channels here -->
+</div>
+</div>
+<div class="subcategory-content" id="tunisian">
+<div class="channels">
+<div class="channel" onclick="showPopup('alWataniya الوطنية التونسية 1', 'https://www.elahmad.com/tv/radiant.php?id=watania1')">alWataniya الوطنية التونسية 1</div>
+<div class="channel" onclick="showPopup('alWataniya الوطنية التونسية 2', 'https://www.elahmad.com/tv/radiant.php?id=watania2')">alWataniya الوطنية التونسية 2</div>
+<!-- Add more Tunisian channels هنا -->
+</div>
+</div>
+<div class="subcategory-content" id="french">
+<div class="channels">
+<div class="channel" onclick="showPopup('Tf1', 'https://matele.ru/plyz/4/24')">Tf1</div>
+<div class="channel" onclick="showPopup('Canal Plus', 'https://matele.ru/plyz/4/11')">Canal Plus</div>
+<div class="channel" onclick="showPopup('France 2', 'https://matele.ru/plyz/4/28')">France 2</div>
+<div class="channel" onclick="showPopup('France 3', 'https://matele.ru/plyz/4/29')">France 3</div>
+<div class="channel" onclick="showPopup('France 4', 'https://matele.ru/plyz/4/30')">France 4</div>
+<div class="channel" onclick="showPopup('M6', 'https://matele.ru/plyz/4/26')">M6</div>
+<div class="channel" onclick="showPopup('TMC', 'https://matele.ru/plyz/4/25')">TMC</div>
+<div class="channel" onclick="showPopup('W9', 'https://matele.ru/plyz/4/24')">W9</div>
+<!-- Add more French channels هنا -->
+</div>
+</div>
+</div>
+</section>
+<section class="category" id="news">
+<h2 style="; text-align:center;">قنوات الأخبار</h2>
+<div class="channels">
+<div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
+<div class="channel" onclick="showPopup('قناة BBC العربية', 'https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8')">قناة BBC العربية</div>
+<div class="channel" onclick="showPopup('Dw tvarabia Tv', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=dwtvarabia')">Dw tvarabia Tv</div>
+<div class="channel" onclick="showPopup('RT روسيا اليوم', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">RT روسيا اليوم HD</div>
+<div class="channel" onclick="showPopup('RT روسيا اليوم HD', 'https://rt-arb.rttv.com/dvr/rtarab/playlist.m3u8')">RT روسيا اليوم</div>
+<div class="channel" onclick="showPopup('قناة المنار al manar', 'https://www.elahmad.com/tv/radiant.php?id=manartv3')">قناة المنار al manar</div>
+<div class="channel" onclick="showPopup('قناة الحرة ', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">قناة الحرة</div>
+<div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://s1.ettehadlive.com/live/68/chunklist_w1035990913.m3u8')">قناة الأقصى الفلسطينية</div>
+<div class="channel" onclick="showPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</div>
+<div class="channel" onclick="showPopup('Alaraby TV التلفزيون العربي', 'https://www.elahmad.com/tv/radiant.php?id=alarabytv')">Alaraby TV التلفزيون العربي</div>
+</div>
+</section>
+<section class="category" id="sports">
+<h2 style="; text-align:center;">قنوات الرياضة</h2>
+<div class="channels">
+<div class="channel" onclick="showPopup('1080p قناة الفجر الفلسطينية الأولى', 'https://cdnfest.com/ftv1-1080p/tracks-v1a1/mono.m3u8')">1080p قناة الفجر الفلسطينية الأولى</div>
+<div class="channel" onclick="showPopup('720p قناة الفجر الفلسطينية الأولى', 'https://cdnfest.com/ftv1-720p/tracks-v1a1/mono.m3u8')">720p قناة الفجر الفلسطينية الأولى</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">قناة الفجر الفلسطينية الأولى</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">قناة الفجر الفلسطينية الثانية</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">قناة الفجر الفلسطينية الثالثة</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">قناة الفجر الفلسطينية الرابعة</div>
+<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">قناة الفجر الفلسطينية الخامسة</div>
+<div class="channel" onclick="showPopup('قناة رياضية 1 تعمل أثناء المباريات فقط', 'https://tv.blogma.online/p/oo.html')">قناة رياضية 1 تعمل أثناء المباريات فقط</div>
+<div class="channel" onclick="showPopup('Sport 1 bein HD', 'https://hornpot.net/embed/mt847b6')">Sport 1 bein HD</div>
+<div class="channel" onclick="showPopup('قناة Bein Sport NEWS', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&amp;iv_load_policy=3&amp;rel=0')">قناة Bein Sport NEWS</div>
+<div class="channel" onclick="showPopup('Bein Sport 1', 'https://balance.footballii.ir/hls2/bein1.m3u8')">Bein Sport 1</div>
+<div class="channel" onclick="showPopup('A Sport 1 HD', 'https://gist.githubusercontent.com/geadgead9-alt/3c5b50f80a5f6eba7012a71ede47e1f5/raw/a86cc81c7b6ff8290aa3be738ac1256d4ea3e8a1/PITALIVE.m3u8')">A Sport 1 HD</div>
+<div class="channel" onclick="showPopup('Sport 1 HD', 'https://yalla5.koora-online.club/chtv/ch1.php')">Sport 1 HD</div>
+<div class="channel" onclick="showPopup('Sport 2 HD', 'https://yalla5.koora-online.club/chtv/ch2.php')">Sport 2 HD</div>
+<div class="channel" onclick="showPopup('Sport 3 HD', 'https://yalla5.koora-online.club/chtv/ch3.php')">Sport 3 HD</div>
+<div class="channel" onclick="showPopup('SSC 1', 'https://af.ayassport.ir/hls2/ssc1.m3u8')">SSC 1</div>
+<div class="channel" onclick="showPopup('SSC 1 HD', 'https://stream.sainaertebat.com/hls2/ssc1.m3u8')">SSC 1 HD</div>
+<div class="channel" onclick="showPopup('SSC sport 1 HD', 'https://stream.sainaertebat.com/hls2/ssc1s.m3u8')">SSC sport 1 HD</div>
+<div class="channel" onclick="showPopup('SSC 1 HD', 'https://www.ipslow.com/tv/canal.php?id=ssc1')">SSC 1 HD</div>
+<div class="channel" onclick="showPopup('SSC 2', 'https://live.eighty-eight.tv:8880/eighty-eight_SSC-Sports-2_A/index.m3u8')">SSC 2</div>
+<div class="channel" onclick="showPopup('SSC 1', 'https://www.elahmad.com/tv/live/shahid_shaka.php?id=ssc1')">SSC 3</div>
+<div class="channel" onclick="showPopup('SSC 2 HD', 'https://www.ipslow.com/tv/canal.php?id=ssc2')">SSC 4 HD</div>
+<div class="channel" onclick="showPopup('SSC 5 HD', 'https://bb.gggssjmjh756hgffreewguiijnbvcfg7.store/bein22/index.m3u8')">SSC 5 HD</div>
+<div class="channel" onclick="showPopup('SSC 5 HD', 'https://bb.gggssjmjh756hgffreewguiijnbvcfg7.store/bein22/tracks-v1a1/mono.ts.m3u8')">SSC 5 HD</div>
+<div class="channel" onclick="showPopup('SSC Extra 1 HD', 'rtmp://origin.wgstream.sx/cast?publishsign=aWQ9MTE1MDEmc2lnbj1URC9OVjNhK2toMVBmMk02SVVsSXpBPT0=')">SSC Extra 1 HD</div>
+<div class="channel" onclick="showPopup('SSC Extra 2 HD', 'https://www.elahmad.com/tv/live/shahid_shaka.php?id=ssc_extra2')">SSC Extra 2 HD</div>
+<div class="channel" onclick="showPopup('SSC Extra 2 HD', 'https://www.elahmad.com/tv/live/shahid_shaka.php?id=ssc_extra3')">SSC Extra 3 HD</div>
+<div class="channel" onclick="showPopup('Abudhabi Sports 1 premium', 'https://cookiewebplay.xyz/embedlivetv.php?id=N0nZoHOXsC')">Abudhabi Sports 1 premium</div>
+<div class="channel" onclick="showPopup('Abudhabi Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports2')">Abudhabi Sports 2</div>
+<div class="channel" onclick="showPopup('Abudhabi Sports 3', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports3')">Abudhabi Sports 3</div>
+<div class="channel" onclick="showPopup('Abudhabi Sports 4', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports4')">Abudhabi Sports 4</div>
+<div class="channel" onclick="showPopup('الشارقة الرياضية HD', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">الشارقة الرياضية HD</div>
+<div class="channel" onclick="showPopup('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">Arryadia3 الرياضية</div>
+<div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
+<div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
+<div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
+<!-- New subsection for foreign sports channels -->
+<h3 style="; text-align:center;">قنوات رياضية أجنبية</h3>
+<div class="channels foreign-sports">
+<div class="channel" onclick="showPopup('Bein Sport 1 FR', 'https://jokertv.ru/ccc/4/1')">Bein Sport 1 FR</div>
+<div class="channel" onclick="showPopup('Canal Plus Foot', 'https://matele.ru/plyz/4/12')">Canal Plus Foot</div>
+<div class="channel" onclick="showPopup('Canal Plus Sport', 'https://matele.ru/plyz/4/13')">Canal Plus Sport</div>
+<div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
+</div>
+</div></section>
+<section class="category" id="ISLAMIC">
+<h2 style="; text-align:center;">قنوات الإسلامية</h2>
+<div class="channels">
+<div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://live.kwikmotion.com/ksaquranlive/ksaquran.smil/ksaquranpublish/ksaquran_source/hdntl=exp=1740268219~acl=%2fksaquranlive%2fksaquran.smil%2f*~data=hdntl~hmac=16397a9247b2a585eadcb664a50257151f31fa018a102e9472f372babb7c5fe0/chunks_dvr.m3u8')">قناة القرآن الكريم</div>
+</div>
+</section>
+<section class="category" id="documentaries">
+<h2 style="; text-align:center;">القنوات الوثائقية</h2>
+<div class="channels">
+<div class="channel" onclick="showPopup('قناة الجزيرة الوثائقية', 'https://s1.ettehadlive.com/live/111/chunklist_w343419926.m3u8')">قناة الجزيرة الوثائقية</div>
+<div class="channel" onclick="showPopup('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">Alwathaeqya الوثائقية المصرية</div>
+</div>
+</section>
+<section class="category" id="kids">
+<h2 style="; text-align:center;">قنوات الأطفال</h2>
+<div class="channels">
+<div class="channel" onclick="showPopup('قناة Spacetoon', 'https://streams.spacetoon.com/live/stchannel/smil:livesmil.smil/chunklist_w1553263372_b1296000_slAR.m3u8')">قناة Spacetoon</div>
+<div class="channel" onclick="showPopup('قناة أطفال ومواهب', 'https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8')">قناة أطفال ومواهب</div>
+<div class="channel" onclick="showPopup('قناة براعم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=baraem')">قناة براعم</div>
+<div class="channel" onclick="showPopup('تلفزيون جيم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=jscc1')">تلفزيون جيم</div>
+<div class="channel" onclick="showPopup('قناة طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">قناة طيور الجنة</div>
+<div class="channel" onclick="showPopup('قناة المجد الروضة', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_rawda')">قناة المجد الروضة</div>
+<div class="channel" onclick="showPopup('قناة المجد تغاريد', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_taghreed')">قناة المجد تغاريد</div>
+<div class="channel" onclick="showPopup('قناة المجد بسمة', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_bassma')">قناة المجد بسمة</div>
+<div class="channel" onclick="showPopup('قناة المجد أطفال', 'https://www.elahmad.com/tv/live/channel.php?id=almajd_kids')">قناة المجد أطفال</div>
+</div>
+</section>
+</div>
+<div class="popup" id="popup">
+<div class="popup-content">
+<h2 id="popup-title" style="; text-align:center;"></h2>
+<div class="popup-media-container">
+<iframe allowfullscreen="" class="popup-iframe" id="popup-iframe"></iframe>
+</div>
+<div class="popup-controls">
+<button class="popup-button" id="fullscreen-btn" onclick="toggleFullscreen()" style="; text-align:center;"><i class="fas fa-expand"></i></button>
+<button class="popup-button" id="close-btn" onclick="closePopup()" style="; text-align:center;"><i class="fas fa-times"></i></button>
+</div>
+</div>
+</div>
+<footer>
+<div class="container">
+<p style="; text-align:center;">جميع الحقوق محفوظة © 2024 PITA DZ TV</p>
+<p style="; text-align:center;">المالك: خالد دراغة</p>
+<div class="social-links">
+<a href="https://www.facebook.com/abdesalam.balhaje.5" style="; text-align:center;" target="_blank" title="فيسبوك"><i class="fab fa-facebook"></i></a>
+<a href="https://twitter.com/" style="; text-align:center;" target="_blank" title="تويتر"><i class="fab fa-twitter"></i></a>
+<a href="https://www.instagram.com/deragha_khaled/profilecard/?igsh=MTkydHVmdDR2dHlzOA==" style="; text-align:center;" target="_blank" title="إنستاجرام"><i class="fab fa-instagram"></i></a>
+<a href="https://t.me/Khaled_Deragha" style="; text-align:center;" target="_blank" title="تليجرام"><i class="fab fa-telegram"></i></a>
+<a href="https://www.youtube.com/@aindeheb853" style="; text-align:center;" target="_blank" title="يوتيوب"><i class="fab fa-youtube"></i></a>
+<a href="https://tiktok.com/@khaled_deragha" style="; text-align:center;" target="_blank" title="تيك توك"><i class="fab fa-tiktok"></i></a>
+<a href="mailto:gsmkhaledtiaret@gmail.com" style="; text-align:center;" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
+</div>
+</div>
+</footer>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
       const navButtons = document.querySelectorAll('.nav-button');
       const categories = document.querySelectorAll('.category');
