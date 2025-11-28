@@ -1,819 +1,1524 @@
-<html><head><base href="https://pita-dz-tv.com/"/>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>PITA DZ TV - بث مباشر للقنوات الفضائية</title>
-<style>
-  :root {
-    --primary-color: #6b2aa57a;
-    --secondary-color: #4ecdc4;
-    --background-color: #857474;
-    --card-background: #a8adb5;
-    --text-color: #333333;
-    --accent-color: #feca57;
-    --general-color: #4ecdc4;
-    --news-color: #ff6b6b;
-    --sports-color: #feca57;
-    --documentaries-color: #ff9ff3;
-    --kids-color: #54a0ff;
-  }
-  body {
-    font-family: 'Tajawal', 'Arial', sans-serif;
-    background-color: #ffffff;
-    color: var(--text-color);
-    margin: 0;
-    padding: 0;
-    direction: rtl;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    text-align: center;
-    padding: 30px 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  h1 {
-    margin: 0;
-    font-size: 3em;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    position: relative;
-    z-index: 1;
-  }
-  nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    position: relative;
-    z-index: 1;
-  }
-  .nav-button {
-    background-color: #f9f2f2;
-    color: #0a0e0e;
-    border: 2px solid var(--primary-color);
-    border-radius: 50px;
-    padding: 12px 24px;
-    font-weight: bold;
-    transition: all 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    margin: 10px;
-    cursor: pointer;
-  }
-  .nav-button:hover, .nav-button.active {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255,107,107,0.4);
-  }
-  .nav-button[data-category="general"]:hover, .nav-button[data-category="general"].active { background-color: var(--general-color); color: #ffffff; }
-  .nav-button[data-category="news"]:hover, .nav-button[data-category="news"].active { background-color: var(--news-color); color: #ffffff; }
-  .nav-button[data-category="sports"]:hover, .nav-button[data-category="sports"].active { background-color: var(--sports-color); color: #ffffff; }
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .search-input {
-    background-color: rgba(255,255,255,0.9);
-    color: var(--text-color);
-    border: 2px solid var(--secondary-color);
-    border-radius: 50px;
-    padding: 12px 24px;
-    width: 60%;
-    font-size: 1.1em;
-    transition: all 0.3s ease;
-  }
-  .search-input:focus {
-    outline: none;
-    box-shadow: 0 0 15px rgba(78,205,196,0.5);
-  }
-  .category {
-    background-color: var(--card-background);
-    border-radius: 20px;
-    padding: 30px;
-    margin-top: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    display: none;
-    transition: all 0.5s ease, background-color 0.3s ease;
-  }
-  #general { background-color: var(--general-color); }
-  #news { background-color: var(--news-color); }
-  #sports { background-color: var(--sports-color); }
-  #documentaries { background-color: var(--documentaries-color); }
-  #kids { background-color: var(--kids-color); }
-  .category.active {
-    display: block;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .category h2 {
-    color: #1d3735;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-    font-size: 2em;
-  }
-  .subcategory-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .subcategory-button {
-    background-color: var(--card-background);
-    color: var(--text-color);
-    border: 2px solid var(--secondary-color);
-    border-radius: 25px;
-    padding: 8px 16px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  .subcategory-button:hover,
-  .subcategory-button.active {
-    background-color: var(--secondary-color);
-    color: #ffffff;
-  }
-  .subcategory-content {
-    display: none;
-  }
-  .subcategory-content.active {
-    display: block;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  .channels {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 30px;
-    padding: 20px 0;
-  }
-  .channel {
-    background: #a10808;
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    cursor: pointer;
-  }
-  .channel:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-  }
-  .channel img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-  .channel-separator {
-    width: 100%;
-    height: 2px;
-    background-color: var(--sports-color);
-    margin: 20px 0;
-    opacity: 0.5;
-  }
-  footer {
-    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-    color: #ffffff;
-    text-align: center;
-    padding: 40px 0;
-    margin-top: 60px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-  }
-  .social-links {
-    margin-top: 30px;
-  }
-  .social-links a {
-    color: #ffffff;
-    font-size: 1.6em;
-    margin: 0 12px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  .social-links a:hover {
-    color: var(--accent-color);
-    transform: translateY(-5px) scale(1.1);
-  }
-  .popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-  }
-  .popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #020202;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    padding: 30px;
-    text-align: center;
-    width: 90%;
-    max-width: 1200px;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .popup-media-container {
-    flex-grow: 1;
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-  }
-  .popup-iframe, #hls-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-  @media screen and (orientation: landscape) {
-    .popup-content {
-      width: 90vw;
-      height: 90vh;
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PITA DZ TV - بث مباشر للقنوات الفضائية</title>
+  <base href="https://pita-dz-tv.com/" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Tajawal:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Scripts -->
+  <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+  <script>
+    jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-card: #1e1e1e;
+      --bg-card-hover: #2d2d2d;
+      --primary: #4ecdc4;
+      --secondary: #6b2aa5;
+      --accent: #feca57;
+      --text-main: #ffffff;
+      --text-muted: #a0a0a0;
+      --border-color: #333333;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      --transition: all 0.3s ease;
     }
-  }
-  .popup-controls {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex; /* اجعلها flexbox */
-    gap: 10px; /* إضافة مسافة بين الأزرار */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-  .popup-content:hover .popup-controls {
-    opacity: 1;
-  }
-  .popup-button {
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .popup-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-  }
-  .foreign-sports {
-    background-color: #7ccb9e;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-  }
-  #sports h3 {
-    color: #333;
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--sports-color);
-    padding-bottom: 10px;
-  }
-  .foreign-sports .channel {
-    background-color: #91b990;
-    border: 2px solid var(--sports-color);
-  }
-  .foreign-sports .channel:hover {
-    background-color: var(--sports-color);
-    color: #fff;
-  }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
-<style>
-body {
-    background-color: #121212;
-    color: #f0f0f0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-section {
-    padding: 20px;
-    margin: 10px auto;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 1000px;
-    transition: background 0.8s ease;
-}
-h1, h2, h3 {
-    margin-top: 10px;
-    color: #ffffff;
-}
-button, a {
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    color: white;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-button:hover, a:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-}
-/* Section colors */
-.section-live { background: linear-gradient(135deg, #ff512f, #f09819); }
-.section-general { background: linear-gradient(135deg, #00bfa6, #1de9b6); }
-.section-sport { background: linear-gradient(135deg, #1abc9c, #16a085); }
-.section-islamic { background: linear-gradient(135deg, #b59f3b, #8c7b32); }
-.section-docs { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
-.section-kids { background: linear-gradient(135deg, #ff80ab, #f50057); }
-/* Modal fix */
-.modal iframe {
-    width: 100%;
-    height: 56.25%; /* 16:9 ratio */
-    aspect-ratio: 16 / 9;
-    border-radius: 10px;
-}
-.modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.85);
-}
-</style></head>
-<body style=" background-color:#121212; color:#f0f0f0; text-align:center">
-<header>
-<div class="container">
-<h1 style="; text-align:center;">PITA DZ TV</h1>
-<p style="; text-align:center;">بث مباشر للقنوات الفضائية</p>
-<div class="search-container">
-<input class="search-input" placeholder="ابحث عن قناة..." type="text"/>
-</div>
-</div>
-</header>
-<nav class="container">
-<button class="nav-button" data-category="EVENT TV LIVE" style="; text-align:center;">بث مباشر للمباريات</button>
-<button class="nav-button" data-category="general" style="; text-align:center;">عامة</button>
-<button class="nav-button" data-category="news" style="; text-align:center;">الأخبار</button>
-<button class="nav-button" data-category="sports" style="; text-align:center;">الرياضة</button>
-<button class="nav-button" data-category="ISLAMIC" style="; text-align:center;">قنوات إسلامية</button>
-<button class="nav-button" data-category="documentaries" style="; text-align:center;">الوثائقيات</button>
-<button class="nav-button" data-category="kids" style="; text-align:center;">الأطفال</button>
-</nav>
-<div class="container">
-<section class="category" id="EVENT TV LIVE">
-<h2 style="; text-align:center;">بث مباشر للمباريات</h2>
-<div class="post-body entry-content" id="post-body-5824180690288542074" itemprop="description articleBody">
-<iframe allowfullscreen="true" rel="nofollow" scrolling="no" seamless="" src="https://href.li/?https://go.s96.net/p/s96.html?m=1" style="width: 100%;height: 3000px;border: 0px none;"></iframe>
-<div style="clear: both;"></div>
-</div>
-</section>
-<section class="category" id="general">
-<h2 style="; text-align:center;">القنوات العامة</h2>
-<div class="subcategories">
-<button class="subcategory-button" data-subcategory="algerian" style="; text-align:center;">قنوات جزائرية</button>
-<button class="subcategory-button" data-subcategory="moroccan" style="; text-align:center;">قنوات مغربية</button>
-<button class="subcategory-button" data-subcategory="egyptian" style="; text-align:center;">قنوات مصرية</button>
-<button class="subcategory-button" data-subcategory="palestinian" style="; text-align:center;">قنوات فلسطينية</button>
-<button class="subcategory-button" data-subcategory="tunisian" style="; text-align:center;">قنوات تونسية</button>
-<button class="subcategory-button" data-subcategory="french" style="; text-align:center;">قنوات فرنسية</button>
-</div>
-<div class="subcategory-channels">
-<div class="subcategory-content" id="algerian">
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة الأرضية الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=entv_algerie')">قناة الأرضية الجزائرية</div>
-<div class="channel" onclick="showPopup('قناة الجزائرية الثالثة', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=thalitha')">قناة الجزائرية الثالثة</div>
-<div class="channel" onclick="showPopup('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">قناة الفجر الجزائرية</div>
-<div class="channel" onclick="showPopup('Ennahar Tv النهارتي في', 'https://www.elahmad.com/tv/algeria_live.php?id=ennahartv')">Ennahar Tv النهار تي في</div>
-<div class="channel" onclick="showPopup('EchoroukNews الشروق نيوز', 'https://www.elahmad.com/tv/algeria_live.php?id=echorouk_news')">EchoroukNews الشروق نيوز</div>
-<div class="channel" onclick="showPopup('EchoroukHD الشروق تي في', 'https://www.elahmad.com/tv/radiant.php?id=echorouk_tvhd')">EchoroukHD الشروق تي في</div>
-<div class="channel" onclick="showPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</div>
-<div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
-<div class="channel" onclick="showPopup('قناة Samira TV الجزائرية', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=samiratv')">قناة Samira TV الجزائرية</div>
-</div>
-</div>
-<div class="subcategory-content" id="moroccan">
-<div class="channels">
-<div class="channel" onclick="showPopup('الاولى المغربية', 'https://www.elahmad.com/tv/radiant.php?id=aloula1')">الاولى المغربية</div>
-<div class="channel" onclick="showPopup('AlAoula Laayoune', 'https://www.elahmad.com/tv/radiant.php?id=laayoune')">AlAoula Laayoune</div>
-<div class="channel" onclick="showPopup('2M monde', 'https://www.elahmad.com/tv/radiant.php?id=2m_monde')">2M monde</div>
-<div class="channel" onclick="showPopup('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">Arryadia3 الرياضية</div>
-<!-- Add more Moroccan channels here -->
-</div>
-</div>
-<div class="subcategory-content" id="egyptian">
-<div class="channels">
-<div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
-<div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
-<div class="channel" onclick="showPopup('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">Alwathaeqya الوثائقية المصرية</div>
-<!-- Add more Egyptian channels here -->
-</div>
-</div>
-<div class="subcategory-content" id="palestinian">
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://64c53df624b1b.servers.dvcloud.tv/hls/feedspare/6udfi7v8a3eof6nlps6e9ovfrs65c7l7.m3u8')">قناة الأقصى الفلسطينية</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">قناة الفجر الفلسطينية الأولى</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">قناة الفجر الفلسطينية الثانية</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">قناة الفجر الفلسطينية الثالثة</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">قناة الفجر الفلسطينية الرابعة</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">قناة الفجر الفلسطينية الخامسة</div>
-<div class="channel" onclick="showPopup('قناة السلام الفلسطينية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=salam_tv')">قناة السلام الفلسطينية</div>
-<!-- Add more Palestinian channels here -->
-</div>
-</div>
-<div class="subcategory-content" id="tunisian">
-<div class="channels">
-<div class="channel" onclick="showPopup('alWataniya الوطنية التونسية 1', 'https://www.elahmad.com/tv/radiant.php?id=watania1')">alWataniya الوطنية التونسية 1</div>
-<div class="channel" onclick="showPopup('alWataniya الوطنية التونسية 2', 'https://www.elahmad.com/tv/radiant.php?id=watania2')">alWataniya الوطنية التونسية 2</div>
-<!-- Add more Tunisian channels هنا -->
-</div>
-</div>
-<div class="subcategory-content" id="french">
-<div class="channels">
-<div class="channel" onclick="showPopup('Tf1', 'https://matele.ru/plyz/4/24')">Tf1</div>
-<!-- Add more French channels هنا -->
-</div>
-</div>
-</div>
-</section>
-<section class="category" id="news">
-<h2 style="; text-align:center;">قنوات الأخبار</h2>
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">قناة الجزيرة الإخبارية</div>
-<div class="channel" onclick="showPopup('قناة BBC العربية', 'https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8')">قناة BBC العربية</div>
-<div class="channel" onclick="showPopup('Dw tvarabia Tv', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=dwtvarabia')">Dw tvarabia Tv</div>
-<div class="channel" onclick="showPopup('RT روسيا اليوم', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">RT روسيا اليوم HD</div>
-<div class="channel" onclick="showPopup('Almayadeen', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=almayadeen')">Almayadeen</div>
-<div class="channel" onclick="showPopup('RT روسيا اليوم HD', 'https://rt-arb.rttv.com/dvr/rtarab/playlist.m3u8')">RT روسيا اليوم</div>
-<div class="channel" onclick="showPopup('قناة المنار al manar', 'https://www.elahmad.com/tv/radiant.php?id=manartv3')">قناة المنار al manar</div>
-<div class="channel" onclick="showPopup('قناة الحرة ', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">قناة الحرة</div>
-<div class="channel" onclick="showPopup('قناة الأقصى الفلسطينية', 'https://64c53df624b1b.servers.dvcloud.tv/hls/feedspare/6udfi7v8a3eof6nlps6e9ovfrs65c7l7.m3u8')">قناة الأقصى الفلسطينية</div>
-<div class="channel" onclick="showPopup('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">قناة AL24News الجزائرية</div>
-<div class="channel" onclick="showPopup('Alaraby TV التلفزيون العربي', 'https://www.elahmad.com/tv/radiant.php?id=alarabytv')">Alaraby TV التلفزيون العربي</div>
-</div>
-</section>
-<section class="category" id="sports">
-<h2 style="; text-align:center;">قنوات الرياضة</h2>
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة رياضية 1 تعمل أثناء المباريات فقط', 'https://live21.yalla-sport.online/chtv/ch4.php')">قناة رياضية 1 تعمل أثناء المباريات فقط</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">قناة الفجر الفلسطينية الأولى</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">قناة الفجر الفلسطينية الثانية</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">قناة الفجر الفلسطينية الثالثة</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">قناة الفجر الفلسطينية الرابعة</div>
-<div class="channel" onclick="showPopup('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">قناة الفجر الفلسطينية الخامسة</div>
-<div class="channel" onclick="showPopup('Sport 1 bein HD', 'https://hornpot.net/embed/mt847b6')">Sport 1 bein HD</div>
-<div class="channel" onclick="showPopup('قناة Bein Sport NEWS', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&amp;iv_load_policy=3&amp;rel=0')">قناة Bein Sport NEWS</div>
-<div class="channel" onclick="showPopup('Bein Sport 1', 'https://balance.footballii.ir/hls2/bein1.m3u8')">Bein Sport 1</div>
-<div class="channel" onclick="showPopup('A Sport 1 HD', 'https://gist.githubusercontent.com/geadgead9-alt/3c5b50f80a5f6eba7012a71ede47e1f5/raw/a86cc81c7b6ff8290aa3be738ac1256d4ea3e8a1/PITALIVE.m3u8')">A Sport 1 HD</div>
-<div class="channel" onclick="showPopup('Sport 1 HD', 'https://yalla5.koora-online.club/chtv/ch1.php')">Sport 1 HD</div>
-<div class="channel" onclick="showPopup('Sport 2 HD', 'https://yalla5.koora-online.club/chtv/ch2.php')">Sport 2 HD</div>
-<div class="channel" onclick="showPopup('Sport 3 HD', 'https://yalla5.koora-online.club/chtv/ch3.php')">Sport 3 HD</div>
-<div class="channel" onclick="showPopup('thmanyah 1', 'https://sportlo.live/SSC-11/tracks-v1a1/mono.m3u8')">thmanyah 1</div>
-<div class="channel" onclick="showPopup('thmanyah 2', 'https://sportlo.live/SSC-22/tracks-v1a1/mono.m3u8')">thmanyah 2</div>
-<div class="channel" onclick="showPopup('thmanyah 3', 'https://sportlo.live/SSC-33/tracks-v1a1/mono.m3u8')">thmanyah 3</div>
-<div class="channel" onclick="showPopup('Alkass hd ONE', 'https://www.elahmad.com/tv/alkass_hd.php?id=one_1')">Alkass hd ONE</div>
-<div class="channel" onclick="showPopup('Alkass hd TWO', 'https://www.elahmad.com/tv/alkass_hd.php?id=2')">Alkass hd TWO</div>
-<div class="channel" onclick="showPopup('Alkass hd THREE', 'https://www.elahmad.com/tv/alkass_hd.php?id=3')">Alkass hd THREE</div>
-<div class="channel" onclick="showPopup('Alkass hd FOUR', 'https://www.elahmad.com/tv/alkass_hd.php?id=4')">Alkass hd FOUR</div>
-<div class="channel" onclick="showPopup('Alkass hd FIVE', 'https://www.elahmad.com/tv/alkass_hd.php?id=5')">Alkass hd FIVE</div>
-<div class="channel" onclick="showPopup('Abudhabi Sports 1 premium', 'https://cookiewebplay.xyz/embedlivetv.php?id=N0nZoHOXsC')">Abudhabi Sports 1 premium</div>
-<div class="channel" onclick="showPopup('Abudhabi Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports2')">Abudhabi Sports 2</div>
-<div class="channel" onclick="showPopup('Abudhabi Sports 3', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports3')">Abudhabi Sports 3</div>
-<div class="channel" onclick="showPopup('Abudhabi Sports 4', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports4')">Abudhabi Sports 4</div>
-<div class="channel" onclick="showPopup('الشارقة الرياضية HD', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">الشارقة الرياضية HD</div>
-<div class="channel" onclick="showPopup('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">Arryadia3 الرياضية</div>
-<div class="channel" onclick="showPopup('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">On Time Sports 1</div>
-<div class="channel" onclick="showPopup('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">On Time Sports 2</div>
-<div class="channel" onclick="showPopup('قناة الهداف الجزائرية El Heddaf TV', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">قناة الهداف الجزائرية El Heddaf TV</div>
-<!-- New subsection for foreign sports channels -->
-<h3 style="; text-align:center;">قنوات رياضية أجنبية</h3>
-<div class="channels foreign-sports">
-<div class="channel" onclick="showPopup('Eleven 1 Portugal', 'https://jeinz5.blogspot.com/p/cod1.html?carpeta=pt&id=eleven1')">Eleven 1 Portugal</div>
-<div class="channel" onclick="showPopup('Bein Sport 1 FR', 'https://jokertv.ru/ccc/4/1')">Bein Sport 1 FR</div>
-<div class="channel" onclick="showPopup('Canal Plus Foot', 'https://matele.ru/plyz/4/12')">Canal Plus Foot</div>
-<div class="channel" onclick="showPopup('Canal Plus Sport', 'https://matele.ru/plyz/4/13')">Canal Plus Sport</div>
-<div class="channel" onclick="showPopup('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">Bein Sport Xtra Spain</div>
-</div>
-</div></section>
-<section class="category" id="ISLAMIC">
-<h2 style="; text-align:center;">قنوات الإسلامية</h2>
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة القرآن الكريم', 'https://www.youtube.com/embed/live_stream?channel=UCos52azQNBgW63_9uDJoPDA&autoplay=1')">قناة القرآن الكريم</div>
-<div class="channel" onclick="showPopup('قناة السنة النبوية', 'https://www.youtube.com/embed/live_stream?channel=UCROKYPep-UuODNwyipe6JMw&autoplay=1')">قناة السنة النبوية</div>
-</div>
-</section>
-<section class="category" id="documentaries">
-<h2 style="; text-align:center;">القنوات الوثائقية</h2>
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة رؤيا الوثائقية', 'https://playlist.fasttvcdn.com/pl/toa2uuhhygheuly7xtuqrg/documentaries/playlist/0.m3u8')">قناة رؤيا الوثائقية</div>
-<div class="channel" onclick="showPopup('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">Alwathaeqya الوثائقية المصرية</div>
-</div>
-</section>
-<section class="category" id="kids">
-<h2 style="; text-align:center;">قنوات الأطفال</h2>
-<div class="channels">
-<div class="channel" onclick="showPopup('قناة Spacetoon', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=spacetoon_live')">قناة Spacetoon</div>
-<div class="channel" onclick="showPopup('قناة أطفال ومواهب', 'https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8')">قناة أطفال ومواهب</div>
-<div class="channel" onclick="showPopup('قناة براعم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=baraem')">قناة براعم</div>
-<div class="channel" onclick="showPopup('تلفزيون جيم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=jscc1')">تلفزيون جيم</div>
-<div class="channel" onclick="showPopup('قناة طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">قناة طيور الجنة</div>
-<div class="channel" onclick="showPopup('قناة المجد', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=majid_tv')">قناة المجد</div>
-<div class="channel" onclick="showPopup('قناة كراميش', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=karameesh')">قناة كراميش</div>
-</div>
-</section>
-</div>
-<div class="popup" id="popup">
-<div class="popup-content">
-<h2 id="popup-title" style="; text-align:center;"></h2>
-<div class="popup-media-container">
-<iframe allowfullscreen="" class="popup-iframe" id="popup-iframe"></iframe>
-</div>
-<div class="popup-controls">
-<button class="popup-button" id="fullscreen-btn" onclick="toggleFullscreen()" style="; text-align:center;"><i class="fas fa-expand"></i></button>
-<button class="popup-button" id="close-btn" onclick="closePopup()" style="; text-align:center;"><i class="fas fa-times"></i></button>
-</div>
-</div>
-</div>
-<footer>
-<div class="container">
-<p style="; text-align:center;">جميع الحقوق محفوظة © 2026 PITA DZ TV</p>
-<p style="; text-align:center;">المالك: خالد دراغة</p>
-<div class="social-links">
-<a href="https://www.facebook.com/abdesalam.balhaje.5" style="; text-align:center;" target="_blank" title="فيسبوك"><i class="fab fa-facebook"></i></a>
-<a href="https://twitter.com/" style="; text-align:center;" target="_blank" title="تويتر"><i class="fab fa-twitter"></i></a>
-<a href="https://www.instagram.com/deragha_khaled/profilecard/?igsh=MTkydHVmdDR2dHlzOA==" style="; text-align:center;" target="_blank" title="إنستاجرام"><i class="fab fa-instagram"></i></a>
-<a href="https://t.me/Khaled_Deragha" style="; text-align:center;" target="_blank" title="تليجرام"><i class="fab fa-telegram"></i></a>
-<a href="https://www.youtube.com/@aindeheb853" style="; text-align:center;" target="_blank" title="يوتيوب"><i class="fab fa-youtube"></i></a>
-<a href="https://tiktok.com/@khaled_deragha" style="; text-align:center;" target="_blank" title="تيك توك"><i class="fab fa-tiktok"></i></a>
-<a href="mailto:gsmkhaledtiaret@gmail.com" style="; text-align:center;" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
-</div>
-</div>
-</footer>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navButtons = document.querySelectorAll('.nav-button');
-      const categories = document.querySelectorAll('.category');
-      const searchInput = document.querySelector('.search-input');
-      const subcategoryButtons = document.querySelectorAll('.subcategory-button');
-      const subcategoryContents = document.querySelectorAll('.subcategory-content');
 
-      function showCategory(categoryId) {
-        categories.forEach(category => {
-          if (category.id === categoryId) {
-            category.classList.add('active');
-          } else {
-            category.classList.remove('active');
-          }
-        });
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        navButtons.forEach(btn => {
-          if (btn.getAttribute('data-category') === categoryId) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        });
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* Header */
+    header {
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      letter-spacing: -1px;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 20px;
+      padding-right: 45px;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: white;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(78, 205, 196, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    /* Navigation */
+    .nav-scroller {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      scrollbar-width: none;
+    }
+
+    .nav-scroller::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 10px 25px;
+      border-radius: 50px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--primary);
+      color: #000;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+    }
+
+    /* Sub-Navigation (for General) */
+    .sub-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .sub-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 8px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .sub-btn:hover,
+    .sub-btn.active {
+      background: var(--bg-card-hover);
+      color: var(--text-main);
+      border-color: var(--text-main);
+    }
+
+    /* Content Sections */
+    .category-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .category-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
 
-      function showSubcategory(subcategoryId) {
-        subcategoryContents.forEach(content => {
-          if (content.id === subcategoryId) {
-            content.style.display = 'block';
-          } else {
-            content.style.display = 'none';
-          }
-        });
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        subcategoryButtons.forEach(btn => {
-          if (btn.getAttribute('data-subcategory') === subcategoryId) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        });
+    .section-header {
+      margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .section-header h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    /* Grid Layout */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 25px;
+    }
+
+    .channel-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1/1;
+    }
+
+    .channel-card:hover {
+      transform: translateY(-10px);
+      background: var(--bg-card-hover);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .channel-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: var(--transition);
+    }
+
+    .channel-card:hover .channel-icon {
+      transform: scale(1.1);
+    }
+
+    .channel-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .channel-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000;
+      font-size: 1.5rem;
+      box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
+      transform: scale(0);
+      transition: var(--transition);
+    }
+
+    .channel-card:hover .play-btn {
+      transform: scale(1);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Player Enhancements */
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      z-index: 5;
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .modal-content {
+      background: #000;
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      /* 16:9 Aspect Ratio */
+      height: 0;
+      background: #000;
+    }
+
+    .video-container iframe,
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+      z-index: 10;
+      border-bottom: none;
+      pointer-events: none;
+      /* Let clicks pass through to video if needed, but buttons need pointer-events: auto */
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .live-badge {
+      background: #ff4757;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
       }
 
-      navButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const categoryToShow = this.getAttribute('data-category');
-          showCategory(categoryToShow);
-        });
-      });
+      50% {
+        opacity: 0.7;
+      }
 
-      subcategoryButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const subcategoryToShow = this.getAttribute('data-subcategory');
-          showSubcategory(subcategoryToShow);
-        });
-      });
+      100% {
+        opacity: 1;
+      }
+    }
 
-	  searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase().trim();
-        const allChannels = document.querySelectorAll('.channel');
-        const allCategories = document.querySelectorAll('.category');
-        const allSubcategories = document.querySelectorAll('.subcategory-content');
+    .close-modal {
+      pointer-events: auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        if (searchTerm === '') {
-          // إرجاع الوضع العادي
-          allChannels.forEach(ch => ch.style.display = 'block');
-          allSubcategories.forEach(sub => sub.style.display = 'none');
-          showCategory('general');
-          return;
+    .close-modal:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-card);
+      padding: 60px 0 40px;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+      animation: shimmer 3s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .footer-content {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 15px;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+
+    .footer-logo h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin: 0;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 5s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .footer-rights {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .footer-owner {
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 5px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+    }
+
+    .footer-owner:hover {
+      transform: scale(1.1) translateY(-3px);
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-links {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .social-links a {
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .social-links a:hover {
+      color: white;
+      transform: translateY(-5px);
+      background: var(--primary);
+      box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-container {
+        width: 100%;
+      }
+
+      .logo h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <h1>PITA DZ TV</h1>
+      </div>
+      <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن قناة...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Navigation -->
+    <div class="nav-scroller">
+      <button class="nav-btn" onclick="filterCategory('matches')">بث المباريات</button>
+      <button class="nav-btn active" onclick="filterCategory('general')">قنوات عامة</button>
+      <button class="nav-btn" onclick="filterCategory('news')">أخبار</button>
+      <button class="nav-btn" onclick="filterCategory('sports')">رياضة</button>
+      <button class="nav-btn" onclick="filterCategory('islamic')">إسلامية</button>
+      <button class="nav-btn" onclick="filterCategory('docs')">وثائقية</button>
+      <button class="nav-btn" onclick="filterCategory('kids')">أطفال</button>
+    </div>
+
+    <!-- Content Sections -->
+
+    <!-- Matches Section -->
+    <div id="matches" class="category-section">
+      <div class="section-header">
+        <h2>بث مباشر للمباريات</h2>
+      </div>
+      <div class="video-container" style="height: 3000px; border-radius: 16px; overflow: hidden;">
+        <iframe src="https://href.li/?https://go.s96.net/p/s96.html?m=1"
+          style="width: 100%; height: 100%; border: none;" scrolling="no" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- General Section -->
+    <div id="general" class="category-section active">
+      <div class="section-header">
+        <h2>القنوات العامة</h2>
+      </div>
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="filterSub('algerian')">قنوات جزائرية</button>
+        <button class="sub-btn" onclick="filterSub('moroccan')">قنوات مغربية</button>
+        <button class="sub-btn" onclick="filterSub('egyptian')">قنوات مصرية</button>
+        <button class="sub-btn" onclick="filterSub('palestinian')">قنوات فلسطينية</button>
+        <button class="sub-btn" onclick="filterSub('tunisian')">قنوات تونسية</button>
+        <button class="sub-btn" onclick="filterSub('french')">قنوات فرنسية</button>
+      </div>
+
+      <div class="channels-grid" id="general-grid">
+        <!-- Algerian -->
+        <div class="channel-card algerian"
+          onclick="playChannel('قناة الأرضية الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=entv_algerie')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الأرضية الجزائرية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('قناة الجزائرية الثالثة', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=thalitha')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الجزائرية الثالثة</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('قناة الفجر الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=el_fadjr_tv')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الفجر الجزائرية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('Ennahar Tv النهار تي في', 'https://www.elahmad.com/tv/algeria_live.php?id=ennahartv')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">النهار تي في</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('EchoroukNews الشروق نيوز', 'https://www.elahmad.com/tv/algeria_live.php?id=echorouk_news')">
+          <i class="fas fa-newspaper channel-icon"></i>
+          <div class="channel-name">الشروق نيوز</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('EchoroukHD الشروق تي في', 'https://www.elahmad.com/tv/radiant.php?id=echorouk_tvhd')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الشروق تي في</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('قناة AL24News الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=al24news')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">AL24News</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('قناة الهداف الجزائرية', 'https://www.elahmad.com/tv/algeria_live.php?id=elheddaf')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الهداف الجزائرية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card algerian"
+          onclick="playChannel('قناة Samira TV الجزائرية', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=samiratv')">
+          <i class="fas fa-utensils channel-icon"></i>
+          <div class="channel-name">Samira TV</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+        <!-- Moroccan -->
+        <div class="channel-card moroccan"
+          onclick="playChannel('الاولى المغربية', 'https://www.elahmad.com/tv/radiant.php?id=aloula1')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الاولى المغربية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card moroccan"
+          onclick="playChannel('AlAoula Laayoune', 'https://www.elahmad.com/tv/radiant.php?id=laayoune')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">العيون</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card moroccan"
+          onclick="playChannel('2M monde', 'https://www.elahmad.com/tv/radiant.php?id=2m_monde')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">2M monde</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card moroccan"
+          onclick="playChannel('Arryadia3 الرياضية', 'https://www.elahmad.com/tv/radiant.php?id=arryadia1')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الرياضية المغربية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+        <!-- Egyptian -->
+        <div class="channel-card egyptian"
+          onclick="playChannel('On Time Sports 1', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports1')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">On Time Sports 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card egyptian"
+          onclick="playChannel('On Time Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=on_time_sports2')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">On Time Sports 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card egyptian"
+          onclick="playChannel('Alwathaeqya الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">
+          <i class="fas fa-film channel-icon"></i>
+          <div class="channel-name">الوثائقية المصرية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+        <!-- Palestinian -->
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة الأقصى الفلسطينية', 'https://64c53df624b1b.servers.dvcloud.tv/hls/feedspare/6udfi7v8a3eof6nlps6e9ovfrs65c7l7.m3u8')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الأقصى</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الفجر 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الفجر 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الفجر 3</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الفجر 4</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الفجر 5</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card palestinian"
+          onclick="playChannel('قناة السلام الفلسطينية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=salam_tv')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">السلام</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+        <!-- Tunisian -->
+        <div class="channel-card tunisian"
+          onclick="playChannel('alWataniya الوطنية التونسية 1', 'https://www.elahmad.com/tv/radiant.php?id=watania1')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الوطنية 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card tunisian"
+          onclick="playChannel('alWataniya الوطنية التونسية 2', 'https://www.elahmad.com/tv/radiant.php?id=watania2')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">الوطنية 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+        <!-- French -->
+        <div class="channel-card french" onclick="playChannel('Tf1', 'https://matele.ru/plyz/4/24')">
+          <i class="fas fa-tv channel-icon"></i>
+          <div class="channel-name">TF1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- News Section -->
+    <div id="news" class="category-section">
+      <div class="section-header">
+        <h2>قنوات الأخبار</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-card"
+          onclick="playChannel('قناة الجزيرة الإخبارية', 'https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">الجزيرة</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة BBC العربية', 'https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8')">
+          <i class="fas fa-globe-europe channel-icon"></i>
+          <div class="channel-name">BBC العربية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Dw tvarabia Tv', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=dwtvarabia')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">DW العربية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('RT روسيا اليوم', 'https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">RT روسيا اليوم</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Almayadeen', 'https://www.elahmad.com/tv/arabic-tv-online.php?id=almayadeen')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">الميادين</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة المنار', 'https://www.elahmad.com/tv/radiant.php?id=manartv3')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">المنار</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة الحرة', 'https://mbnv-video-ingest.akamaized.net/hls/live/2038904/MBNV_ALHURRA_MAIN_HLS/merge.m3u8')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">الحرة</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Alaraby TV', 'https://www.elahmad.com/tv/radiant.php?id=alarabytv')">
+          <i class="fas fa-globe channel-icon"></i>
+          <div class="channel-name">التلفزيون العربي</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sports Section -->
+    <div id="sports" class="category-section">
+      <div class="section-header">
+        <h2>قنوات الرياضة</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-card"
+          onclick="playChannel('قناة رياضية 1', 'https://live21.yalla-sport.online/chtv/ch4.php')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">رياضية 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة رياضية 2', 'https://quiet-limit-51c5.maleka2004h.workers.dev/proxy?url=https://prod-fastly-eu-central-1.video.pscp.tv/Transcoding/v1/hls/9A5T9muPrr0r_O1GbJOzA4IHFoERqFUAnMoOOWhwZXtiFSTHUtIZ1Z3OFVqOADbIIZ_DJRRQnZfD4UpZXEvkKA/non_transcode/eu-central-1/periscope-replay-direct-prod-eu-central-1-public/master_dynamic_highlatency.m3u8?type=live')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">رياضية 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Sport 1 bein HD', 'https://hornpot.net/embed/mt847b6')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Sport 1 bein HD</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Bein Sport NEWS', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Bein NEWS</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Bein Sport 1', 'https://balance.footballii.ir/hls2/bein1.m3u8')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Bein Sport 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('A Sport 1 HD', 'https://gist.githubusercontent.com/geadgead9-alt/3c5b50f80a5f6eba7012a71ede47e1f5/raw/a86cc81c7b6ff8290aa3be738ac1256d4ea3e8a1/PITALIVE.m3u8')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">A Sport 1 HD</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Sport 1 HD', 'https://yalla5.koora-online.club/chtv/ch1.php')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Sport 1 HD</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Sport 2 HD', 'https://yalla5.koora-online.club/chtv/ch2.php')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Sport 2 HD</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Sport 3 HD', 'https://yalla5.koora-online.club/chtv/ch3.php')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Sport 3 HD</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('SSC 1', 'https://sportlo.live/SSC-11/tracks-v1a1/mono.m3u8')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">SSC 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('SSC 2', 'https://sportlo.live/SSC-22/tracks-v1a1/mono.m3u8')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">SSC 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Alkass 1', 'https://www.elahmad.com/tv/alkass_hd.php?id=one_1')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Alkass 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Alkass 2', 'https://www.elahmad.com/tv/alkass_hd.php?id=2')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Alkass 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Alkass 3', 'https://www.elahmad.com/tv/alkass_hd.php?id=3')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Alkass 3</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Alkass 4', 'https://www.elahmad.com/tv/alkass_hd.php?id=4')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Alkass 4</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Abu Dhabi Sports 1', 'https://cookiewebplay.xyz/embedlivetv.php?id=N0nZoHOXsC')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Abu Dhabi Sports 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Abu Dhabi Sports 2', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=abudhabi_sports2')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Abu Dhabi Sports 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('الشارقة الرياضية', 'https://svs.itworkscdn.net/smc4sportslive/smc4.smil/smc4sportspublish/smc4tv_720p/chunks.m3u8')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الشارقة الرياضية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة الفجر الفلسطينية الأولى', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الفجر 1</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة الفجر الفلسطينية الثانية', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv2')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الفجر 2</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة الفجر الفلسطينية الثالثة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv3')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الفجر 3</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة الفجر الفلسطينية الرابعة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv4')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الفجر 4</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('قناة الفجر الفلسطينية الخامسة', 'https://www.elahmad.com/tv/watchtv.php?id=alfajertv5')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">الفجر 5</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 40px;">
+        <h2>قنوات رياضية أجنبية</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-card"
+          onclick="playChannel('Eleven 1 Portugal', 'https://jeinz5.blogspot.com/p/cod1.html?carpeta=pt&id=eleven1')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Eleven 1 PT</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Bein Sport 1 FR', 'https://jokertv.ru/ccc/4/1')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Bein Sport 1 FR</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Canal+ Foot', 'https://matele.ru/plyz/4/12')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Canal+ Foot</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card" onclick="playChannel('Canal+ Sport', 'https://matele.ru/plyz/4/13')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Canal+ Sport</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('Bein Sport Xtra Spain', 'https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/bein-sports-xtra-en-espanol/playlist.m3u8')">
+          <i class="fas fa-futbol channel-icon"></i>
+          <div class="channel-name">Bein Xtra Spain</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Islamic Section -->
+    <div id="islamic" class="category-section">
+      <div class="section-header">
+        <h2>قنوات إسلامية</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-card"
+          onclick="playChannel('القرآن الكريم', 'https://www.youtube.com/embed/live_stream?channel=UCos52azQNBgW63_9uDJoPDA&autoplay=1')">
+          <i class="fas fa-quran channel-icon"></i>
+          <div class="channel-name">القرآن الكريم</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('السنة النبوية', 'https://www.youtube.com/embed/live_stream?channel=UCROKYPep-UuODNwyipe6JMw&autoplay=1')">
+          <i class="fas fa-mosque channel-icon"></i>
+          <div class="channel-name">السنة النبوية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Docs Section -->
+    <div id="docs" class="category-section">
+      <div class="section-header">
+        <h2>قنوات وثائقية</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-card"
+          onclick="playChannel('رؤيا الوثائقية', 'https://playlist.fasttvcdn.com/pl/toa2uuhhygheuly7xtuqrg/documentaries/playlist/0.m3u8')">
+          <i class="fas fa-film channel-icon"></i>
+          <div class="channel-name">رؤيا الوثائقية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('الوثائقية المصرية', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=alwathaeqya')">
+          <i class="fas fa-film channel-icon"></i>
+          <div class="channel-name">الوثائقية المصرية</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kids Section -->
+    <div id="kids" class="category-section">
+      <div class="section-header">
+        <h2>قنوات الأطفال</h2>
+      </div>
+      <div class="channels-grid">
+        <div class="channel-card"
+          onclick="playChannel('Spacetoon', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=spacetoon_live')">
+          <i class="fas fa-rocket channel-icon"></i>
+          <div class="channel-name">Spacetoon</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('أطفال ومواهب', 'https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8')">
+          <i class="fas fa-child channel-icon"></i>
+          <div class="channel-name">أطفال ومواهب</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('براعم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=baraem')">
+          <i class="fas fa-seedling channel-icon"></i>
+          <div class="channel-name">براعم</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('جيم', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=jscc1')">
+          <i class="fas fa-gamepad channel-icon"></i>
+          <div class="channel-name">جيم</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('طيور الجنة', 'https://www.elahmad.com/tv/radiant.php?id=toyoraljanah')">
+          <i class="fas fa-dove channel-icon"></i>
+          <div class="channel-name">طيور الجنة</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('المجد', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=majid_tv')">
+          <i class="fas fa-moon channel-icon"></i>
+          <div class="channel-name">المجد</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+        <div class="channel-card"
+          onclick="playChannel('كراميش', 'https://www.elahmad.com/tv/mobiletv/glarb.php?id=karameesh')">
+          <i class="fas fa-smile channel-icon"></i>
+          <div class="channel-name">كراميش</div>
+          <div class="play-overlay">
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h1>PITA DZ TV</h1>
+      </div>
+      <div class="footer-rights">جميع الحقوق محفوظة © 2026</div>
+      <div class="footer-owner">المالك: خالد دراغة</div>
+
+      <div class="social-links">
+        <a href="https://www.facebook.com/abdesalam.balhaje.5" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/deragha_khaled/profilecard/?igsh=MTkydHVmdDR2dHlzOA==" target="_blank"><i
+            class="fab fa-instagram"></i></a>
+        <a href="https://t.me/Khaled_Deragha" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="https://www.youtube.com/@aindeheb853" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://tiktok.com/@khaled_deragha" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="mailto:gsmkhaledtiaret@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Video Modal -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="live-badge">LIVE</span>
+          <span id="modalTitle">اسم القناة</span>
+        </div>
+        <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="video-container" id="playerContainer">
+        <div class="loading-spinner" id="loadingSpinner"></div>
+        <div id="playerElement"></div>
+        <!-- Player will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Category Filtering
+    function filterCategory(catId) {
+      // Update active button
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Show/Hide sections
+      document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
+      const activeSec = document.getElementById(catId);
+      if (activeSec) activeSec.classList.add('active');
+    }
+
+    // Subcategory Filtering (General)
+    function filterSub(subClass) {
+      // Update active button
+      document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Filter grid items
+      const grid = document.getElementById('general-grid');
+      const items = grid.querySelectorAll('.channel-card');
+
+      items.forEach(item => {
+        if (item.classList.contains(subClass)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
         }
-      
-        let foundAny = false;
-      
-        allCategories.forEach(cat => {
-          let foundInCategory = false;
-          const channels = cat.querySelectorAll('.channel');
-      
-          channels.forEach(channel => {
-            const name = channel.textContent.toLowerCase();
-            if (name.includes(searchTerm)) {
-              channel.style.display = 'block';
-              foundInCategory = true;
-              foundAny = true;
-              const sub = channel.closest('.subcategory-content');
-              if (sub) sub.style.display = 'block';
-            } else {
-        channel.style.display = 'none';
-            }
-          });
-      
-          cat.style.display = foundInCategory ? 'block' : 'none';
-        });
-      
-        if (!foundAny) {
-          allCategories.forEach(cat => cat.style.display = 'none');
-        }
       });
+    }
 
-      // Show the first subcategory by default
-      showSubcategory('algerian');
+    // Search Functionality
+    document.getElementById('searchInput').addEventListener('input', function (e) {
+      const term = e.target.value.toLowerCase();
+      const allCards = document.querySelectorAll('.channel-card');
 
-      showCategory('general');
+      // If searching, show all sections temporarily to find matches
+      if (term.length > 0) {
+        document.querySelectorAll('.category-section').forEach(s => s.classList.add('active'));
+
+        allCards.forEach(card => {
+          const name = card.querySelector('.channel-name').textContent.toLowerCase();
+          if (name.includes(term)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      } else {
+        // Reset to default view (show active category)
+        // Default to General
+        filterCategory('general');
+
+        // Reset sub-filters in general
+        filterSub('algerian');
+        // Reset main nav visually
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.nav-btn')[1].classList.add('active');
+
+        // Reset cards visibility
+        allCards.forEach(c => c.style.display = 'flex');
+      }
     });
 
-    function showPopup(title, url) {
-      const popup = document.getElementById('popup');
-      const popupTitle = document.getElementById('popup-title');
-      const popupMediaContainer = document.querySelector('.popup-media-container');
-      
-      popupTitle.textContent = title;
-      
-      if (url.endsWith('.m3u8')) {
-        const video = document.createElement('video');
-        video.id = 'hls-video';
-        video.controls = true;
-        
-        popupMediaContainer.innerHTML = '';
-        popupMediaContainer.appendChild(video);
-        
-        if (Hls.isSupported()) {
-          const hls = new Hls();
-          hls.loadSource(url);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play();
-          });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = url;
-          video.addEventListener('loadedmetadata', function() {
-            video.play();
-          });
-        }
+    // Player Logic
+    function playChannel(title, url) {
+      const modal = document.getElementById('videoModal');
+      const titleEl = document.getElementById('modalTitle');
+      const container = document.getElementById('playerContainer');
+      const spinner = document.getElementById('loadingSpinner');
+
+      titleEl.textContent = title;
+
+      // Clear previous content
+      // If JWPlayer exists, remove it
+      if (window.jwplayer && window.jwplayer('playerElement')) {
+        window.jwplayer('playerElement').remove();
+      }
+
+      // Remove any iframe or video elements manually if they exist (from previous non-JWPlayer loads)
+      const oldIframe = container.querySelector('iframe');
+      if (oldIframe) oldIframe.remove();
+
+      // Ensure we have a clean div for JWPlayer
+      let playerDiv = document.getElementById('playerElement');
+      if (!playerDiv) {
+        playerDiv = document.createElement('div');
+        playerDiv.id = 'playerElement';
+        container.appendChild(playerDiv);
+      }
+
+      spinner.style.display = 'block';
+
+      if (url.includes('.m3u8')) {
+        // Initialize JWPlayer
+        jwplayer("playerElement").setup({
+          file: url,
+          width: "100%",
+          height: "100%",
+          autostart: true,
+          stretching: "exactfit",
+          skin: {
+            name: "netflix"
+          },
+          events: {
+            onReady: function () {
+              spinner.style.display = 'none';
+            },
+            onPlay: function () {
+              spinner.style.display = 'none';
+            },
+            onError: function () {
+              spinner.style.display = 'none';
+            }
+          }
+        });
       } else {
+        // Iframe fallback
+        // Remove player div temporarily to avoid conflicts or just hide it
+        if (window.jwplayer && window.jwplayer('playerElement')) {
+          window.jwplayer('playerElement').remove();
+        }
+        playerDiv.remove(); // Remove the div so iframe takes space
+
         const iframe = document.createElement('iframe');
-        iframe.id = 'popup-iframe';
-        iframe.className = 'popup-iframe';
-        iframe.allowFullscreen = true;
         iframe.src = url;
-        
-        popupMediaContainer.innerHTML = '';
-        popupMediaContainer.appendChild(iframe);
+        iframe.allowFullscreen = true;
+        iframe.onload = () => { spinner.style.display = 'none'; };
+        container.appendChild(iframe);
       }
-      
-      popup.style.display = 'block';
-      setupPopupControlsVisibility();
-      handleOrientationChange();
+
+      modal.style.display = 'flex';
     }
 
-    function closePopup() {
-      const popup = document.getElementById('popup');
-      const popupMediaContainer = document.querySelector('.popup-media-container');
+    function closeModal() {
+      const modal = document.getElementById('videoModal');
+      const container = document.getElementById('playerContainer');
 
-      // Stop video/audio playback
-      const existingVideo = document.getElementById('hls-video');
-      if (existingVideo) {
-        existingVideo.pause();
-        existingVideo.src = '';
-        existingVideo.load();
+      // Stop JWPlayer
+      if (window.jwplayer && window.jwplayer('playerElement')) {
+        window.jwplayer('playerElement').remove();
       }
 
-      // Reset popup content
-      popupMediaContainer.innerHTML = '';
+      // Remove iframe if exists
+      const iframe = container.querySelector('iframe');
+      if (iframe) iframe.remove();
 
-      // Hide the popup
-      popup.style.display = 'none';
+      // Re-add player div for next time if it's missing
+      if (!document.getElementById('playerElement')) {
+        const playerDiv = document.createElement('div');
+        playerDiv.id = 'playerElement';
+        container.appendChild(playerDiv);
+      }
 
-      // Reset popup title
-      document.getElementById('popup-title').textContent = '';
-
-      // Remove the orientation change event listener
-      window.removeEventListener('orientationchange', handleOrientationChange);
+      modal.style.display = 'none';
     }
 
-    function toggleFullscreen() {
-      const popupContent = document.querySelector('.popup-content');
-      const fullscreenBtn = document.getElementById('fullscreen-btn');
-
-      if (!document.fullscreenElement) {
-        if (popupContent.requestFullscreen) {
-          popupContent.requestFullscreen();
-        }
-        fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+    // Close modal on outside click
+    document.getElementById('videoModal').addEventListener('click', function (e) {
+      if (e.target === this) {
+        closeModal();
       }
-    }
+    });
 
-    function setupPopupControlsVisibility() {
-      const popupContent = document.querySelector('.popup-content');
-      const popupControls = document.querySelector('.popup-controls');
-      let hideTimeout;
-
-      function showControls() {
-        popupControls.style.opacity = '1';
-        clearTimeout(hideTimeout);
-      }
-
-      function hideControls() {
-        hideTimeout = setTimeout(() => {
-          popupControls.style.opacity = '0';
-        }, 3000); 
-      }
-
-      popupContent.addEventListener('mouseenter', showControls);
-      popupContent.addEventListener('mouseleave', hideControls);
-
-      showControls();
-      hideControls();
-    }
-
-    function handleOrientationChange() {
-      const popup = document.getElementById('popup');
-      const popupContent = document.querySelector('.popup-content');
-      const video = document.getElementById('hls-video');
-      const iframe = document.getElementById('popup-iframe');
-
-      if (window.matchMedia("(orientation: landscape)").matches) {
-        popupContent.style.width = '90vw';
-        popupContent.style.height = '90vh';
-      } else {
-        popupContent.style.width = '90%';
-        popupContent.style.height = '80vh';
-      }
-
-      if (video) {
-        video.style.width = '100%';
-        video.style.height = '100%';
-      }
-
-      if (iframe) {
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-      }
-    }
-
-    // Add event listener for orientation change
-    window.addEventListener('orientationchange', handleOrientationChange);
+    // Initialize
+    // Show Algerian channels by default in General
+    filterSub('algerian');
   </script>
 </body>
+
 </html>
