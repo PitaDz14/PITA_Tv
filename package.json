@@ -1,0 +1,41 @@
+{
+    "name": "pita-dz-tv",
+    "version": "1.0.0",
+    "description": "PITA DZ TV - تطبيق سطح المكتب",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder"
+    },
+    "author": "خالد دراغة",
+    "license": "ISC",
+    "devDependencies": {
+        "7zip-bin": "^5.2.0",
+        "electron": "^28.0.0",
+        "electron-builder": "^24.9.1"
+    },
+    "build": {
+        "appId": "com.pitadztv.app",
+        "productName": "PITA DZ TV",
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "**/*",
+            "!node_modules",
+            "!dist"
+        ],
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "icons/icon-512x512.png"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
+        }
+    }
+}
