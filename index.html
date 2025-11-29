@@ -5,7 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PITA DZ TV - بث مباشر للقنوات الفضائية</title>
-  <base href="https://pita-dz-tv.com/" />
+  <meta name="description" content="شاهد القنوات العربية والرياضية المباشرة عبر PITA DZ TV">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PITA TV">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1036,7 +1046,7 @@
           </div>
         </div>
         <div class="channel-card"
-          onclick="playChannel('Bein Sport NEWS', 'https://www.youtube.com/embed/umCCh6e7eXI?autoplay=1&iv_load_policy=3&rel=0')">
+          onclick="playChannel('Bein Sport NEWS', 'https://www.youtube.com/embed/O_02mf1vpQo?autoplay=1&iv_load_policy=3&rel=0')">
           <i class="fas fa-futbol channel-icon"></i>
           <div class="channel-name">Bein NEWS</div>
           <div class="play-overlay">
@@ -1583,6 +1593,19 @@
     // Initialize
     // Show Algerian channels by default in General
     filterSub('algerian');
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('Service Worker registered successfully:', registration.scope);
+          })
+          .catch((error) => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
   </script>
 </body>
 
