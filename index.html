@@ -1493,6 +1493,12 @@
     function closeModal() {
       const modal = document.getElementById('videoModal');
       const container = document.getElementById('playerContainer');
+      const spinner = document.getElementById('loadingSpinner');
+
+      // Hide spinner first
+      if (spinner) {
+        spinner.style.display = 'none';
+      }
 
       // Stop and remove JWPlayer properly
       try {
@@ -1512,10 +1518,13 @@
         iframe.remove();
       }
 
-      // Clear container completely
-      container.innerHTML = '';
+      // Clean up only the player div, not the entire container
+      const oldPlayerDiv = document.getElementById('playerElement');
+      if (oldPlayerDiv) {
+        oldPlayerDiv.remove();
+      }
 
-      // Re-add player div for next time
+      // Re-add fresh player div
       const playerDiv = document.createElement('div');
       playerDiv.id = 'playerElement';
       container.appendChild(playerDiv);
