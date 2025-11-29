@@ -1451,7 +1451,11 @@
           width: "100%",
           height: "100%",
           autostart: true,
-          stretching: "exactfit",
+          stretching: "uniform",
+          aspectratio: "16:9",
+          primary: "html5",
+          hlshtml: true,
+          preload: "auto",
           skin: {
             name: "netflix"
           },
@@ -1462,7 +1466,8 @@
             onPlay: function () {
               spinner.style.display = 'none';
             },
-            onError: function () {
+            onError: function (e) {
+              console.error('JWPlayer Error:', e);
               spinner.style.display = 'none';
             }
           }
@@ -1489,22 +1494,33 @@
       const modal = document.getElementById('videoModal');
       const container = document.getElementById('playerContainer');
 
-      // Stop JWPlayer
-      if (window.jwplayer && window.jwplayer('playerElement')) {
-        window.jwplayer('playerElement').remove();
+      // Stop and remove JWPlayer properly
+      try {
+        if (window.jwplayer && window.jwplayer('playerElement')) {
+          const player = window.jwplayer('playerElement');
+          player.stop();
+          player.remove();
+        }
+      } catch (e) {
+        console.log('Player cleanup error:', e);
       }
 
       // Remove iframe if exists
       const iframe = container.querySelector('iframe');
-      if (iframe) iframe.remove();
-
-      // Re-add player div for next time if it's missing
-      if (!document.getElementById('playerElement')) {
-        const playerDiv = document.createElement('div');
-        playerDiv.id = 'playerElement';
-        container.appendChild(playerDiv);
+      if (iframe) {
+        iframe.src = 'about:blank';
+        iframe.remove();
       }
 
+      // Clear container completely
+      container.innerHTML = '';
+
+      // Re-add player div for next time
+      const playerDiv = document.createElement('div');
+      playerDiv.id = 'playerElement';
+      container.appendChild(playerDiv);
+
+      // Hide modal
       modal.style.display = 'none';
     }
 
