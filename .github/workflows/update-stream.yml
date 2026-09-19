@@ -1,4 +1,4 @@
-name: Update stream and deploy Pages
+name: Update stream
 
 on:
   workflow_dispatch:
@@ -6,21 +6,15 @@ on:
     - cron: "*/5 * * * *"
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: github-pages
+  group: update-stream
   cancel-in-progress: true
 
 jobs:
-  update-and-deploy:
+  update:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,84 +24,42 @@ jobs:
           SOURCE_PAGE_URL: ${{ vars.SOURCE_PAGE_URL }}
         run: |
           python3 <<'PY'
-          import base64
-          import datetime
-          import html
-          import json
-          import os
-          import re
-          import urllib.request
+          import base64, datetime, html, json, os, re, urllib.request
           from urllib.parse import urlparse
 
           source_url = (os.environ.get("SOURCE_PAGE_URL") or "").strip()
-
           if not source_url:
-              raise SystemExit(
-                  "Repository variable SOURCE_PAGE_URL is not set. "
-                  "Go to Settings > Secrets and variables > Actions > Variables."
-              )
+              raise SystemExit("SOURCE_PAGE_URL not set")
 
-          req = urllib.request.Request(
-              source_url,
-              headers={
-                  "User-Agent": (
-                      "Mozilla/5.0 (X11; Linux x86_64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/124.0 Safari/537.36"
-                  ),
-                  "Accept": "text/html,application/xhtml+xml",
-              },
-          )
-
-          with urllib.request.urlopen(req, timeout=25) as response:
-              raw_html = response.read().decode("utf-8", errors="replace")
+          req = urllib.request.Request(source_url, headers={
+              "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+              "Accept": "text/html,application/xhtml+xml",
+          })
+          with urllib.request.urlopen(req, timeout=25) as r:
+              raw_html = r.read().decode("utf-8", errors="replace")
 
           stream_url = None
-
-          # 1) الشكل المفضل:
-          # var/let/const encUrl = "BASE64...";
-          pattern = r'''(?:var|let|const)\s+encUrl\s*=\s*["']([^"']+)["']'''
-          m = re.search(pattern, raw_html, flags=re.I)
-
+          m = re.search(r'''(?:var|let|const)\s+encUrl\s*=\s*["']([^"']+)["']''', raw_html, re.I)
           if m:
-              encoded = m.group(1).strip()
-              try:
-                  encoded += "=" * (-len(encoded) % 4)
-                  stream_url = base64.b64decode(encoded).decode("utf-8").strip()
-              except Exception as exc:
-                  raise SystemExit(f"Found encUrl but could not decode it: {exc}")
+              encoded = m.group(1).strip() + "=" * (-len(m.group(1).strip()) % 4)
+              stream_url = base64.b64decode(encoded).decode("utf-8").strip()
 
-          # 2) احتياطياً: البحث عن رابط OK.ru مباشر.
           if not stream_url:
-              direct_pattern = r'''https://(?:www\.)?ok\.ru/videoembed/[0-9]+(?:\?[^"'<> ]*)?'''
-              m = re.search(direct_pattern, raw_html, flags=re.I)
+              m = re.search(r'''https://(?:www\.)?ok\.ru/videoembed/[0-9]+(?:\?[^"'<> ]*)?''', raw_html, re.I)
               if m:
                   stream_url = html.unescape(m.group(0))
 
           if not stream_url:
-              raise SystemExit(
-                  "No supported stream/embed URL was found in the source page."
-              )
+              raise SystemExit("No supported stream/embed URL found in the source page.")
 
           parsed = urlparse(stream_url)
-
-          if parsed.scheme not in ("http", "https") or not parsed.netloc:
-              raise SystemExit("Extracted URL is invalid.")
-
-          allowed_hosts = {"ok.ru", "www.ok.ru"}
-          if parsed.hostname not in allowed_hosts:
-              raise SystemExit(
-                  f"Unexpected stream host: {parsed.hostname}. "
-                  "Edit allowed_hosts in the workflow if this is intentional."
-              )
+          if parsed.scheme not in ("http", "https") or parsed.hostname not in {"ok.ru", "www.ok.ru"}:
+              raise SystemExit(f"Unexpected stream host: {parsed.hostname}")
 
           payload = {
               "url": stream_url,
-              "updated_at": datetime.datetime.now(
-                  datetime.timezone.utc
-              ).isoformat(timespec="seconds"),
+              "updated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
           }
-
           with open("stream.json", "w", encoding="utf-8") as f:
               json.dump(payload, f, ensure_ascii=False, indent=2)
               f.write("\n")
@@ -115,14 +67,11 @@ jobs:
           print(f"Stream updated from host: {parsed.hostname}")
           PY
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "."
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stream.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "تحديث رابط البث"
+          git push
