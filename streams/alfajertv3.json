@@ -1,8 +1,8 @@
 {
   "channel": "Alfajer TV 3",
   "id": "alfajertv3",
-  "stream_url": null,
+  "stream_url": "https://ruyas.store/fajer3/index.m3u8?token=9b5bab0ab4aea4d4d21ca21f0b5156e276a14cf2-50a79294886f0a328e1e1df62db36000-1791500124-1791498324",
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv3",
-  "updated_at": null,
-  "expires_at": null
+  "updated_at": "2026-10-08T22:26:23Z",
+  "expires_at": "2026-10-08T22:55:24Z"
 }
