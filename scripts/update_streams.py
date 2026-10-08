@@ -6,7 +6,7 @@ update_streams.py - يستخرج رابط .m3u8 (مع الـ token) لكل قن�
 الفكرة:
   * يفتح كل صفحة قناة في Chromium (Playwright) وينفّذ JavaScript الخاص بها.
   * يراقب كل طلبات الشبكة (request/response) بحثًا عن HLS (.m3u8 / mpegurl).
-  * يختار أرجح رابط بث رئيسي، ويتحقق منه، ثم يكتبه كما هو (بدون تعديل الـ token).
+  * يختار أرجح رابط HLS، ثم يتابع Master Playlist حتى Media Playlist النهائية مع الحفاظ على الـ token.
   * عند الفشل يُبقي الرابط القديم كما هو ولا يمس بقية القنوات.
   * لا يكتب الملف إلا إذا تغيّر الرابط (لا commits غير ضرورية).
 
@@ -31,7 +31,7 @@ import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from urllib.parse import parse_qsl, urlparse
+from urllib.parse import parse_qsl, urljoin, urlparse, urlunparse
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG = ROOT / "config" / "channels.json"
@@ -166,7 +166,16 @@ def load_channels(path: Path) -> list[dict]:
             not isinstance(a, str) or urlparse(a).scheme not in ("http", "https") for a in alts
         ):
             raise ConfigError(f"{cid}: alt_urls يجب أن تكون قائمة روابط http(s)")
-        channels.append({"id": cid, "name": name.strip(), "url": url.strip(), "alt_urls": [a.strip() for a in alts]})
+        preferred_hls = ch.get("preferred_hls") or []
+        if not isinstance(preferred_hls, list) or any(not isinstance(x, str) or not x.strip() for x in preferred_hls):
+            raise ConfigError(f"{cid}: preferred_hls يجب أن تكون قائمة نصوص غير فارغة")
+        channels.append({
+            "id": cid,
+            "name": name.strip(),
+            "url": url.strip(),
+            "alt_urls": [a.strip() for a in alts],
+            "preferred_hls": [x.strip().lower() for x in preferred_hls],
+        })
     return channels
 
 
@@ -292,6 +301,88 @@ def pick_best(cands: list[Candidate]) -> list[Candidate]:
         c.score = score_candidate(c)
     eligible = [c for c in cands if c.status is None or 200 <= c.status < 300]
     return sorted(eligible, key=lambda c: (c.score, c.order), reverse=True)
+
+
+def resolve_child_playlist_url(parent_url: str, child_ref: str) -> str:
+    """
+    يحوّل URI نسبيًا داخل قائمة HLS إلى رابط مطلق. إذا كان الطفل على نفس
+    المضيف ولا يملك query خاصًا به، يرث query الأب (مثل token=...).
+
+    هذا مهم لأن قواعد حلّ URI القياسية تُسقط query الأب عند الانتقال إلى
+    مسار نسبي جديد، بينما بعض مزودي HLS يتوقعون نفس token على القائمة الفرعية.
+    """
+    absolute = urljoin(parent_url, child_ref.strip())
+    parent = urlparse(parent_url)
+    child = urlparse(absolute)
+    same_origin = (parent.scheme.lower(), parent.netloc.lower()) == (child.scheme.lower(), child.netloc.lower())
+    if same_origin and parent.query and not child.query:
+        absolute = urlunparse(child._replace(query=parent.query))
+    return absolute
+
+
+def playlist_preference_score(url: str, preferred_terms: list[str] | tuple[str, ...] = ()) -> int:
+    """ترتيب القوائم الفرعية؛ الإعداد الخاص بالقناة أولًا ثم mono/tracks كافتراضي آمن."""
+    low = url.lower()
+    score = 0
+    for i, term in enumerate(preferred_terms):
+        if term and term.lower() in low:
+            score += 1000 - i
+    path = urlparse(url).path.lower()
+    if path.endswith("/mono.m3u8") or path.endswith("mono.m3u8"):
+        score += 100
+    if "/tracks-" in path:
+        score += 40
+    if "audio" in path and "mono" not in path:
+        score -= 20
+    return score
+
+
+def master_playlist_children(
+    body: str,
+    parent_url: str,
+    preferred_terms: list[str] | tuple[str, ...] = (),
+) -> list[str]:
+    """
+    يستخرج قوائم الوسائط المشار إليها من Master Playlist.
+    نعطي أولوية لمسارات EXT-X-STREAM-INF (الفيديو/المسار الرئيسي) ثم
+    نستخدم URI الموجودة في EXT-X-MEDIA كخيار احتياطي.
+    """
+    if not isinstance(body, str) or not body.lstrip("\ufeff \r\n\t").startswith("#EXTM3U"):
+        return []
+
+    lines = [line.strip() for line in body.splitlines()]
+    variants: list[str] = []
+    alternates: list[str] = []
+    expect_variant_uri = False
+
+    def add_unique(bucket: list[str], ref: str) -> None:
+        ref = ref.strip().strip('"').strip("'")
+        if not ref:
+            return
+        u = resolve_child_playlist_url(parent_url, ref)
+        if ".m3u8" in urlparse(u).path.lower() and u not in bucket:
+            bucket.append(u)
+
+    for line in lines:
+        if not line:
+            continue
+        upper = line.upper()
+        if upper.startswith("#EXT-X-STREAM-INF:"):
+            expect_variant_uri = True
+            continue
+        if expect_variant_uri:
+            if line.startswith("#"):
+                continue
+            add_unique(variants, line)
+            expect_variant_uri = False
+            continue
+        if upper.startswith("#EXT-X-MEDIA:"):
+            m = re.search(r'URI=(?:"([^"]+)"|([^,]+))', line, re.I)
+            if m:
+                add_unique(alternates, m.group(1) or m.group(2) or "")
+
+    chosen = variants or alternates
+    return sorted(chosen, key=lambda u: playlist_preference_score(u, preferred_terms), reverse=True)
 
 
 def validate_stream_url(url: str) -> str | None:
@@ -466,20 +557,69 @@ class Extractor:
                 bad = ", ".join(sorted({str(c.status) for c in cands.values()}))
                 return None, f"روابط m3u8 موجودة لكنها رُفضت من الخادم (HTTP {bad})", list(cands.values())
 
-            # فحص أعلى 3 مرشحين: يجب أن تبدأ القائمة بـ #EXTM3U
+            # فحص أعلى 3 مرشحين: يجب أن تبدأ القائمة بـ #EXTM3U.
+            # إذا كانت Master Playlist (مثل index.m3u8) نتابع إلى Media Playlist
+            # النهائية، مع توريث token إلى المسار النسبي على نفس المضيف.
             referer = channel["url"]
             origin = f"{urlparse(referer).scheme}://{urlparse(referer).netloc}"
+            resolved_media: dict[str, str] = {}
+
+            def fetch_playlist(u: str) -> tuple[object, str]:
+                r = ctx.request.get(
+                    u,
+                    headers={"Referer": referer, "Origin": origin},
+                    timeout=20_000,
+                    fail_on_status_code=False,
+                )
+                return r, r.text()[:256_000].lstrip("﻿ \r\n\t")
+
             for c in ranked[:3]:
                 try:
-                    r = ctx.request.get(
-                        c.url,
-                        headers={"Referer": referer, "Origin": origin},
-                        timeout=20_000,
-                        fail_on_status_code=False,
-                    )
-                    body = r.text()[:2048].lstrip("﻿ \r\n\t")
+                    r, body = fetch_playlist(c.url)
                     if r.ok and body.startswith("#EXTM3U"):
                         c.probe = "ok"
+                        current_url, current_body = c.url, body
+                        seen = {current_url}
+
+                        # اتبع حتى 3 مستويات Master -> Media لتفادي الحلقات أو القوائم الشاذة.
+                        for _depth in range(3):
+                            preferred = channel.get("preferred_hls", [])
+                            children = master_playlist_children(current_body, current_url, preferred)
+                            if not children:
+                                break
+
+                            next_url = None
+                            next_body = None
+                            nested_fallback = None
+                            for child_url in children:
+                                if child_url in seen:
+                                    continue
+                                try:
+                                    cr, cb = fetch_playlist(child_url)
+                                except Exception:
+                                    continue
+                                if not (cr.ok and cb.startswith("#EXTM3U")):
+                                    continue
+
+                                # إذا لم تعد هذه القائمة تشير إلى m3u8 أخرى فهي Media Playlist نهائية.
+                                # نعطيها الأولوية حتى لا نتوقف عند Master وسيطة أخرى.
+                                grandchildren = master_playlist_children(cb, child_url, preferred)
+                                if not grandchildren:
+                                    next_url, next_body = child_url, cb
+                                    break
+                                if nested_fallback is None:
+                                    nested_fallback = (child_url, cb)
+
+                            if next_url is None and nested_fallback is not None:
+                                next_url, next_body = nested_fallback
+                            if not next_url:
+                                break
+                            seen.add(next_url)
+                            current_url, current_body = next_url, next_body
+
+                        resolved_media[c.url] = current_url
+                        if current_url != c.url:
+                            c.notes.append("تم حل Master Playlist إلى Media Playlist")
                     elif r.ok:
                         c.probe = "bad-body"          # 200 لكن ليس قائمة HLS (صفحة خطأ مثلًا)
                     else:
@@ -490,7 +630,7 @@ class Extractor:
             for c in ranked[:3]:
                 if c.probe == "ok":
                     ok_result[0] = True
-                    return c.url, "", ranked
+                    return resolved_media.get(c.url, c.url), "", ranked
             # المتصفح نفسه رأى 2xx لكن الفحص الخارجي لم يعمل (Referer/IP...) → نقبل الأعلى نقاطًا
             for c in ranked[:3]:
                 if c.probe != "bad-body" and c.status is not None and 200 <= c.status < 300:

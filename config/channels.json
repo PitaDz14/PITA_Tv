@@ -5,26 +5,46 @@
     "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv",
     "alt_urls": [
       "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv1"
+    ],
+    "preferred_hls": [
+      "tracks-v1a1/mono.m3u8",
+      "mono.m3u8"
     ]
   },
   {
     "id": "alfajertv2",
     "name": "Alfajer TV 2",
-    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv2"
+    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv2",
+    "preferred_hls": [
+      "tracks-v1a1/mono.m3u8",
+      "mono.m3u8"
+    ]
   },
   {
     "id": "alfajertv3",
     "name": "Alfajer TV 3",
-    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv3"
+    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv3",
+    "preferred_hls": [
+      "tracks-v1a1/mono.m3u8",
+      "mono.m3u8"
+    ]
   },
   {
     "id": "alfajertv4",
     "name": "Alfajer TV 4",
-    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv4"
+    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv4",
+    "preferred_hls": [
+      "tracks-v1a1/mono.m3u8",
+      "mono.m3u8"
+    ]
   },
   {
     "id": "alfajertv5",
     "name": "Alfajer TV 5",
-    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv5"
+    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv5",
+    "preferred_hls": [
+      "tracks-v1a1/mono.m3u8",
+      "mono.m3u8"
+    ]
   }
 ]
