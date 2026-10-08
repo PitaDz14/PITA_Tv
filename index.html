@@ -857,7 +857,7 @@
           </div>
         </div>
         <div class="channel-card palestinian"
-          onclick="playChannel('قناة الفجر الفلسطينية الأولى', 'https://watch.alfajertv.com/hls/ftv1_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الأولى', 'alfajertv1.html')">
           <i class="fas fa-tv channel-icon"></i>
           <div class="channel-name">الفجر 1</div>
           <div class="play-overlay">
@@ -865,7 +865,7 @@
           </div>
         </div>
         <div class="channel-card palestinian"
-          onclick="playChannel('قناة الفجر الفلسطينية الثانية', 'https://watch.alfajertv.com/hls2/ftv2_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الثانية', 'alfajertv2.html')">
           <i class="fas fa-tv channel-icon"></i>
           <div class="channel-name">الفجر 2</div>
           <div class="play-overlay">
@@ -873,7 +873,7 @@
           </div>
         </div>
         <div class="channel-card palestinian"
-          onclick="playChannel('قناة الفجر الفلسطينية الثالثة', 'https://watch.alfajertv.com/hls3/ftv3_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الثالثة', 'alfajertv3.html')">
           <i class="fas fa-tv channel-icon"></i>
           <div class="channel-name">الفجر 3</div>
           <div class="play-overlay">
@@ -881,7 +881,7 @@
           </div>
         </div>
         <div class="channel-card palestinian"
-          onclick="playChannel('قناة الفجر الفلسطينية الرابعة', 'https://watch.alfajertv.com/hls4/ftv4_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الرابعة', 'alfajertv4.html')">
           <i class="fas fa-tv channel-icon"></i>
           <div class="channel-name">الفجر 4</div>
           <div class="play-overlay">
@@ -889,7 +889,7 @@
           </div>
         </div>
         <div class="channel-card palestinian"
-          onclick="playChannel('قناة الفجر الفلسطينية الخامسة', 'https://watch.alfajertv.com/hls5/ftv5_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الخامسة', 'alfajertv5.html')">
           <i class="fas fa-tv channel-icon"></i>
           <div class="channel-name">الفجر 5</div>
           <div class="play-overlay">
@@ -1158,7 +1158,7 @@
           </div>
         </div>
         <div class="channel-card"
-          onclick="playChannel('قناة الفجر الفلسطينية الأولى', 'https://watch.alfajertv.com/hls/ftv1_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الأولى', 'alfajertv1.html')">
           <i class="fas fa-futbol channel-icon"></i>
           <div class="channel-name">الفجر 1</div>
           <div class="play-overlay">
@@ -1166,7 +1166,7 @@
           </div>
         </div>
         <div class="channel-card"
-          onclick="playChannel('قناة الفجر الفلسطينية الثانية', 'https://watch.alfajertv.com/hls2/ftv2_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الثانية', 'alfajertv2.html')">
           <i class="fas fa-futbol channel-icon"></i>
           <div class="channel-name">الفجر 2</div>
           <div class="play-overlay">
@@ -1174,7 +1174,7 @@
           </div>
         </div>
         <div class="channel-card"
-          onclick="playChannel('قناة الفجر الفلسطينية الثالثة', 'https://watch.alfajertv.com/hls3/ftv3_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الثالثة', 'alfajertv3.html')">
           <i class="fas fa-futbol channel-icon"></i>
           <div class="channel-name">الفجر 3</div>
           <div class="play-overlay">
@@ -1182,7 +1182,7 @@
           </div>
         </div>
         <div class="channel-card"
-          onclick="playChannel('قناة الفجر الفلسطينية الرابعة', 'https://watch.alfajertv.com/hls4/ftv4_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الرابعة', 'alfajertv4.html')">
           <i class="fas fa-futbol channel-icon"></i>
           <div class="channel-name">الفجر 4</div>
           <div class="play-overlay">
@@ -1190,7 +1190,7 @@
           </div>
         </div>
         <div class="channel-card"
-          onclick="playChannel('قناة الفجر الفلسطينية الخامسة', 'https://watch.alfajertv.com/hls5/ftv5_720p/index.m3u8')">
+          onclick="playChannel('قناة الفجر الفلسطينية الخامسة', 'alfajertv5.html')">
           <i class="fas fa-futbol channel-icon"></i>
           <div class="channel-name">الفجر 5</div>
           <div class="play-overlay">
@@ -1532,6 +1532,7 @@
 
         const iframe = document.createElement('iframe');
         iframe.src = url;
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
         iframe.allowFullscreen = true;
         iframe.onload = () => { spinner.style.display = 'none'; };
         container.appendChild(iframe);
