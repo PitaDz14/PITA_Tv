@@ -1,8 +1,8 @@
 {
   "channel": "Alfajer TV 4",
   "id": "alfajertv4",
-  "stream_url": null,
+  "stream_url": "https://ruyas.store/fajer4/index.m3u8?token=e442cc9a8cdcccebd29b978dedba8b0b52d3c251-3050e4d8226570fd753c01afb0bacee2-1791497035-1791495235",
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv4",
-  "updated_at": null,
-  "expires_at": null
+  "updated_at": "2026-10-08T21:34:54Z",
+  "expires_at": "2026-10-08T22:03:55Z"
 }
