@@ -44,7 +44,16 @@ jobs:
         run: |
           args=""
           if [ "$FORCE" = "true" ]; then args="--force"; fi
-          python scripts/update_streams.py $args
+          python scripts/update_streams.py --debug-dir debug $args
+
+      - name: Upload debug info (screenshots / requests of failed channels)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-alfajer
+          path: debug/
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Commit changed streams
         env:

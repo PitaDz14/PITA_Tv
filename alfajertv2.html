@@ -12,11 +12,14 @@
     #status { position:fixed; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; text-align:center;
       padding:20px; color:#fff; background:#000; font-family:Arial,sans-serif; font-size:15px; }
     [hidden] { display:none !important; }
+    #note { position:fixed; bottom:8px; inset-inline:8px; z-index:3; font:12px/1.5 Arial,sans-serif; color:#ddd; background:#000c;
+      padding:6px 10px; border-radius:8px; text-align:center; direction:ltr; word-break:break-all; }
   </style>
 </head>
 <body>
   <div id="status">جاري تحميل البث…</div>
   <video id="video" controls playsinline webkit-playsinline autoplay muted></video>
+  <div id="note" hidden></div>
   <iframe id="fallback" hidden allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
   <script src="vendor/hls.min.js"></script>
@@ -32,7 +35,9 @@
     var statusBox = document.getElementById("status");
     var fallback = document.getElementById("fallback");
 
-    var hls = null, currentUrl = "", info = null, failures = 0;
+    var hls = null, currentUrl = "", info = null, failures = 0, curExpiry = 0, lastErr = "";
+    var note = document.getElementById("note");
+    var SWITCH_BEFORE_MS = 4 * 60 * 1000;   // التبديل الاستباقي قبل انتهاء الـ token بـ 4 دقائق
 
     function say(text) { statusBox.textContent = text; statusBox.hidden = !text; }
 
@@ -57,14 +62,21 @@
       var src = info && validUrl(info.source_url) ? info.source_url : "";
       if (!src) { say(reason || "تعذر تشغيل القناة حاليًا."); return; }
       video.hidden = true; fallback.hidden = false;
+      note.hidden = false;
+      note.textContent = "Fallback: " + (reason || "") + (lastErr ? " | " + lastErr : "");
       if (fallback.getAttribute("src") !== src) fallback.src = src;
       say("");
     }
 
-    function play(url) {
+    function isHealthy() {
+      return !!hls && !video.hidden && !video.paused && !video.ended && video.readyState >= 3;
+    }
+
+    function play(url, expiresAt) {
       stop();
       currentUrl = url;
-      fallback.hidden = true; fallback.removeAttribute("src"); video.hidden = false;
+      curExpiry = expiresAt ? Date.parse(expiresAt) || 0 : 0;
+      fallback.hidden = true; fallback.removeAttribute("src"); video.hidden = false; note.hidden = true;
       say("جاري تحميل البث…");
       var u = adapt(url);
 
@@ -79,6 +91,8 @@
           if (!d || !d.fatal || h !== hls) return;
           if (d.type === Hls.ErrorTypes.MEDIA_ERROR && mediaTries++ < 2) { h.recoverMediaError(); return; }
           // خطأ شبكة غالبًا بسبب انتهاء الـ token → اجلب الرابط الجديد فورًا
+          lastErr = d.type + " / " + d.details + (d.response && d.response.code ? " / HTTP " + d.response.code : "");
+          console.warn("HLS fatal:", lastErr, adapt(currentUrl).replace(/\?.*/, "?…"));
           failures++;
           refresh(true);
         });
@@ -99,13 +113,17 @@
         info = d;
         if (!validUrl(d.stream_url)) { if (!currentUrl) showFallback("لا يوجد رابط بث محدّث بعد."); return; }
         if (d.stream_url !== currentUrl) {
-          failures = 0;
-          play(d.stream_url);
+          // رابط جديد (token جديد). لا نقطع بثًا سليمًا إلا قبيل انتهاء الـ token الحالي أو عند وجود خطأ.
+          var nearExpiry = curExpiry && (curExpiry - Date.now()) < SWITCH_BEFORE_MS;
+          if (force || !isHealthy() || nearExpiry || !curExpiry) {
+            failures = 0;
+            play(d.stream_url, d.expires_at);
+          }
         } else if (force) {
           if (failures >= 3) showFallback("تعذر تشغيل البث.");
-          else play(d.stream_url);             // نفس الرابط: أعد المحاولة
+          else play(d.stream_url, d.expires_at);   // نفس الرابط: أعد المحاولة
         } else if (!fallback.hidden) {
-          play(d.stream_url);                  // كنا في الوضع الاحتياطي: جرّب البث الأصلي مجددًا
+          play(d.stream_url, d.expires_at);        // كنا في الوضع الاحتياطي: جرّب البث الأصلي مجددًا
         }
       }).catch(function (err) {
         console.error("Unable to load stream info:", err);

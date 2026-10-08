@@ -48,10 +48,10 @@ def _env_int(name: str, default: int) -> int:
 
 
 NAV_TIMEOUT_MS = _env_int("PITA_NAV_TIMEOUT_MS", 45_000)      # مهلة فتح الصفحة
-WAIT_SECONDS = _env_int("PITA_WAIT_SECONDS", 40)               # أقصى انتظار لظهور m3u8
+WAIT_SECONDS = _env_int("PITA_WAIT_SECONDS", 45)               # أقصى انتظار لظهور m3u8
 GRACE_SECONDS = _env_int("PITA_GRACE_SECONDS", 4)              # مهلة إضافية لجمع بقية الروابط
 ATTEMPTS = _env_int("PITA_ATTEMPTS", 2)                        # عدد المحاولات لكل قناة
-REFRESH_BEFORE_EXPIRY_MIN = _env_int("PITA_REFRESH_BEFORE_EXPIRY_MIN", 60)
+REFRESH_BEFORE_EXPIRY_MIN = _env_int("PITA_REFRESH_BEFORE_EXPIRY_MIN", 25)   # التوكن الفعلي ~30 دقيقة
 MAX_AGE_MIN = _env_int("PITA_MAX_AGE_MIN", 120)                # أقصى عمر للرابط قبل إجبار التحديث
 
 USER_AGENT = (
@@ -161,7 +161,12 @@ def load_channels(path: Path) -> list[dict]:
             raise ConfigError(f"{cid}: رابط الصفحة (url) غير صالح: {url!r}")
         if ch.get("enabled", True) is False:
             continue
-        channels.append({"id": cid, "name": name.strip(), "url": url.strip()})
+        alts = ch.get("alt_urls") or []
+        if not isinstance(alts, list) or any(
+            not isinstance(a, str) or urlparse(a).scheme not in ("http", "https") for a in alts
+        ):
+            raise ConfigError(f"{cid}: alt_urls يجب أن تكون قائمة روابط http(s)")
+        channels.append({"id": cid, "name": name.strip(), "url": url.strip(), "alt_urls": [a.strip() for a in alts]})
     return channels
 
 
@@ -274,7 +279,7 @@ def score_candidate(c: Candidate) -> int:
         s -= 60
     if "mpegurl" in c.ctype.lower():
         s += 10
-    if c.origin == "dom":
+    if c.origin in ("dom", "body"):
         s -= 15                          # رابط وُجد في النص فقط ولم يطلبه المتصفح
     if c.status is not None and 200 <= c.status < 300:
         s += 15
@@ -313,6 +318,7 @@ class Extractor:
         self.pw = pw
         self.headless = headless
         self.browser = None
+        self.last_diag: dict = {}
 
     def _launch(self):
         kwargs = {
@@ -363,19 +369,26 @@ class Extractor:
                 counter[0] += 1
                 c = Candidate(url=url, origin=origin, order=counter[0])
                 cands[url] = c
-            if origin != "dom" and c.origin == "dom":
+            if origin not in ("dom", "body") and c.origin in ("dom", "body"):
                 c.origin = origin
             if status is not None:
                 c.status = status
             if ctype:
                 c.ctype = ctype
 
+        page = None
+        ok_result = [False]
+        reqlog: list[tuple[str, str]] = []
+        bodies: list = []
+        self.last_diag = {}
         try:
             ctx.add_init_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined});")
             ctx.set_default_timeout(NAV_TIMEOUT_MS)
 
             def on_request(req):
                 try:
+                    if len(reqlog) < 400:
+                        reqlog.append((req.resource_type, req.url))
                     add(req.url, "request")
                 except Exception:
                     pass
@@ -384,6 +397,9 @@ class Extractor:
                 try:
                     ct = resp.headers.get("content-type", "")
                     add(resp.url, "response", resp.status, ct)
+                    if (resp.request.resource_type in ("xhr", "fetch", "document", "script", "other")
+                            and re.search(r"json|text|javascript|xml|html", ct, re.I) and len(bodies) < 60):
+                        bodies.append(resp)
                     if resp.request.is_navigation_request() and resp.url == channel["url"]:
                         main_status.append(resp.status)
                 except Exception:
@@ -405,6 +421,7 @@ class Extractor:
             page = ctx.new_page()
             try:
                 resp = page.goto(channel["url"], wait_until="domcontentloaded", timeout=NAV_TIMEOUT_MS)
+                main_status.append(resp.status if resp is not None else 0)
                 if resp is not None and resp.status >= 400:
                     return None, f"الصفحة أعادت HTTP {resp.status}", []
             except Exception as exc:  # timeout / net::ERR_*
@@ -429,7 +446,15 @@ class Extractor:
                 except Exception:
                     break
 
-            # بحث احتياطي في نص الصفحة والإطارات إن لم يلتقط المتصفح أي طلب
+            # الصفحة تعرض عدة مشغلات (Radian/VideoJS/Clappr/Jw 8/Shaka...): جرّبها بالتتابع
+            if not cands:
+                self._try_player_buttons(ctx, page, cands)
+
+            # ابحث داخل ردود XHR/JSON (قد يكون الرابط مخفيًا في استجابة API أو بصيغة base64)
+            if not cands:
+                self._scan_bodies(bodies, add)
+
+            # بحث احتياطي في نص الصفحة والإطارات
             if not cands:
                 self._scan_dom(ctx, add)
 
@@ -464,18 +489,86 @@ class Extractor:
 
             for c in ranked[:3]:
                 if c.probe == "ok":
+                    ok_result[0] = True
                     return c.url, "", ranked
             # المتصفح نفسه رأى 2xx لكن الفحص الخارجي لم يعمل (Referer/IP...) → نقبل الأعلى نقاطًا
             for c in ranked[:3]:
                 if c.probe != "bad-body" and c.status is not None and 200 <= c.status < 300:
                     c.notes.append("قبول بناءً على استجابة المتصفح فقط")
+                    ok_result[0] = True
                     return c.url, "", ranked
             return None, "كل المرشحين فشل فحصهم (" + ", ".join(c.probe for c in ranked[:3]) + ")", ranked
         finally:
+            if not ok_result[0]:
+                self._snapshot(page, reqlog, main_status)
             try:
                 ctx.close()
             except Exception:
                 pass
+
+    def _snapshot(self, page, reqlog, main_status) -> None:
+        """يحفظ معلومات تشخيصية عن سبب الفشل (تُكتب في debug/ وتظهر في الـ logs)."""
+        d: dict = {"http": main_status[:1], "requests": [(t, mask(u)) for t, u in reqlog
+                                                         if t not in ("image", "font", "stylesheet")]}
+        try:
+            if page is not None:
+                d["title"] = page.title()
+                d["text"] = " ".join(page.inner_text("body", timeout=3000).split())[:400]
+                d["html"] = page.content()
+                d["png"] = page.screenshot(timeout=5000)
+        except Exception:
+            pass
+        self.last_diag = d
+
+    def _try_player_buttons(self, ctx, page, cands) -> None:
+        names = ("Jw 8", "VideoJS", "Clappr", "Radian", "Shaka", "Theo")
+        for name in names:
+            if cands:
+                return
+            clicked = False
+            for pg in list(ctx.pages):
+                for fr in pg.frames:
+                    try:
+                        loc = fr.get_by_text(name, exact=False).first
+                        if loc.count() and loc.is_visible():
+                            loc.click(timeout=1500, force=True, no_wait_after=True)
+                            clicked = True
+                            break
+                    except Exception:
+                        continue
+                if clicked:
+                    break
+            if clicked:
+                log(f"    · جرّبت المشغل: {name}")
+                end = time.time() + 7
+                while time.time() < end and not cands:
+                    self._poke_players(ctx)
+                    try:
+                        page.wait_for_timeout(700)
+                    except Exception:
+                        return
+
+    @staticmethod
+    def _scan_bodies(bodies, add) -> None:
+        b64 = re.compile(r"[A-Za-z0-9+/_-]{40,}={0,2}")
+        for r in bodies:
+            try:
+                txt = r.text()[:600_000]
+            except Exception:
+                continue
+            norm = txt.replace("\\/", "/").replace("\\u0026", "&").replace("&amp;", "&")
+            for m in M3U8_IN_TEXT.finditer(norm):
+                add(m.group(0).rstrip("\\"), "body")
+            for m in list(b64.finditer(txt))[:50]:
+                try:
+                    import base64
+                    raw = m.group(0)
+                    dec = base64.b64decode(raw + "=" * (-len(raw) % 4), altchars=b"-_" if ("-" in raw or "_" in raw) else None)
+                    t2 = dec.decode("utf-8", errors="ignore")
+                except Exception:
+                    continue
+                for mm in M3U8_IN_TEXT.finditer(t2.replace("\\/", "/")):
+                    add(mm.group(0), "body")
 
     @staticmethod
     def _poke_players(ctx) -> None:
@@ -521,7 +614,26 @@ class Result:
     detail: str = ""
 
 
-def process_channel(ex: Extractor, ch: dict, streams_dir: Path, force: bool, dry: bool) -> Result:
+def write_debug(ex: Extractor, ch: dict, debug_dir: Path | None) -> None:
+    d = ex.last_diag or {}
+    if d:
+        log(f"    تشخيص: HTTP={d.get('http')} العنوان={d.get('title')!r}")
+        log(f"    نص الصفحة: {d.get('text', '')[:300]!r}")
+        reqs = d.get('requests', [])
+        log(f"    عدد الطلبات المسجلة: {len(reqs)}")
+        for t, u in reqs[:25]:
+            log(f"      - {t:<10} {u}")
+    if d and debug_dir:
+        debug_dir.mkdir(parents=True, exist_ok=True)
+        if d.get('html'):
+            (debug_dir / f"{ch['id']}-page.html").write_text(d['html'], encoding='utf-8')
+        if d.get('png'):
+            (debug_dir / f"{ch['id']}.png").write_bytes(d['png'])
+        (debug_dir / f"{ch['id']}-requests.txt").write_text(
+            '\n'.join(f'{t}\t{u}' for t, u in d.get('requests', [])), encoding='utf-8')
+
+
+def process_channel(ex: Extractor, ch: dict, streams_dir: Path, force: bool, dry: bool, debug_dir: Path | None = None) -> Result:
     path = streams_dir / f"{ch['id']}.json"
     existing = read_stream_file(path)
     now = now_utc()
@@ -535,10 +647,14 @@ def process_channel(ex: Extractor, ch: dict, streams_dir: Path, force: bool, dry
 
     last_reason = "غير معروف"
     url = None
-    for n in range(1, ATTEMPTS + 1):
-        log(f"  محاولة {n}/{ATTEMPTS} …")
+    pages = [ch["url"]] + [a for a in ch.get("alt_urls", []) if a != ch["url"]]
+    total = max(ATTEMPTS, len(pages))
+    used_page = ch["url"]
+    for n in range(1, total + 1):
+        used_page = pages[(n - 1) % len(pages)]
+        log(f"  محاولة {n}/{total} …  {used_page}")
         try:
-            url, reason, cands = ex.attempt(ch)
+            url, reason, cands = ex.attempt(dict(ch, url=used_page))
         except Exception as exc:  # فشل Playwright/المتصفح
             url, reason, cands = None, f"خطأ Playwright: {str(exc).splitlines()[0][:160]}", []
         for c in sorted(cands, key=lambda c: c.score, reverse=True)[:6]:
@@ -551,7 +667,8 @@ def process_channel(ex: Extractor, ch: dict, streams_dir: Path, force: bool, dry
             break
         last_reason = reason
         log(f"    ✗ {reason}")
-        if "HTTP 404" in reason:
+        write_debug(ex, ch, debug_dir)
+        if "HTTP 404" in reason and len(pages) == 1:
             break  # لا فائدة من إعادة المحاولة
 
     if not url:
@@ -566,7 +683,7 @@ def process_channel(ex: Extractor, ch: dict, streams_dir: Path, force: bool, dry
         "channel": ch["name"],
         "id": ch["id"],
         "stream_url": url,
-        "source_url": ch["url"],
+        "source_url": used_page,
         "updated_at": iso(now),
         "expires_at": iso(expiry) if expiry else None,
     }
@@ -582,6 +699,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--only", default="", help="معرّفات مفصولة بفاصلة")
     ap.add_argument("--force", action="store_true", help="تجاهل صلاحية الرابط الحالي وأعد الاستخراج")
     ap.add_argument("--dry-run", action="store_true", help="لا تكتب أي ملف")
+    ap.add_argument("--debug-dir", type=Path, default=None, help="مجلد لحفظ لقطة شاشة/HTML/طلبات عند الفشل")
     ap.add_argument("--headful", action="store_true", help="أظهر المتصفح (للتجربة المحلية)")
     args = ap.parse_args(argv)
 
@@ -608,7 +726,7 @@ def main(argv: list[str] | None = None) -> int:
             for ch in channels:
                 log(f"::group::{ch['name']} ({ch['id']})" if in_actions() else f"\n=== {ch['name']} ({ch['id']}) ===")
                 try:
-                    res = process_channel(ex, ch, args.streams_dir, args.force, args.dry_run)
+                    res = process_channel(ex, ch, args.streams_dir, args.force, args.dry_run, args.debug_dir)
                 except Exception as exc:  # لا شيء يوقف بقية القنوات
                     res = Result(ch, "failed", f"خطأ غير متوقع: {exc!r}")
                 results.append(res)

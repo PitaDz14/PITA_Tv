@@ -2,7 +2,10 @@
   {
     "id": "alfajertv1",
     "name": "Alfajer TV 1",
-    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv1"
+    "url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv",
+    "alt_urls": [
+      "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv1"
+    ]
   },
   {
     "id": "alfajertv2",
