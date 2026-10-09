@@ -1,8 +1,8 @@
 {
   "channel": "Alfajer TV 1",
   "id": "alfajertv1",
-  "stream_url": "https://ruyas.store/fajer1/tracks-v1a1/mono.m3u8?token=41252cd8763359a84f1570ce9b3057700951263e-f193e94cc9e3a272225e59e3c28948a5-1791506231-1791504431",
+  "stream_url": "https://ruyas.store/fajer1/tracks-v1a1/mono.m3u8?token=45bd7ddb8f916532753b255e39a0672e649aa6c0-c079d2476016d25f03ef7dc01cf274b3-1791507009-1791505209",
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv",
-  "updated_at": "2026-10-08T23:56:25Z",
-  "expires_at": "2026-10-09T00:25:26Z"
+  "updated_at": "2026-10-09T00:21:07Z",
+  "expires_at": "2026-10-09T00:50:09Z"
 }
