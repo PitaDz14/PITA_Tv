@@ -1,0 +1,29 @@
+{
+  "_doc": {
+    "about": "تعريف منصات البث الخارجية. إضافة منصة جديدة = عنصر جديد في sources فقط، دون تعديل أي كود.",
+    "kind": {
+      "auto": "الافتراضي: يجلب الصفحة ويبحث عن مصفوفة قنوات / JSON / روابط m3u8 / base64. بدون متصفح.",
+      "browser": "يستخدم مستخرج Playwright (scripts/update_streams.py) للصفحات التي تُنشئ الروابط عبر JavaScript.",
+      "direct": "رابط .m3u8 جاهز مكتوب في config/sports.json مباشرة."
+    },
+    "hints": "كلها اختيارية. بدونها يعمل الاكتشاف التلقائي؛ ومعها يصبح الاستخراج أدق وأسرع.",
+    "channel_page": "قالب اختياري لرابط صفحة القناة الواحدة، يُكتب في source_url داخل streams/<id>.json. يدعم {channel} (قيمة source_channel) و{id} (معرّف القناة في المنصة) و{name} (اسمها).",
+    "fallback_url": "في config/sports.json: رابط صفحة تُعرض كحل ثانوي عند فشل استخراج البث (يفيد القنوات بلا مصدر)."
+  },
+  "sources": [
+    {
+      "id": "alwan",
+      "name": "ALWAN SPORT",
+      "kind": "auto",
+      "page": "https://alwanlive.stream/",
+      "channel_page": "https://alwanlive.stream/?channel={channel}",
+      "hints": {
+        "scripts": ["app.js"],
+        "array_keys": ["channels"],
+        "url_fields": ["url", "stream", "hls", "src", "link"],
+        "name_fields": ["name", "title", "label"],
+        "id_fields": ["id", "key", "slug"]
+      }
+    }
+  ]
+}

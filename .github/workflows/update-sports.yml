@@ -1,0 +1,67 @@
+name: Update Sport streams
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "أعد الكتابة حتى لو لم يتغيّر الرابط"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-sports
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test extractor parsers
+        run: python scripts/test_extract.py
+
+      # ملاحظة: لا نحتاج Playwright/Chromium هنا — مصادر kind=auto تعمل بجلب HTTP فقط.
+      - name: Extract sport stream URLs
+        run: |
+          args=""
+          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.force }}" = "true" ]; then args="--force"; fi
+          python scripts/extract.py --debug-dir debug $args
+
+      - name: Upload debug info (candidate lists of failed channels)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-sports
+          path: debug/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Commit changed sport streams
+        env:
+          REF: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # نقيّد النطاق بملفات sport فقط حتى لا نتداخل مع workflow الفجر
+          # sports.js مولَّد آليًا من الإعدادات، ويجب أن يُنشر مع الملفات
+          git add streams/sport*.json sports.js
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "تحديث روابط قنوات Sport"
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin "$REF" && git push origin "HEAD:$REF"; then exit 0; fi
+            sleep 5
+          done
+          exit 1

@@ -1,0 +1,10 @@
+{
+  "channel": "Sport 9",
+  "id": "sport9",
+  "stream_url": "https://kurdtv.org/api/public/hls?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/3B5fjU0dobiOtR9-BdR7Y0JVedY3hp3bj0RnHejus8Ve7QLvO5N9qY-wlfyfVg6r9SR77WgW5LFfVjb1kJ9Fgg/non_transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/master_dynamic_delta.m3u8?type=live",
+  "source_url": "https://alwanlive.stream/?channel=9",
+  "updated_at": "2026-10-16T18:55:09Z",
+  "expires_at": null,
+  "status": "ok",
+  "detail": "ALWAN SPORT 9 · من مصفوفة في app.js"
+}
