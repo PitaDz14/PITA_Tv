@@ -57,7 +57,33 @@
 |---|---|---|
 | `auto` | خط الأنابيب أعلاه (بدون متصفح) | **الافتراضي** — يكفي رابط المنصة |
 | `direct` | رابط `.m3u8` جاهز في `config/sports.json` | قنوات بروابط ثابتة |
-| `browser` | مستخرج Playwright (`update_streams.py`) | صفحات تُنشئ الروابط عبر JavaScript |
+| `crypt` | POST إلى `endpoint` ثم فكّ AES-CBC (بدون متصفح) | منصات تُخفي الرابط في JSON مشفّر — مثل قنوات الفجر |
+| `browser` | مستخرج Playwright (`update_streams.py`) | صفحات تُنشئ الروابط عبر JavaScript (لم تُعد مجدولة) |
+
+### محوّل `crypt` (المصادر المشفّرة)
+
+بعض المنصات لا تكتب الرابط في الصفحة، بل تعيده **مشفّرًا** من نقطة نهاية POST:
+
+```
+GET  صفحة القناة            → csrf-token + كعكة جلسة
+POST endpoint (id+csrf)     → JSON: { link_4, key, iv }
+AES-256-CBC فكّ link_4      → رابط .m3u8 مع token
+```
+
+كل ذلك بـ Python خالص (`scripts/aes_cbc.py`، بلا أي مكتبة خارجية) — **بدون متصفح**،
+فيعمل في CI بثبات. الإعداد:
+
+```json
+{ "id": "elahmad", "kind": "crypt",
+  "page": "https://www.elahmad.ru/tv/watchtv.php",
+  "channel_page": "https://www.elahmad.ru/tv/watchtv.php?id={channel}",
+  "endpoint": "https://www.elahmad.ru/tv/result/embed_result_watchtv.php",
+  "cipher_field": "link_4", "key_field": "key", "iv_field": "iv" }
+```
+
+أسماء الحقول و`csrf_regexes` قابلة للتغيير من الإعداد — فمنصة مشفّرة مشابهة
+تحتاج عنصرًا جديدًا في `sources.json` فقط. `scripts/test_aes_cbc.py` يقارن
+تنفيذ AES بمتجهات FIPS-197 الرسمية وبمكتبة `cryptography` المرجعية.
 
 ### حدود الأمانة
 
@@ -68,10 +94,19 @@
 ## قنوات الفجر
 
 - `alfajertv1.html` … `alfajertv5.html`: صفحة مشغل لكل قناة، تقرأ `streams/<id>.json` وتتحقق من رابط جديد كل دقيقة.
-- `config/channels.json`: أسماء القنوات وروابط صفحاتها في المصدر.
-- `scripts/update_streams.py`: يستخرج رابط `.m3u8` مع الـ token (Playwright).
+- الاستخراج صار عبر **محوّل `crypt`** نفسه المستخدم لقنوات Sport (انظر أعلاه):
+  قنوات الفجر مضافة في `config/sports.json` بمصدر `elahmad` — بلا Playwright،
+  وكانت تُستخرج سابقًا بمتصفح يتعطّل كثيرًا.
+- `config/channels.json`: أسماء القنوات وروابط صفحاتها في المصدر (مرجع تاريخي؛
+  الربط الفعّال الآن في `config/sports.json`).
+- `scripts/update_streams.py`: بقي مكتبة مساعدة (الترجيح، حلّ Master→Media، اختبارات HLS)
+  ويخدم نوع `browser` — لم يعد مجدولًا.
 - `scripts/test_hls_resolution.py`: اختبارات حلّ Master→Media Playlist وتوريث الـ token.
-- `.github/workflows/update-alfajer.yml`: يحدّث `streams/alfajertv*.json` كل 10 دقائق (أو يدويًا من Actions) ويعمل commit عند التغيير فقط.
+- `.github/workflows/update-alfajer.yml`: يحدّث `streams/alfajertv*.json` كل 10 دقائق
+  (أو يدويًا من Actions) ويعمل commit عند التغيير فقط.
+
+**ملاحظة عن Alfajer TV 1**: المصدر نفسه لا يبثّ فيديو لهذه القناة حاليًا
+(صفر وحدات H.264 في كل مقاطع البث — صوت فقط)، وهذا عيب من جهة المنصة لا من جهتنا.
 
 ## Duhok
 

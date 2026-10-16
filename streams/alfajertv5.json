@@ -1,8 +1,10 @@
 {
   "channel": "Alfajer TV 5",
   "id": "alfajertv5",
-  "stream_url": "https://ruyas.store/fajer5/tracks-v1a1/mono.m3u8?token=50315e57a2091d00d25daa558e9c1c16b48e26dc-9e6fb2b4b8d4bf601086703c0a47426f-1792161850-1792160050",
+  "stream_url": "https://ruyas.store/fajer5/index.m3u8?token=2e2f9621d648c6332664d5bd08998120b8d9908f-d15fe6291f3f488c6e3b8f8fc35d9f39-1792185183-1792183383",
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv5",
-  "updated_at": "2026-10-16T14:15:08Z",
-  "expires_at": "2026-10-16T14:44:10Z"
+  "updated_at": "2026-10-16T20:44:05Z",
+  "expires_at": "2026-10-16T21:13:03Z",
+  "status": "ok",
+  "detail": "Alfajer TV 5 · فُكّ من AES-CBC · ✅ سليم"
 }

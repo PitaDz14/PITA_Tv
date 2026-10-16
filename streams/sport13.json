@@ -3,7 +3,7 @@
   "id": "sport13",
   "stream_url": null,
   "source_url": null,
-  "updated_at": "2026-10-16T19:38:28Z",
+  "updated_at": "2026-10-16T20:41:50Z",
   "expires_at": null,
   "status": "unconfigured",
   "detail": "لا يوجد مصدر مرتبط بعد — أضف منصة في config/sources.json ثم اربطها في config/sports.json"

@@ -69,6 +69,10 @@ BAD_WORDS = ("subtitle", "subs", "caption", "thumb", "preview", "poster", "trail
 GOOD_NAMES = ("mono", "index", "master", "playlist", "main", "live", "stream", "manifest")
 CHILD_NAMES = ("chunklist", "media_", "audio", "video_", "segment", "frag")
 
+# مسارات صوت فقط: اختيارها يعطي صورة سوداء مع صوت (readyState=4 لكن videoWidth=0).
+# في مسارات ruyas.store: tracks-a1 صوت فقط، و tracks-v1a1 فيديو+صوت.
+AUDIO_ONLY_RE = re.compile(r"(?:^|[/_\-])a1(?:[/_\-.]|$)", re.I)
+
 M3U8_IN_TEXT = re.compile(r"""https?:(?:\\?/){2}[^\s"'<>\\()]+?\.m3u8(?:\?[^\s"'<>\\()]*)?""", re.I)
 
 PLAY_SELECTORS = (
@@ -283,6 +287,8 @@ def score_candidate(c: Candidate) -> int:
         s += 20
     if any(base.startswith(n) for n in CHILD_NAMES):
         s -= 15
+    if AUDIO_ONLY_RE.search(path):
+        s -= 80                          # صوت فقط → صورة سوداء؛ نتجنّبه بشدة
     low = c.url.lower()
     if any(w in low for w in BAD_WORDS):
         s -= 60
@@ -332,6 +338,8 @@ def playlist_preference_score(url: str, preferred_terms: list[str] | tuple[str, 
         score += 100
     if "/tracks-" in path:
         score += 40
+    if AUDIO_ONLY_RE.search(path):
+        score -= 500                     # مسار صوت فقط أبدًا ليس الخيار الأول
     if "audio" in path and "mono" not in path:
         score -= 20
     return score

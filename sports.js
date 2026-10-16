@@ -15,5 +15,10 @@ window.SPORTS = {
   "sport12": "",
   "sport13": "",
   "sport14": "",
-  "sport15": ""
+  "sport15": "",
+  "alfajertv1": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv",
+  "alfajertv2": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv2",
+  "alfajertv3": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv3",
+  "alfajertv4": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv4",
+  "alfajertv5": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv5"
 };

@@ -4,7 +4,8 @@
     "kind": {
       "auto": "الافتراضي: يجلب الصفحة ويبحث عن مصفوفة قنوات / JSON / روابط m3u8 / base64. بدون متصفح.",
       "browser": "يستخدم مستخرج Playwright (scripts/update_streams.py) للصفحات التي تُنشئ الروابط عبر JavaScript.",
-      "direct": "رابط .m3u8 جاهز مكتوب في config/sports.json مباشرة."
+      "direct": "رابط .m3u8 جاهز مكتوب في config/sports.json مباشرة.",
+      "crypt": "POST إلى endpoint ثم فكّ تشفير AES-CBC لرابط البث — بلا متصفح. يحتاج: page + endpoint، واختياريًا أسماء الحقول وقوالب regex للـ csrf."
     },
     "hints": "كلها اختيارية. بدونها يعمل الاكتشاف التلقائي؛ ومعها يصبح الاستخراج أدق وأسرع.",
     "channel_page": "قالب اختياري لرابط صفحة القناة الواحدة، يُكتب في source_url داخل streams/<id>.json. يدعم {channel} (قيمة source_channel) و{id} (معرّف القناة في المنصة) و{name} (اسمها).",
@@ -24,6 +25,21 @@
         "name_fields": ["name", "title", "label"],
         "id_fields": ["id", "key", "slug"]
       }
+    },
+    {
+      "id": "elahmad",
+      "name": "الفجر الفلسطينية (elahmad.ru)",
+      "kind": "crypt",
+      "page": "https://www.elahmad.ru/tv/watchtv.php",
+      "channel_page": "https://www.elahmad.ru/tv/watchtv.php?id={channel}",
+      "endpoint": "https://www.elahmad.ru/tv/result/embed_result_watchtv.php",
+      "cipher_field": "link_4",
+      "key_field": "key",
+      "iv_field": "iv",
+      "id_field": "id",
+      "csrf_field": "csrf_token",
+      "require_csrf": true,
+      "_note": "قنوات الفجر تُخفي رابط ruya.store في JSON مشفّر AES-256-CBC؛ الفكّ هنا بـ Python خالص بلا متصفح. source_channel هو معرّف المنصة (alfajertv, alfajertv2 …)."
     }
   ]
 }

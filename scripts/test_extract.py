@@ -176,6 +176,93 @@ class FallbackPageTests(unittest.TestCase):
         self.assertEqual(fallback_page(sport, {}), "https://alwanlive.stream/?channel=11")
 
 
+class CryptAdapterTests(unittest.TestCase):
+    """محوّل المصادر المشفّرة (AES-CBC) — قنوات الفجر. لا يحتاج شبكة."""
+
+    def test_csrf_and_decrypt_via_handlers(self):
+        """نحاكي HTTP بالكامل: صفحة فيها csrf، ثم POST يعيد حمولة مشفّرة."""
+        import base64
+        import json as _json
+        from extract import extract_crypt
+        from aes_cbc import decrypt_cbc  # noqa: F401  (للتوثيق)
+
+        key = bytes(range(32))
+        iv = bytes(range(16))
+        url = "https://ruyas.store/fajer9/index.m3u8?token=abc"
+        # نشفّر بـ AES مرجعي إن توفّر، وإلا نتخطّى (الاختبار يعتمد على تشفير حقيقي)
+        try:
+            from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+            from cryptography.hazmat.primitives import padding as sympad
+        except ImportError:
+            self.skipTest("cryptography غير مثبّتة")
+        padder = sympad.PKCS7(128).padder()
+        padded = padder.update(url.encode()) + padder.finalize()
+        enc = Cipher(algorithms.AES(key), modes.CBC(iv)).encryptor()
+        ct = enc.update(padded) + enc.finalize()
+
+        page_html = '<meta name="csrf-token" content="TOK123">'
+        payload = _json.dumps({
+            "link_4": base64.b64encode(ct).decode(),
+            "key": key.hex(), "iv": iv.hex(),
+        }).encode()
+
+        class FakeResp:
+            def __init__(self, data): self._d = data
+            def read(self, *a): return self._d
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+
+        calls = []
+
+        class FakeOpener:
+            def open(self, req, timeout=None):
+                calls.append(req)
+                if isinstance(req.data, (bytes, bytearray)):
+                    return FakeResp(payload)
+                return FakeResp(page_html.encode())
+
+        import urllib.request as _u
+        orig = _u.build_opener
+        _u.build_opener = lambda *a, **k: FakeOpener()
+        try:
+            src = {"id": "elahmad", "kind": "crypt",
+                   "page": "https://www.elahmad.ru/tv/watchtv.php",
+                   "endpoint": "https://www.elahmad.ru/tv/result/embed_result_watchtv.php"}
+            found = extract_crypt(src, {"name": "Alfajer TV 9", "source_id": "alfajertv9",
+                                        "source_channel": "alfajertv9"})
+        finally:
+            _u.build_opener = orig
+
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0].url, url)
+        self.assertEqual(found[0].origin, "crypt")
+        # تأكيد أننا أرسلنا csrf في جسم POST
+        post = [c for c in calls if isinstance(c.data, (bytes, bytearray))][0]
+        self.assertIn(b"csrf_token=TOK123", post.data)
+
+    def test_missing_csrf_raises(self):
+        from extract import extract_crypt, ConfigError
+
+        class FakeResp:
+            def __init__(self, d): self._d = d
+            def read(self, *a): return self._d
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+
+        class FakeOpener:
+            def open(self, req, timeout=None): return FakeResp(b"<html>no token</html>")
+
+        import urllib.request as _u
+        orig = _u.build_opener
+        _u.build_opener = lambda *a, **k: FakeOpener()
+        try:
+            with self.assertRaises(ConfigError):
+                extract_crypt({"id": "x", "kind": "crypt", "page": "https://x.tld/",
+                               "endpoint": "https://x.tld/e"}, {"source_id": "y"})
+        finally:
+            _u.build_opener = orig
+
+
 class SportsMapTests(unittest.TestCase):
     """خريطة sports.js التي تعرف بها الصفحة رابطها الاحتياطي بلا fetch."""
 

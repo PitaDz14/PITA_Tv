@@ -1,6 +1,47 @@
 #!/usr/bin/env python3
+import sys
 import unittest
-from update_streams import master_playlist_children, resolve_child_playlist_url
+from pathlib import Path
+
+# يعمل من أي مجلد تشغيل (جذر المستودع أو scripts/)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from update_streams import (  # noqa: E402
+    Candidate,
+    master_playlist_children,
+    playlist_preference_score,
+    resolve_child_playlist_url,
+    score_candidate,
+)
+
+
+class AudioOnlyVariantTests(unittest.TestCase):
+    """
+    مسار الصوت فقط (tracks-a1) يجب ألا يفوز على مسار الفيديو (tracks-v1a1).
+    اختياره يعطي صورة سوداء مع صوت — عيب ظهر فعليًا في Alfajer TV 1.
+    """
+
+    def test_video_variant_outranks_audio_only(self):
+        a1 = Candidate(url="https://x/fajer1/tracks-a1/mono.m3u8", origin="request", order=5, status=200)
+        v1a1 = Candidate(url="https://x/fajer1/tracks-v1a1/mono.m3u8", origin="request", order=1, status=200)
+        self.assertGreater(score_candidate(v1a1), score_candidate(a1))
+        self.assertGreater(playlist_preference_score(v1a1.url), playlist_preference_score(a1.url))
+
+    def test_master_prefers_video_child(self):
+        master = """#EXTM3U
+#EXT-X-STREAM-INF:RESOLUTION=1024x576
+tracks-v1a1/mono.m3u8
+#EXT-X-STREAM-INF:BANDWIDTH=130000,CODECS=""
+tracks-a1/mono.m3u8
+"""
+        kids = master_playlist_children(master, "https://x/fajer1/index.m3u8")
+        self.assertTrue(kids, "يجب أن نجد مسارات فرعية")
+        self.assertIn("tracks-v1a1", kids[0], f"الأولوية للفيديو، لكن جاء: {kids}")
+
+    def test_audio_only_detected_in_paths(self):
+        from update_streams import AUDIO_ONLY_RE
+        self.assertTrue(AUDIO_ONLY_RE.search("/fajer1/tracks-a1/mono.m3u8"))
+        self.assertFalse(AUDIO_ONLY_RE.search("/fajer1/tracks-v1a1/mono.m3u8"))
 
 MASTER = """#EXTM3U
 #EXT-X-VERSION:3

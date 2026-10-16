@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import binascii
 import json
 import os
 import re
@@ -43,7 +44,7 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
-from urllib.parse import parse_qsl, urljoin, urlparse
+from urllib.parse import parse_qsl, urlencode, urljoin, urlparse
 
 # نستورد أدوات موجودة بدل تكرارها (نفس مجلد السكربت)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -545,6 +546,87 @@ def extract_auto(source: dict) -> list[Found]:
     return unique
 
 
+def extract_crypt(source: dict, sport: dict) -> list[Found]:
+    """
+    محوّل المصادر التي تُخفي الرابط في JSON مشفّر (AES-CBC) وتحتاج POST أولًا.
+
+    النمط (كما في elahmad.ru لقنوات الفجر):
+      1. GET صفحة القناة → استخراج csrf-token (وسيط) + كعكة الجلسة.
+      2. POST إلى نقطة النهاية بـ id + csrf_token → JSON فيه link_4/key/iv.
+      3. فكّ تشفير AES-256-CBC لـ link_4 بالمفتاح والـ IV → الرابط النهائي.
+
+    كل ما سبق بـ Python خالص (urllib + aes_cbc) — **بدون متصفح**، وهذا ما يجعل
+    قنوات الفجر تعمل في CI بثبات مثل قنوات ألوان. الإعداد يحدّد التفاصيل،
+    فإضافة منصة مشابهة لا تحتاج كودًا.
+    """
+    import http.cookiejar
+    import aes_cbc
+
+    page = channel_page_url(source, sport, None) or source["page"]
+    endpoint = source.get("endpoint")
+    if not endpoint:
+        raise ConfigError(f"{source.get('id')}: نوع crypt يحتاج حقل endpoint")
+
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+    headers = {"User-Agent": USER_AGENT, "Accept-Language": "ar,en;q=0.9"}
+    req = urllib.request.Request(page, headers=headers)
+    with opener.open(req, timeout=FETCH_TIMEOUT) as r:
+        html = r.read(MAX_SCRIPT_BYTES).decode("utf-8", "replace")
+
+    # csrf: من وسم <meta name="csrf-token"> أو من أي حقل مخفي — كلاهما وارد
+    csrf = ""
+    for pat in (source.get("csrf_regexes") or
+                [r'name=["\']csrf-token["\']\s+content=["\']([^"\']+)',
+                 r'content=["\']([^"\']+)["\']\s+name=["\']csrf-token["\']',
+                 r'name=["\']csrf_token["\']\s+value=["\']([^"\']+)']):
+        m = re.search(pat, html, re.I)
+        if m:
+            csrf = m.group(1)
+            break
+    if not csrf and source.get("require_csrf", True):
+        raise ConfigError(f"{source.get('id')}: لم يُعثر على csrf-token في {page}")
+
+    id_field = source.get("id_field", "id")
+    csrf_field = source.get("csrf_field", "csrf_token")
+    form = urlencode({id_field: sport.get("source_id") or sport.get("source_channel") or "",
+                      csrf_field: csrf})
+    post = urllib.request.Request(
+        endpoint, data=form.encode(),
+        headers={**headers, "Content-Type": "application/x-www-form-urlencoded",
+                 "Referer": page, "X-Requested-With": "XMLHttpRequest"})
+    with opener.open(post, timeout=FETCH_TIMEOUT) as r:
+        raw = r.read(MAX_SCRIPT_BYTES).decode("utf-8", "replace")
+
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ConfigError(f"{source.get('id')}: استجابة غير JSON من {endpoint} ({exc})") from exc
+    if data.get("error"):
+        raise ConfigError(f"{source.get('id')}: المصدر أرجع خطأ: {data['error']}")
+
+    ct_field = source.get("cipher_field", "link_4")
+    key_field = source.get("key_field", "key")
+    iv_field = source.get("iv_field", "iv")
+    for f in (ct_field, key_field, iv_field):
+        if not data.get(f):
+            raise ConfigError(f"{source.get('id')}: الحقل {f!r} مفقود في استجابة المصدر")
+
+    try:
+        ciphertext = base64.b64decode(data[ct_field])
+        key = bytes.fromhex(data[key_field])
+        iv = bytes.fromhex(data[iv_field])
+        url = aes_cbc.decrypt_text(ciphertext, key, iv).strip()
+    except (ValueError, binascii.Error) as exc:
+        raise ConfigError(f"{source.get('id')}: فشل فكّ التشفير ({exc})") from exc
+
+    if not is_streamish(url):
+        raise ConfigError(f"{source.get('id')}: الرابط المفكوك ليس بثًّا ({url[:80]!r})")
+
+    log(f"  🔓 فُكّ التشفير: {mask(url)}")
+    return [Found(url=url, name=sport.get("name", ""), chan_id=str(sport.get("source_channel") or ""),
+                  origin="crypt", order=0, note="فُكّ من AES-CBC")]
+
+
 def channel_page_url(src: dict, sport: dict, pick: Found | None = None) -> str:
     """
     يبني رابط صفحة القناة الواحدة من قالب المصدر (channel_page) إن وُجد،
@@ -617,13 +699,18 @@ def load_sources(path: Path) -> dict[str, dict]:
         if not isinstance(sid, str) or not ID_RE.match(sid):
             raise ConfigError(f"المصدر رقم {i}: id غير صالح: {sid!r}")
         kind = s.get("kind", "auto")
-        if kind not in ("auto", "direct", "browser"):
-            raise ConfigError(f"{sid}: kind غير مدعوم: {kind!r} (auto|direct|browser)")
-        if kind == "auto":
+        if kind not in ("auto", "direct", "browser", "crypt"):
+            raise ConfigError(f"{sid}: kind غير مدعوم: {kind!r} (auto|direct|browser|crypt)")
+        if kind in ("auto", "crypt"):
             page = s.get("page")
             parsed = urlparse(page) if isinstance(page, str) else None
             if not parsed or parsed.scheme not in ("http", "https") or not parsed.netloc:
                 raise ConfigError(f"{sid}: page غير صالح: {page!r}")
+        if kind == "crypt":
+            ep = s.get("endpoint")
+            parsed = urlparse(ep) if isinstance(ep, str) else None
+            if not parsed or parsed.scheme not in ("http", "https") or not parsed.netloc:
+                raise ConfigError(f"{sid}: kind=crypt يحتاج endpoint صالحًا: {ep!r}")
         out[sid] = s
     return out
 
@@ -657,7 +744,7 @@ def load_sports(path: Path) -> list[dict]:
             u = ch.get("url")
             if not isinstance(u, str) or urlparse(u).scheme not in ("http", "https"):
                 raise ConfigError(f"{cid}: kind=direct يحتاج رابط url صالحًا")
-        elif kind == "auto":
+        elif kind in ("auto", "crypt"):
             if not isinstance(ch.get("source"), str):
                 raise ConfigError(f"{cid}: يحتاج حقل source")
         out.append({**ch, "id": cid, "name": name.strip(), "kind": kind})
@@ -806,6 +893,29 @@ def process_sport(sport: dict, sources: dict, streams_dir: Path, cache: dict, dr
     if kind == "browser":
         return Result(sport, "skipped", "يُدار هذا النوع عبر scripts/update_streams.py (مستخرج المتصفح)")
 
+    # --- مصدر مشفّر (AES-CBC عبر POST) — بلا متصفح ---
+    if kind == "crypt":
+        sid = sport["source"]
+        src = sources.get(sid)
+        page = fallback_page(sport, sources)
+        if src is None or src.get("kind") != "crypt":
+            reason = f"المصدر {sid!r} غير معرّف أو ليس من نوع crypt"
+            write_fallback(sport, path, page, reason, now, dry)
+            return Result(sport, "failed", f"{reason} — الحل الثانوي: {mask(page) or 'لا يوجد'}")
+        try:
+            found = extract_crypt(src, sport)
+        except (ConfigError, urllib.error.URLError, urllib.error.HTTPError, OSError) as exc:
+            reason = f"فشل استخراج crypt: {str(exc).splitlines()[0][:160]}"
+            write_fallback(sport, path, page, reason, now, dry)
+            return Result(sport, "failed", f"{reason} — الحل الثانوي: {mask(page) or 'لا يوجد'}")
+        pick = found[0]
+        # فحص فعلي قبل القبول، حتى لا نكتب رابطًا ميّتًا مكان رابط سليم محفوظ
+        ok, why = probe_stream(pick.url)
+        pick.note = f"{pick.note} · {'✅' if ok else '✗'} {why}".strip(" ·")
+        if not ok:
+            pick.score = -500
+        return _finish_found(sport, pick, path, page, now, dry, source_page=page)
+
     # --- auto: خط الأنابيب ---
     sid = sport["source"]
     src = sources.get(sid)
@@ -845,6 +955,17 @@ def process_sport(sport: dict, sources: dict, streams_dir: Path, cache: dict, dr
         write_fallback(sport, path, page, f"الرابط المكتشف مرفوض ({bad})", now, dry)
         return Result(sport, "failed", f"الرابط المكتشف مرفوض: {bad} — الحل الثانوي: {mask(page) or 'لا يوجد'}")
 
+    return _finish_found(sport, pick, path, page, now, dry,
+                         source_page=channel_page_url(src, sport, pick))
+
+
+def _finish_found(sport: dict, pick: Found, path: Path, page: str, now, dry: bool,
+                  source_page: str = "") -> Result:
+    """
+    المسار المشترك الأخير لكل محوّل أنتج مرشّحًا: التحقق من صلاحية الرابط،
+    إبقاء رابط قديم يعمل عند موت المصدر (stale)، وإلا الكتابة الذرّية.
+    """
+    cid = sport["id"]
     old: dict = {}
     if path.exists():
         try:
@@ -855,16 +976,24 @@ def process_sport(sport: dict, sources: dict, streams_dir: Path, cache: dict, dr
     old_url = old.get("stream_url")
 
     if pick.score < 0:
-        # بث المصدر ميّت. إن كان لدينا رابط محفوظ يعمل، نبقيه ونسمّي الحالة بوضوح
-        # حتى لا يبدو الأمر عطلًا في نظامنا ولا يُطلق تحذيرًا كل دورة.
+        # بث المصدر ميّت. إن كان لدينا رابط محفوظ **وما زال يعمل فعلًا**، نبقيه
+        # ونسمّي الحالة stale حتى لا يبدو عطلًا في نظامنا. أما إن كان المحفوظ
+        # ميّتًا أيضًا (شائع مع tokens قصيرة العمر)، فالصدق أن نعرض صفحة القناة
+        # بدل تقديم رابط ميت للمشاهد.
         if old_url:
-            return Result(sport, "stale", f"بث المصدر ميّت ({pick.note}) — أُبقي الرابط المحفوظ")
-        page = fallback_page(sport, sources)
+            old_ok, old_why = probe_stream(old_url)
+            if old_ok:
+                return Result(sport, "stale", f"بث المصدر ميّت ({pick.note}) — أُبقي الرابط المحفوظ (سليم)")
+            write_fallback(sport, path, page,
+                           f"بث المصدر ميّت ({pick.note}) والرابط المحفوظ ميّت أيضًا ({old_why})",
+                           now, dry)
+            return Result(sport, "failed",
+                          f"بث المصدر ميّت والرابط المحفوظ ميّت ({old_why}) — الحل الثانوي: {mask(page) or 'لا يوجد'}")
         write_fallback(sport, path, page, f"بث المصدر ميّت ({pick.note})", now, dry)
         return Result(sport, "failed",
                       f"بث المصدر ميّت ولا يوجد رابط محفوظ ({pick.note}) — الحل الثانوي: {mask(page) or 'لا يوجد'}")
 
-    source_page = channel_page_url(src, sport, pick)
+    source_page = source_page or page
     if old_url == pick.url and old.get("source_url") == source_page and old.get("status") == "ok":
         return Result(sport, "unchanged", f"الرابط مطابق ({pick.name or pick.chan_id})")
 
