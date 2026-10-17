@@ -1,9 +1,9 @@
 {
   "channel": "Sport 1",
   "id": "sport1",
-  "stream_url": "https://kurdtv.org/api/public/hls?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/7sVz2sS9uNLdYCAJJQPrv9US1ZogmBN3Dtxe8HB_CyN_w3yZ8wpi_xzdYzX_l4M1r0pyuuv_8st7P5C5Q274pQ/transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiS2JwcyI6Mjc1MCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE/dynamic_delta.m3u8?type=live",
+  "stream_url": "https://kurdtv.org/api/public/hls?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/7sVz2sS9uNLdYCAJJQPrv9US1ZogmBN3Dtxe8HB_CyN_w3yZ8wpi_xzdYzX_l4M1r0pyuuv_8st7P5C5Q274pQ/transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiS2JwcyI6Mjc1MCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE/dynamic_playlist.m3u8?type=live",
   "source_url": "https://alwanlive.stream/?channel=1",
-  "updated_at": "2026-10-16T18:26:09Z",
+  "updated_at": "2026-10-17T14:36:28Z",
   "expires_at": null,
   "status": "ok",
   "detail": "ALWAN SPORT 1 · من مصفوفة في app.js · ✅ سليم"
