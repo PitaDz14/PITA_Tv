@@ -1,10 +1,10 @@
 {
   "channel": "Alfajer TV 4",
   "id": "alfajertv4",
-  "stream_url": "https://ruyas.store/fajer4/index.m3u8?token=b0dd474c52cebe58b925ee443f732f5e6224c8dc-317d901bf5bb00a65ccb6e0b9ccdb35b-1792218919-1792217119",
+  "stream_url": null,
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv4",
-  "updated_at": "2026-10-17T06:06:18Z",
-  "expires_at": "2026-10-17T06:35:19Z",
-  "status": "ok",
-  "detail": "Alfajer TV 4 · فُكّ من AES-CBC · ✅ سليم"
+  "updated_at": "2026-10-17T10:33:41Z",
+  "expires_at": null,
+  "status": "fallback",
+  "detail": "بث المصدر ميّت (فُكّ من AES-CBC · ✗ HTTP 404) والرابط المحفوظ ميّت أيضًا (HTTP 403) — يُعرض رابط صفحة القناة كحل ثانوي"
 }
