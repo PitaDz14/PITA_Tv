@@ -1,10 +1,10 @@
 {
   "channel": "Alfajer TV 2",
   "id": "alfajertv2",
-  "stream_url": "https://ruyas.store/fajer2/index.m3u8?token=157ca0fcee55acda2688cfbe376bb26c370c3dfa-d064da996e630ee05d29bdfa1ac668cd-1792185179-1792183379",
+  "stream_url": "https://ruyas.store/fajer2/index.m3u8?token=069b3f6550adba00d05149b7ef3fc47edecbc854-cbcfe06d996f1c6bf8d12658ec586a2e-1792200897-1792199097",
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv2",
-  "updated_at": "2026-10-16T20:43:59Z",
-  "expires_at": "2026-10-16T21:12:59Z",
+  "updated_at": "2026-10-17T01:05:57Z",
+  "expires_at": "2026-10-17T01:34:57Z",
   "status": "ok",
   "detail": "Alfajer TV 2 · فُكّ من AES-CBC · ✅ سليم"
 }

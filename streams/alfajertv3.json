@@ -1,10 +1,10 @@
 {
   "channel": "Alfajer TV 3",
   "id": "alfajertv3",
-  "stream_url": "https://ruyas.store/fajer3/index.m3u8?token=a5274edec02a48ea8337ca8ddeea96d718bf5389-6fabcf1f1459158a0c4defc31c851df9-1792185180-1792183380",
+  "stream_url": "https://ruyas.store/fajer3/index.m3u8?token=602913a717bed017a2062d7f698ccdac297cf748-04c848124593693189c2f4205f57a993-1792200899-1792199099",
   "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv3",
-  "updated_at": "2026-10-16T20:44:02Z",
-  "expires_at": "2026-10-16T21:13:00Z",
+  "updated_at": "2026-10-17T01:05:58Z",
+  "expires_at": "2026-10-17T01:34:59Z",
   "status": "ok",
   "detail": "Alfajer TV 3 · فُكّ من AES-CBC · ✅ سليم"
 }
