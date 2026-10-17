@@ -23,7 +23,7 @@ extract.py - مستخرج روابط البث القابل للتوسّع (نظ�
 أمثلة:
   python scripts/extract.py --list                 # اعرض القنوات المكتشفة في كل منصة
   python scripts/extract.py --dry-run              # بدون كتابة أي ملف
-  python scripts/extract.py --only sport1,sport7
+  python scripts/extract.py --only sport1,alfajertv1
   python scripts/extract.py --force                # تجاهل الفحص وأعد الاستخراج
 
 كود الخروج: 0 = نجح شيء على الأقل، 1 = فشلت كل القنوات، 2 = خطأ في الإعدادات.

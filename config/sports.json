@@ -4,24 +4,6 @@
   { "id": "sport3", "name": "Sport 3", "source": "alwan", "source_channel": 3 },
   { "id": "sport4", "name": "Sport 4", "source": "alwan", "source_channel": 4 },
   { "id": "sport5", "name": "Sport 5", "source": "alwan", "source_channel": 5 },
-  { "id": "sport6", "name": "Sport 6", "source": "alwan", "source_channel": 6 },
-
-  { "id": "sport7", "name": "Sport 7", "source": null,
-    "fallback_url": "https://alwanlive.stream/?channel=7",
-    "note": "كان رابطًا مباشرًا http://tod4kyusf.b-cdn.net/Beinhdr/index.m3u8 لكنه ميّت (HTTP 404)." },
-
-  { "id": "sport8", "name": "Sport 8", "source": null,
-    "fallback_url": "https://alwanlive.stream/?channel=8",
-    "note": "بث هذه القناة عند المنصة ميّت (HTTP 404)، والموقع يستبدلها بإيمبد تويتر." },
-
-  { "id": "sport9", "name": "Sport 9", "source": "alwan", "source_channel": 9 },
-  { "id": "sport10", "name": "Sport 10", "source": "alwan", "source_channel": 10 },
-
-  { "id": "sport11", "name": "Sport 11", "source": null },
-  { "id": "sport12", "name": "Sport 12", "source": null },
-  { "id": "sport13", "name": "Sport 13", "source": null },
-  { "id": "sport14", "name": "Sport 14", "source": null },
-  { "id": "sport15", "name": "Sport 15", "source": null },
 
   { "id": "alfajertv1", "name": "Alfajer TV 1", "kind": "crypt",
     "source": "elahmad", "source_channel": "alfajertv", "source_id": "alfajertv",
