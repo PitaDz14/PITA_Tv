@@ -1,0 +1,19 @@
+[
+  { "id": "sport1", "name": "Sport 1", "source": "alwan", "source_channel": 1 },
+  { "id": "sport2", "name": "Sport 2", "source": "alwan", "source_channel": 2 },
+  { "id": "sport3", "name": "Sport 3", "source": "alwan", "source_channel": 3 },
+  { "id": "sport4", "name": "Sport 4", "source": "alwan", "source_channel": 4 },
+  { "id": "sport5", "name": "Sport 5", "source": "alwan", "source_channel": 5 },
+
+  { "id": "alfajertv1", "name": "Alfajer TV 1", "kind": "crypt",
+    "source": "elahmad", "source_channel": "alfajertv", "source_id": "alfajertv",
+    "note": "معرّف المنصة هو alfajertv (وليس alfajertv1 الذي يرجع 404). ملاحظة: المصدر نفسه لا يبثّ فيديو لهذه القناة حاليًا (تحقّقنا: صفر وحدات H.264 في كل المقاطع، صوت فقط) — عيب من جهة المنصة لا من جهتنا." },
+  { "id": "alfajertv2", "name": "Alfajer TV 2", "kind": "crypt",
+    "source": "elahmad", "source_channel": "alfajertv2", "source_id": "alfajertv2" },
+  { "id": "alfajertv3", "name": "Alfajer TV 3", "kind": "crypt",
+    "source": "elahmad", "source_channel": "alfajertv3", "source_id": "alfajertv3" },
+  { "id": "alfajertv4", "name": "Alfajer TV 4", "kind": "crypt",
+    "source": "elahmad", "source_channel": "alfajertv4", "source_id": "alfajertv4" },
+  { "id": "alfajertv5", "name": "Alfajer TV 5", "kind": "crypt",
+    "source": "elahmad", "source_channel": "alfajertv5", "source_id": "alfajertv5" }
+]

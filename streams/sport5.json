@@ -1,0 +1,10 @@
+{
+  "channel": "Sport 5",
+  "id": "sport5",
+  "stream_url": null,
+  "source_url": "https://alwanlive.stream/?channel=5",
+  "updated_at": "2026-10-22T19:22:22Z",
+  "expires_at": null,
+  "status": "fallback",
+  "detail": "بث المصدر ميّت (من مصفوفة في app.js · ✗ HTTP 401) — يُعرض رابط صفحة القناة كحل ثانوي"
+}

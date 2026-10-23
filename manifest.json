@@ -1,0 +1,17 @@
+{
+  "name": "PITA DZ TV - بيتا دي زد تي في",
+  "short_name": "PITA TV",
+  "description": "تطبيق PITA DZ TV لمشاهدة القنوات العربية والرياضية المباشرة",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#06120f",
+  "theme_color": "#06120f",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "icons/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

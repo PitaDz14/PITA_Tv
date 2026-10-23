@@ -1,0 +1,70 @@
+name: Update Alfajer streams
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "أعد الكتابة حتى لو لم يتغيّر الرابط"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "*/10 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-alfajer
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # قنوات الفجر تُستخرج الآن بمحوّل crypt (POST + AES-CBC بـ Python خالص).
+      # لا Playwright ولا Chromium: أسرع، وأثبت، وسبب فشل محتمل أقل بكثير.
+      - name: Test parsers (extract + AES)
+        run: |
+          python scripts/test_extract.py
+          python scripts/test_aes_cbc.py
+
+      - name: Extract stream URLs
+        env:
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+        run: |
+          args=""
+          if [ "$FORCE" = "true" ]; then args="--force"; fi
+          python scripts/extract.py --only alfajertv1,alfajertv2,alfajertv3,alfajertv4,alfajertv5 --debug-dir debug $args
+
+      - name: Upload debug info (candidate lists of failed channels)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-alfajer
+          path: debug/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Commit changed streams
+        env:
+          REF: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add streams/alfajertv*.json sports.js
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "تحديث روابط قنوات الفجر"
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin "$REF" && git push origin "HEAD:$REF"; then exit 0; fi
+            sleep 5
+          done
+          exit 1

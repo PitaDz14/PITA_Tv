@@ -1,0 +1,10 @@
+{
+  "channel": "Sport 4",
+  "id": "sport4",
+  "stream_url": "https://lbgo.bozztv.com/ssh101/ssh101/avasport123/chunks.m3u8",
+  "source_url": "https://alwanlive.stream/?channel=4",
+  "updated_at": "2026-10-21T12:09:53Z",
+  "expires_at": null,
+  "status": "ok",
+  "detail": "ALWAN SPORT 4 · من مصفوفة في app.js"
+}
