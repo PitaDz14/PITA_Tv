@@ -1,0 +1,198 @@
+{
+  "_doc": {
+    "about": "القنوات الفرنسية: general = فرع الفرنسية في القنوات العامة، sports = قسم الرياضة › قنوات رياضية فرنسية.",
+    "stream": "ضع رابط بث مباشر مرخّص (m3u8 أو ts) في الحقل stream. إن تُرك فارغًا تظهر رسالة واضحة عند الضغط.",
+    "type": "hls أو ts (الافتراضي hls)."
+  },
+  "channels": [
+    {
+      "id": "tf1",
+      "name": "TF1",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "france2",
+      "name": "France 2",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "france3",
+      "name": "France 3",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "france4",
+      "name": "France 4",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "france5",
+      "name": "France 5",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "m6",
+      "name": "M6",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "arte",
+      "name": "ARTE",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "cnews",
+      "name": "CNEWS",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "canal",
+      "name": "CANAL",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "lequipe",
+      "name": "L'Equipe",
+      "group": "general",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "eurosport1",
+      "name": "Eurosport 1 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "eurosport2",
+      "name": "Eurosport 2 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "bein1",
+      "name": "BEIN SPORT 1 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "bein2",
+      "name": "BEIN SPORT 2 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "bein3",
+      "name": "BEIN SPORT 3 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "canalsport",
+      "name": "CANAL+ SPORT",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "canalsport360",
+      "name": "CANAL+ SPORT 360",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "canalfoot",
+      "name": "CANAL+ FOOT",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "dazn1",
+      "name": "DAZN 1 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "canalsportafrique",
+      "name": "Canal+ Sport Afrique",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "beinmax4",
+      "name": "beIN MAX 4 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "beinmax5",
+      "name": "beIN MAX 5 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "beinmax6",
+      "name": "beIN MAX 6 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "beinmax7",
+      "name": "beIN MAX 7 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "beinmax8",
+      "name": "beIN MAX 8 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "beinmax9",
+      "name": "beIN MAX 9 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    },
+    {
+      "id": "rmcsport1",
+      "name": "RMC SPORT 1 FR",
+      "group": "sports",
+      "stream": "",
+      "type": "hls"
+    }
+  ]
+}

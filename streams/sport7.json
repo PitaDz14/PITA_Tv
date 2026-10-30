@@ -1,0 +1,10 @@
+{
+  "channel": "Sport 7",
+  "id": "sport7",
+  "stream_url": null,
+  "source_url": null,
+  "updated_at": "2026-10-31T15:26:59Z",
+  "expires_at": null,
+  "status": "fallback",
+  "detail": "بث المصدر ميّت (من مصفوفة في app.js · ✗ HTTP 404) — يُعرض للمشاهد تنبيه فقط (بلا رابط المصدر)"
+}
