@@ -9,189 +9,189 @@
       "id": "tf1",
       "name": "TF1",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/TF1FR",
       "type": "hls"
     },
     {
       "id": "france2",
       "name": "France 2",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/France2",
       "type": "hls"
     },
     {
       "id": "france3",
       "name": "France 3",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/France3",
       "type": "hls"
     },
     {
       "id": "france4",
       "name": "France 4",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/France4",
       "type": "hls"
     },
     {
       "id": "france5",
       "name": "France 5",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/France5",
       "type": "hls"
     },
     {
       "id": "m6",
       "name": "M6",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/M6FR",
       "type": "hls"
     },
     {
       "id": "arte",
       "name": "ARTE",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/ARTEFR",
       "type": "hls"
     },
     {
       "id": "cnews",
       "name": "CNEWS",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/CNEWSFR",
       "type": "hls"
     },
     {
       "id": "canal",
       "name": "CANAL",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/CANALPLFR",
       "type": "hls"
     },
     {
       "id": "lequipe",
       "name": "L'Equipe",
       "group": "general",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/ER1FR",
       "type": "hls"
     },
     {
       "id": "eurosport1",
       "name": "Eurosport 1 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/Euro1FR",
       "type": "hls"
     },
     {
       "id": "eurosport2",
       "name": "Eurosport 2 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/Euro2FR",
       "type": "hls"
     },
     {
       "id": "bein1",
       "name": "BEIN SPORT 1 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/BEINSPORT1FR",
       "type": "hls"
     },
     {
       "id": "bein2",
       "name": "BEIN SPORT 2 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/BEINSPORT2FR",
       "type": "hls"
     },
     {
       "id": "bein3",
       "name": "BEIN SPORT 3 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/BEINSPORT3FR",
       "type": "hls"
     },
     {
       "id": "canalsport",
       "name": "CANAL+ SPORT",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/CANALSPORTFR",
       "type": "hls"
     },
     {
       "id": "canalsport360",
       "name": "CANAL+ SPORT 360",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/CANALS360",
       "type": "hls"
     },
     {
       "id": "canalfoot",
       "name": "CANAL+ FOOT",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/FOOTPLUSFR",
       "type": "hls"
     },
     {
       "id": "dazn1",
       "name": "DAZN 1 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/DAZN1FR",
       "type": "hls"
     },
     {
       "id": "canalsportafrique",
       "name": "Canal+ Sport Afrique",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/CNPLSP1AF",
       "type": "hls"
     },
     {
       "id": "beinmax4",
       "name": "beIN MAX 4 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/beINMAX4FR",
       "type": "hls"
     },
     {
       "id": "beinmax5",
       "name": "beIN MAX 5 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/beINMAX5FR",
       "type": "hls"
     },
     {
       "id": "beinmax6",
       "name": "beIN MAX 6 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/beINMAX6FR",
       "type": "hls"
     },
     {
       "id": "beinmax7",
       "name": "beIN MAX 7 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/beINMAX7FR",
       "type": "hls"
     },
     {
       "id": "beinmax8",
       "name": "beIN MAX 8 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/beINMAX8FR",
       "type": "hls"
     },
     {
       "id": "beinmax9",
       "name": "beIN MAX 9 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/beINMAX9FR",
       "type": "hls"
     },
     {
       "id": "rmcsport1",
       "name": "RMC SPORT 1 FR",
       "group": "sports",
-      "stream": "",
+      "stream": "https://wideiptv.top/player/RMCSPORT1FR",
       "type": "hls"
     }
   ]
