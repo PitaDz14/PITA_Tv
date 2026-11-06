@@ -1,10 +1,10 @@
 {
   "channel": "Sport 5",
   "id": "sport5",
-  "stream_url": null,
+  "stream_url": "https://df11.mp4.ir/video/2026/11/321750-314834679/m3u8/360p/out.m3u8",
   "source_url": null,
-  "updated_at": "2026-11-06T02:42:03Z",
+  "updated_at": "2026-11-06T17:37:16Z",
   "expires_at": null,
-  "status": "fallback",
-  "detail": "بث المصدر ميّت (سيرفر 1 من channelServers · ✗ HTTP 404) — يُعرض للمشاهد تنبيه فقط (بلا رابط المصدر)"
+  "status": "ok",
+  "detail": "سيرفر 1 من channelServers · ✅ سليم"
 }
