@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>PITA DZ TV - بث مباشر للقنوات الفضائية</title>
+  <meta name="description" content="شاهد القنوات العربية والرياضية المباشرة عبر PITA DZ TV">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06120f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PITA TV">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+
+  <script src="https://ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+  <script>
+    jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
+  </script>
+
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+
+<body>
+
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <div class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#04150e"><path d="M15.5 3.2a9 9 0 1 0 0 17.6 7.2 7.2 0 0 1 0-17.6z"/><path d="m18.6 8.4.9 1.9 2.1.3-1.5 1.5.4 2.1-1.9-1-1.9 1 .4-2.1-1.5-1.5 2.1-.3z"/></svg>
+        </div>
+        <div class="logo-text">
+          <h1>PITA <span>DZ</span> TV</h1>
+          <span class="on-air">بث مباشر</span>
+        </div>
+      </div>
+      <button type="button" class="search-toggle" id="searchToggle" aria-label="بحث"><i class="fas fa-search"></i></button>
+      <div class="search-container" id="searchBox">
+        <input type="search" class="search-input" id="searchInput" placeholder="ابحث عن قناة..." autocomplete="off" enterkeyhint="search">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </header>
+
+  <div class="container main-shell">
+    <div class="nav-scroller" id="topNav" role="tablist" aria-label="أقسام الموقع">
+      <button type="button" class="nav-btn active" data-cat="home" onclick="filterCategory('home')">الرئيسية</button>
+      <button type="button" class="nav-btn" data-cat="matches" onclick="filterCategory('matches')">جدول اليوم</button>
+      <button type="button" class="nav-btn" data-cat="general" onclick="filterCategory('general')">عامة</button>
+      <button type="button" class="nav-btn" data-cat="news" onclick="filterCategory('news')">أخبار</button>
+      <button type="button" class="nav-btn" data-cat="sports" onclick="filterCategory('sports')">رياضة</button>
+      <button type="button" class="nav-btn" data-cat="islamic" onclick="filterCategory('islamic')">إسلامية</button>
+      <button type="button" class="nav-btn" data-cat="docs" onclick="filterCategory('docs')">وثائقية</button>
+      <button type="button" class="nav-btn" data-cat="kids" onclick="filterCategory('kids')">أطفال</button>
+    </div>
+
+    <!-- الرئيسية: بطل + صفوف -->
+    <div id="home" class="category-section active">
+      <section class="hero" id="hero" aria-label="البطل">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-kicker">PITA DZ TV</p>
+          <h2 class="hero-title" id="heroTitle">بث مباشر للقنوات العربية</h2>
+          <p class="hero-sub" id="heroSub">اختر قناتك المفضلة وشاهد فورًا — تصميم جديد لتجربة أوضح على الهاتف والحاسوب.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn-primary" id="heroPlay"><i class="fas fa-play"></i> تشغيل الآن</button>
+            <button type="button" class="btn-ghost" onclick="filterCategory('sports')"><i class="fas fa-futbol"></i> الرياضة</button>
+          </div>
+        </div>
+        <div class="hero-badge" aria-hidden="true">
+          <span class="live-dot"></span> LIVE
+        </div>
+      </section>
+      <div id="home-rails" class="rails"></div>
+    </div>
+
+    <!-- جدول مباريات اليوم (نفس مصدر البث السابق، بعرض مضمّن داخل القسم) -->
+    <div id="matches" class="category-section">
+      <div class="matches-head">
+        <div class="section-header">
+          <h2>جدول مباريات اليوم</h2>
+        </div>
+        <p class="matches-lead">مواعيد المباريات وروابط المشاهدة لليوم — يُحمَّل الجدول عند فتح هذا القسم.</p>
+        <div class="matches-actions">
+          <button type="button" class="btn-primary" id="matchesExpandBtn"><i class="fas fa-expand"></i> تكبير الجدول</button>
+          <button type="button" class="btn-ghost" onclick="filterCategory('sports')"><i class="fas fa-tv"></i> قنوات الرياضة</button>
+        </div>
+      </div>
+      <div class="matches-stage" id="matchesStage">
+        <div class="matches-loading" id="matchesLoading"><span class="loading-spinner" style="position:static;transform:none;margin:0 auto 10px"></span>جاري تحميل جدول اليوم…</div>
+        <iframe id="matchesFrame"
+          title="جدول مباريات اليوم"
+          data-src="https://href.li/?https://go.s96.net/p/s96.html?m=1"
+          scrolling="yes"
+          allowfullscreen
+          referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+
+    <!-- عامة -->
+    <div id="general" class="category-section">
+      <div class="section-header">
+        <h2>القنوات العامة</h2>
+      </div>
+      <div class="sub-nav">
+        <button type="button" class="sub-btn active" onclick="filterSub('algerian')">قنوات جزائرية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('moroccan')">قنوات مغربية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('egyptian')">قنوات مصرية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('palestinian')">قنوات فلسطينية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('tunisian')">قنوات تونسية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('french')">قنوات فرنسية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('saudi')">القنوات السعودية</button>
+        <button type="button" class="sub-btn" onclick="filterSub('iraqi')">القنوات العراقية</button>
+      </div>
+      <div class="channels-grid" id="general-grid"></div>
+    </div>
+
+    <div id="news" class="category-section">
+      <div class="section-header"><h2>قنوات الأخبار</h2></div>
+      <div class="channels-grid" id="grid-news"></div>
+    </div>
+
+    <div id="sports" class="category-section">
+      <div class="section-header"><h2>قنوات الرياضة</h2></div>
+      <div class="channels-grid" id="grid-sports"></div>
+      <div class="section-header section-gap"><h2>قنوات رياضية فرنسية</h2></div>
+      <div class="channels-grid" id="grid-sports_fr"></div>
+      <div class="section-header section-gap"><h2>القنوات الأجنبية الأخرى</h2></div>
+      <div class="channels-grid" id="grid-sports_other"></div>
+    </div>
+
+    <div id="islamic" class="category-section">
+      <div class="section-header"><h2>قنوات إسلامية</h2></div>
+      <div class="channels-grid" id="grid-islamic"></div>
+    </div>
+
+    <div id="docs" class="category-section">
+      <div class="section-header"><h2>قنوات وثائقية</h2></div>
+      <div class="channels-grid" id="grid-docs"></div>
+    </div>
+
+    <div id="kids" class="category-section">
+      <div class="section-header"><h2>قنوات الأطفال</h2></div>
+      <div class="channels-grid" id="grid-kids"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo"><h1>PITA DZ TV</h1></div>
+      <div class="footer-rights">جميع الحقوق محفوظة © 2026</div>
+      <div class="footer-owner">المالك: خالد دراغة</div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/abdesalam.balhaje.5" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/khaledderagha/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/Khaled_Deragha" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+        <a href="https://www.youtube.com/@aindeheb853" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://tiktok.com/@khaled_deragha" target="_blank" rel="noopener" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="mailto:gsmkhaledtiaret@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- شريط أقسام الموبايل -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="تنقل سريع">
+    <button type="button" class="bn-item active" data-cat="home" onclick="filterCategory('home')"><i class="fas fa-home"></i><span>رئيسية</span></button>
+    <button type="button" class="bn-item" data-cat="sports" onclick="filterCategory('sports')"><i class="fas fa-futbol"></i><span>رياضة</span></button>
+    <button type="button" class="bn-item" data-cat="news" onclick="filterCategory('news')"><i class="fas fa-newspaper"></i><span>أخبار</span></button>
+    <button type="button" class="bn-item" data-cat="favs" onclick="filterCategory('favs')"><i class="fas fa-heart"></i><span>مفضلة</span></button>
+    <button type="button" class="bn-item" data-cat="more" id="moreNavBtn"><i class="fas fa-ellipsis-h"></i><span>المزيد</span></button>
+  </nav>
+  <div class="more-sheet" id="moreSheet" hidden>
+    <button type="button" onclick="filterCategory('matches');closeMore()">جدول مباريات اليوم</button>
+    <button type="button" onclick="filterCategory('general');closeMore()">قنوات عامة</button>
+    <button type="button" onclick="filterCategory('islamic');closeMore()">إسلامية</button>
+    <button type="button" onclick="filterCategory('docs');closeMore()">وثائقية</button>
+    <button type="button" onclick="filterCategory('kids');closeMore()">أطفال</button>
+    <button type="button" class="sheet-cancel" onclick="closeMore()">إغلاق</button>
+  </div>
+
+  <!-- مشغّل المسرح -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal-content theater">
+      <div class="theater-main">
+        <div class="modal-header">
+          <div class="modal-title">
+            <span class="live-badge">LIVE</span>
+            <span id="modalTitle">اسم القناة</span>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="srv-btn" id="serversBtn" aria-haspopup="true" aria-expanded="false" aria-controls="serversPanel"><i class="fas fa-server"></i><span class="lbl">السيرفرات</span><span class="cnt"></span></button>
+            <button type="button" class="theater-rail-toggle" id="theaterRailToggle" aria-expanded="false" aria-controls="theaterRail" title="قنوات قريبة"><i class="fas fa-list-ul"></i></button>
+            <button type="button" class="close-modal" onclick="closeModal()" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="srv-note" id="srvNote" role="status" aria-live="polite"></div>
+        <div class="srv-panel" id="serversPanel" role="dialog" aria-label="السيرفرات"></div>
+        <div class="video-container" id="playerContainer">
+          <div class="loading-spinner" id="loadingSpinner"></div>
+          <div id="playerElement"></div>
+        </div>
+      </div>
+      <div class="theater-hotzone" id="theaterHotzone" aria-hidden="true"></div>
+      <aside class="theater-rail" id="theaterRail" aria-label="قنوات قريبة">
+        <div class="theater-rail-panel">
+          <div class="theater-rail-head">
+            <span>قنوات قريبة</span>
+            <button type="button" class="theater-rail-close" id="theaterRailClose" aria-label="إخفاء القائمة"><i class="fas fa-chevron-left"></i></button>
+          </div>
+          <div class="theater-rail-list" id="theaterRailList"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    window.__chErr = [];
+    window.addEventListener('error', function (e) {
+      if (e.filename && /channels\.js/.test(e.filename)) window.__chErr.push('خطأ كتابة في channels.js (سطر ' + e.lineno + '): ' + e.message);
+    });
+  </script>
+  <script src="channels.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+debug/
+__pycache__/
+private/
+worker/dist/

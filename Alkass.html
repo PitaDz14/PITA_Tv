@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الكأس - بث مباشر</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Tajawal', Arial, sans-serif; background: #0d1f19; color: #eaf4ef; min-height: 100vh; padding: 20px; }
+h1 { text-align: center; color: #1fc77f; margin-bottom: 30px; font-size: 2rem; }
+.channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
+.channel-card { background: #132a21; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+.channel-card:hover { transform: translateY(-4px); border-color: #1fc77f; box-shadow: 0 8px 25px rgba(31,199,127,0.3); }
+.channel-card:active { transform: scale(0.97); }
+.channel-num { font-size: 1.5rem; font-weight: 800; color: #1fc77f; margin-bottom: 8px; }
+.channel-name { font-size: 0.95rem; color: #8fa89d; }
+.live-badge { display: inline-block; width: 8px; height: 8px; background: #ef3b43; border-radius: 50%; margin-right: 6px; animation: blink 1.4s infinite; }
+@keyframes blink { 50% { opacity: 0.25; } }
+</style>
+</head>
+<body>
+<h1>📺 قنوات الكأس - بث مباشر</h1>
+<div class="channels-grid">
+<div class="channel-card" onclick="openChannel(1)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 1</div>
+<div class="channel-name">Al Kass One HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(2)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 2</div>
+<div class="channel-name">Al Kass Two HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(3)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 3</div>
+<div class="channel-name">Al Kass Three HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(4)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 4</div>
+<div class="channel-name">Al Kass Four HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(5)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 5</div>
+<div class="channel-name">Al Kass Five HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(6)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 6</div>
+<div class="channel-name">Al Kass Six HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(7)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 7</div>
+<div class="channel-name">Al Kass Seven HD</div>
+</div>
+<div class="channel-card" onclick="openChannel(8)">
+<div class="channel-num"><span class="live-badge"></span>الكأس 8</div>
+<div class="channel-name">Al Kass Eight HD</div>
+</div>
+</div>
+<script>
+function openChannel(num) {
+var urls = {
+1: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=one',
+2: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=two',
+3: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=three',
+4: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=four',
+5: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=five',
+6: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=six',
+7: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=seven',
+8: 'https://www.elahmad.ru/tv/live/alkass-net.php?id=eight'
+};
+window.open(urls[num], '_blank', 'width=1200,height=800');
+}
+</script>
+</body>
+</html>

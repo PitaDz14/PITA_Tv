@@ -1,0 +1,423 @@
+/* ==========================================================================
+   channels.js  —  قائمة القنوات (هذا هو الملف الوحيد الذي تعدّله)
+   ==========================================================================
+   كل قناة = سطر واحد داخل { }  وينتهي بفاصلة ,
+
+   ▶ تعديل رابط:   غيّر النص داخل  url: "..."  فقط (لا تلمس ما حوله).
+   ▶ حذف قناة:     احذف سطرها كاملاً (من { إلى },) أو ضع // في أول السطر.
+   ▶ إضافة قناة:   انسخ سطراً موجوداً والصقه في أي مكان وغيّر name و url.
+   ▶ لا حاجة لأي أرقام أو ترتيب في أي ملف آخر.
+
+   الحقول:
+     name    اسم البطاقة (مطلوب)
+     url     رابط البث (مطلوب) — أو servers لعدة سيرفرات (انظر أمثلة Bein Sport)
+     groups  أين تظهر القناة (مطلوب)، ويمكن وضع أكثر من مكان:
+               قنوات عامة: algerian moroccan egyptian palestinian tunisian french saudi iraqi
+               أقسام:       news sports sports_fr sports_other islamic docs kids
+     title   (اختياري) العنوان في نافذة التشغيل، الافتراضي = name
+     type    (اختياري) "hls" أو "ts" أو "tsaac" أو "iframe" أو "open"(يفتح في تبويب جديد)
+     icon    (اختياري) أيقونة FontAwesome بدون fa- مثل "futbol" أو "mosque"
+     logo    (اختياري) مسار صورة شعار القناة مثل "icons/channels/xxx.png" — إن غاب تُعرض أحرف الاسم
+
+   قواعد الكتابة (أكثر أسباب التعطل):
+     1) النص بين علامتَي اقتباس مزدوجتين "..."  وإذا كان في النص علامة " اكتبها \"
+     2) فاصلة , بعد كل حقل وبعد كل } 
+     3) لا تحذف [ أو ] أو { أو } بالخطأ.
+   إذا أخطأت: يظهر شريط أحمر أعلى الموقع يخبرك بالقناة/السطر الخطأ، ويبقى الموقع يعمل.
+   رمز {proxy} داخل الرابط يعني عنوان الوسيط (PROXY_BASE) تلقائياً.
+   ========================================================================== */
+
+var CHANNELS = [
+  // ───────── قنوات جزائرية ─────────
+  { name: "الأرضية الجزائرية", title: "قناة الأرضية الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=entv_algerie", groups: ["algerian"] },
+  { name: "الجزائرية الثالثة", title: "قناة الجزائرية الثالثة", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algeria3", groups: ["algerian"] },
+  { name: "الفجر الجزائرية", title: "قناة الفجر الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=el_fadjr_tv", groups: ["algerian"] },
+  { name: "النهار تي في", title: "Ennahar Tv النهار تي في", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=alnahartvnews", groups: ["algerian"] },
+  { name: "الشروق نيوز", title: "EchoroukNews الشروق نيوز", url: "https://www.elahmad.ru/tv/algeria_live.php?id=echorouk_news", groups: ["algerian"], icon: "newspaper" },
+  { name: "الشروق تي في", title: "EchoroukHD الشروق تي في", url: "https://www.elahmad.ru/tv/algeria_live.php?id=echorouk_tvhd", groups: ["algerian"] },
+  { name: "AL24News", title: "قناة AL24News الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=al24news", groups: ["algerian"], icon: "globe" },
+  { name: "الهداف الجزائرية", title: "قناة الهداف الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=elheddaf", groups: ["algerian"], icon: "futbol" },
+  { name: "Samira TV", title: "قناة Samira TV الجزائرية", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=samiratv", groups: ["algerian"], icon: "utensils" },
+
+  // ───────── قنوات مغربية ─────────
+  { name: "الاولى المغربية", url: "https://www.elahmad.ru/tv/radiant.php?id=aloula1", groups: ["moroccan"] },
+  { name: "العيون", title: "AlAoula Laayoune", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=aloula1", groups: ["moroccan"] },
+  { name: "2M monde", url: "https://www.elahmad.ru/tv/radiant.php?id=2m_monde", groups: ["moroccan"] },
+  { name: "الرياضية المغربية", title: "Arryadia3 الرياضية", url: "https://www.elahmad.ru/tv/radiant.php?id=arryadia1", groups: ["moroccan"], icon: "futbol" },
+
+  // ───────── قنوات مصرية ─────────
+  { name: "MBC Masr", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_masr", groups: ["egyptian"] },
+  { name: "MBC Masr 2", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_masr2", groups: ["egyptian"] },
+  { name: "MBC Masr Drama", url: "https://www.elahmad.ru/tv/radiant.php?id=mbc_masr_drama", groups: ["egyptian"], icon: "theater-masks" },
+  { name: "On Time Sports 1", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=on_time_sports1", groups: ["egyptian"], icon: "futbol" },
+  { name: "On Time Sports 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=on_time_sports2", groups: ["egyptian"], icon: "futbol" },
+  { name: "الوثائقية المصرية", title: "Alwathaeqya الوثائقية المصرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alwathaeqya", groups: ["egyptian"], icon: "film" },
+  { name: "Cima TV", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=cima", groups: ["egyptian"], icon: "film" },
+  { name: "Safa TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=safatv", groups: ["egyptian"], icon: "mosque" },
+  { name: "Elnas TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elnastv", groups: ["egyptian"], icon: "mosque" },
+  { name: "Azhari TV", url: "https://www.elahmad.ru/tv/live/channel.php?id=azharitv", groups: ["egyptian"], icon: "mosque" },
+  { name: "Al Rahma", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alrahma_1", groups: ["egyptian"], icon: "mosque" },
+  { name: "El Sharq", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elsharqtv1", groups: ["egyptian"] },
+  { name: "Alfath TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alfath_tv", groups: ["egyptian"], icon: "mosque" },
+  { name: "Watan TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watanegypt", groups: ["egyptian"] },
+  { name: "ERTU 1", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=egypt_channel1", groups: ["egyptian"] },
+  { name: "Al Masriyah", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=almasriyah", groups: ["egyptian"] },
+  { name: "ERTU 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=al_thaniya", groups: ["egyptian"] },
+  { name: "Egyptian Tv", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=egyptian_tv", groups: ["egyptian"] },
+  { name: "Mekameleen", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=mekameleen_tv1", groups: ["egyptian"] },
+  { name: "Al-Nahar", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nahar_tv1", groups: ["egyptian"] },
+  { name: "Al-Nahar Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nahar_drama1", groups: ["egyptian"], icon: "film" },
+  { name: "Al-Nahar Life", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nahar_life", groups: ["egyptian"] },
+  { name: "Sada Elbalad", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=sadaelbalad", groups: ["egyptian"] },
+  { name: "Sada Elbalad2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elbaladtv2", groups: ["egyptian"] },
+  { name: "Sada Elbalad Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=sadadrama", groups: ["egyptian"], icon: "film" },
+  { name: "AlKahera WalNas", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alkaherawalnas1", groups: ["egyptian"], icon: "mosque" },
+  { name: "AlKahera WalNas2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alkaherawalnas2", groups: ["egyptian"], icon: "mosque" },
+  { name: "dmc Live", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=dmc_live_tv", groups: ["egyptian"] },
+  { name: "dmc Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=dmc_drama_tv", groups: ["egyptian"], icon: "film" },
+  { name: "ON Ent", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=ontv1", groups: ["egyptian"] },
+  { name: "ON Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=on_drama", groups: ["egyptian"], icon: "film" },
+  { name: "ON Sport", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=on_sport", groups: ["egyptian"], icon: "futbol" },
+  { name: "Al Shams", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alshamstv", groups: ["egyptian"] },
+  { name: "Maspero Zaman", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=MasperoZaman", groups: ["egyptian"], icon: "film" },
+  { name: "AlHadath Alyoum", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alhadath_alyoum", groups: ["egyptian"] },
+  { name: "Alshoub TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alshoobtv", groups: ["egyptian"] },
+  { name: "CBC Egypt", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=cbc_tv", groups: ["egyptian"] },
+  { name: "CBC Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=cbc_drama", groups: ["egyptian"], icon: "film" },
+  { name: "Extra News", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=cbc_extranews", groups: ["egyptian"], icon: "newspaper" },
+  { name: "Extra Live", groups: ["egyptian"], icon: "newspaper",
+    servers: [
+      { name: "Server 1", url: "https://www.youtube-nocookie.com/embed/live_stream?channel=UCXw5vClfMWccw-OocfhQHiA&autoplay=1", type: "iframe" },
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/youtube.php?id=extralivetv", type: "iframe" }
+    ] },
+  { name: "CBC Sofra", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=cbc_sofra", groups: ["egyptian"], icon: "utensils" },
+  { name: "Al Ahly TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alahly_tv", groups: ["egyptian"], icon: "futbol" },
+  { name: "Zamalek Sports", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=zamalek", groups: ["egyptian"], icon: "futbol" },
+  { name: "Alhayat Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alhayat_drama", groups: ["egyptian"], icon: "film" },
+  { name: "AlHayat TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alhayat_1", groups: ["egyptian"] },
+  { name: "Mehwar TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elmehwar", groups: ["egyptian"] },
+  { name: "Nile Cinema", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_cinema", groups: ["egyptian"], icon: "film" },
+  { name: "Nile Drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_drama", groups: ["egyptian"], icon: "film" },
+  { name: "Nile Comedy", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_comedy", groups: ["egyptian"] },
+  { name: "Nile Family", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_family", groups: ["egyptian"] },
+  { name: "Nile Life", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_life", groups: ["egyptian"] },
+  { name: "Nile Culture", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=nileculture", groups: ["egyptian"] },
+  { name: "Nile Sport", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nilesport", groups: ["egyptian"], icon: "futbol" },
+  { name: "Nile News", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_news", groups: ["egyptian"], icon: "newspaper" },
+  { name: "Nile TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nile_tv", groups: ["egyptian"] },
+  { name: "Alghad TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alghad_alarab", groups: ["egyptian"] },
+  { name: "Panorama drama", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=panorama_drama", groups: ["egyptian"], icon: "film" },
+  { name: "Panorama drama 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=panorama_drama2", groups: ["egyptian"], icon: "film" },
+  { name: "Panorama Film", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=panorama_film", groups: ["egyptian"], icon: "film" },
+  { name: "Panorama Food", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=panorama_food", groups: ["egyptian"], icon: "utensils" },
+  { name: "Ten TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=tentv", groups: ["egyptian"] },
+  { name: "Mix Bel Araby", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=mixbelaraby", groups: ["egyptian"] },
+  { name: "Mix Bel Araby 1", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=mix_bel_araby", groups: ["egyptian"] },
+  { name: "Mix one", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=mix_one", groups: ["egyptian"] },
+  { name: "Mix TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=mix_tv", groups: ["egyptian"] },
+  { name: "Al Qahera News", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alqahera_news", groups: ["egyptian"], icon: "newspaper" },
+
+  // ───────── قنوات فلسطينية ─────────
+  { name: "الأقصى", title: "قناة الأقصى الفلسطينية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=aqsatv1", groups: ["palestinian"] },
+
+  // ───────── قنوات تونسية ─────────
+  { name: "الوطنية 1", title: "alWataniya الوطنية التونسية 1", groups: ["tunisian"],
+    servers: [
+      { name: "Server 1", url: "https://sw1.tanitweb.net/TunisiaTV/_definst_/watania1/chunklist.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watania1", type: "iframe" }
+    ] },
+  { name: "الوطنية 2", title: "alWataniya الوطنية التونسية 2", groups: ["tunisian"],
+    servers: [
+      { name: "Server 1", url: "https://sw1.tanitweb.net/TunisiaTV/_definst_/watania2/playlist.m3u8?DVR", type: "hls" },
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watania2", type: "iframe" }
+    ] },
+
+  // ───────── قنوات فرنسية ─────────
+  { name: "TF1", url: "https://wideiptv.top/player/TF1FR", groups: ["french"] },
+  { name: "France 2", url: "https://wideiptv.top/player/France2", groups: ["french"] },
+  { name: "France 3", url: "https://wideiptv.top/player/France3", groups: ["french"] },
+  { name: "France 4", url: "https://wideiptv.top/player/France4", groups: ["french"] },
+  { name: "France 5", url: "https://wideiptv.top/player/France5", groups: ["french"] },
+  { name: "M6", url: "https://wideiptv.top/player/M6FR", groups: ["french"] },
+  { name: "ARTE", url: "https://wideiptv.top/player/ARTEFR", groups: ["french"] },
+  { name: "CNEWS", url: "https://wideiptv.top/player/CNEWSFR", groups: ["french"] },
+  { name: "CANAL", url: "https://wideiptv.top/player/CANALPLFR", groups: ["french"] },
+  { name: "L'Equipe", url: "https://wideiptv.top/player/ER1FR", groups: ["french"], icon: "futbol" },
+
+  // ───────── القنوات السعودية ─────────
+  { name: "القرآن الكريم", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=qoran_tv1", groups: ["saudi"], icon: "quran" },
+  { name: "السنة النبوية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=suna_tv1", groups: ["saudi"], icon: "mosque" },
+  { name: "الأولى السعودية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=saudi_1", groups: ["saudi"] },
+  { name: "القناة الإخبارية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=ekhbariyatv", groups: ["saudi"], icon: "newspaper" },
+  { name: "KSA Sports 1", url: "https://www.elahmad.ru/tv/watchtv.php?id=saudi_sport", groups: ["saudi"], icon: "futbol" },
+  { name: "KSA Sports 2", url: "https://www.elahmad.ru/tv/watchtv.php?id=saudi_sport2", groups: ["saudi"], icon: "futbol" },
+  { name: "KSA Sports 3", url: "https://www.elahmad.ru/tv/watchtv.php?id=saudi_sport3", groups: ["saudi"], icon: "futbol" },
+  { name: "KSA Sports 4", url: "https://www.elahmad.ru/tv/watchtv.php?id=saudi_sport4", groups: ["saudi"], icon: "futbol" },
+  { name: "SBC Channel", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=sbc_tv", groups: ["saudi"] },
+  { name: "قناة ذكريات", url: "https://www.elahmad.ru/tv/watchtv.php?id=thikrayat_tv", groups: ["saudi"] },
+  { name: "الثقافية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=saudi_thaqafiya", groups: ["saudi"] },
+  { name: "السعودية الآن", url: "https://www.elahmad.ru/tv/watchtv.php?id=saudi_now", groups: ["saudi"] },
+  { name: "قناة العربية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alarabiya1", groups: ["saudi"], icon: "globe" },
+  { name: "العربية الحدث", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alarabiya_alhadath1", groups: ["saudi"], icon: "newspaper" },
+  { name: "Alarabiya Business", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alarabiya_business", groups: ["saudi"], icon: "newspaper" },
+  { name: "Alarabiya Programs", url: "https://www.elahmad.ru/tv/radiant.php?id=alarabiya_programs", groups: ["saudi"], icon: "globe" },
+  { name: "Alarabiya English", url: "https://www.elahmad.ru/tv/radiant.php?id=al_arabiya_english", groups: ["saudi"], icon: "globe" },
+  { name: "قناة مكة", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=makkahtv", groups: ["saudi"], icon: "mosque" },
+  { name: "قناة دعوة", url: "https://www.elahmad.ru/tv/daawah-live.php", groups: ["saudi"], icon: "mosque" },
+  { name: "قناة زاد", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=zad_tv", groups: ["saudi"], icon: "mosque" },
+  { name: "قناة الرسول", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alresoul", groups: ["saudi"], icon: "mosque" },
+  { name: "قناة صاد", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=ahl_alquran", groups: ["saudi"], icon: "mosque" },
+  { name: "قناة اقرأ", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=iqraa_arabic", groups: ["saudi"], icon: "mosque" },
+  { name: "اقرأ International", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=iqraa_africa", groups: ["saudi"], icon: "mosque" },
+  { name: "قناة الواقع", url: "https://www.elahmad.ru/tv/youtube.php?id=alwaqetv", groups: ["saudi"] },
+  { name: "قناة ايات", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=ayat_tv", groups: ["saudi"], icon: "mosque" },
+  { name: "الأماكن دراما", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=alamakendrama", groups: ["saudi"] },
+  { name: "AlKhalijTV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=al_khalij", groups: ["saudi"] },
+  { name: "قناة الشرق", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=asharq_tv", groups: ["saudi"] },
+  { name: "Asharq News", url: "https://www.elahmad.ru/tv/asharq-news-live.php", groups: ["saudi"], icon: "newspaper" },
+  { name: "قناة الصحراء", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alsahraatv", groups: ["saudi"] },
+  { name: "قناة المجد للقرآن الكريم", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_quran", groups: ["saudi", "islamic"], icon: "quran" },
+  { name: "قناة المجد", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd", groups: ["saudi", "islamic"], icon: "mosque" },
+  { name: "قناة المجد الوثائقية", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_documentary", groups: ["saudi", "docs"], icon: "film" },
+  { name: "قناة الحديث النبوي", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_hadeeth", groups: ["saudi", "islamic"], icon: "mosque" },
+  { name: "قناة المجد العلمية", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_scientific", groups: ["saudi", "kids"], icon: "flask" },
+  { name: "قناة مجد للأطفال", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_kids", groups: ["saudi", "kids"], icon: "child" },
+  { name: "قناة روضة", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_rawda", groups: ["saudi", "kids"], icon: "seedling" },
+  { name: "قناة بسمة", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_bassma", groups: ["saudi", "kids"], icon: "smile" },
+  { name: "قناة تغاريد", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_taghreed", groups: ["saudi", "kids"], icon: "music" },
+  { name: "قناة ماسة", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_masa", groups: ["saudi"], icon: "gem" },
+  { name: "قناة المجد الطبيعية", url: "https://www.elahmad.ru/tv/live/channel.php?id=almajd_taabeaa", groups: ["saudi", "docs"], icon: "leaf" },
+  { name: "MBC 1", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc1", groups: ["saudi"] },
+  { name: "MBC 2", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc2", groups: ["saudi"], icon: "film" },
+  { name: "MBC 4", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc4", groups: ["saudi"] },
+  { name: "MBC 5", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc5", groups: ["saudi"] },
+  { name: "MBC Drama", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_drama", groups: ["saudi"], icon: "theater-masks" },
+  { name: "MBC Drama +2", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_drama_plus", groups: ["saudi"], icon: "theater-masks" },
+  { name: "MBC Max", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_max", groups: ["saudi"], icon: "film" },
+  { name: "MBC Action", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_action", type: "open", groups: ["saudi"], icon: "film" },
+  { name: "MBC Variety", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc_variety", groups: ["saudi"] },
+  { name: "MBC Persia", url: "https://www.elahmad.ru/tv/radiant.php?id=mbc_persia", groups: ["saudi"] },
+
+  // ───────── القنوات العراقية ─────────
+  { name: "MBC Iraq", url: "https://www.elahmad.ru/tv/radiant.php?id=mbciraq_tv_1", groups: ["iraqi"] },
+  { name: "قناة اي نيوز", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=i_news", groups: ["iraqi"], icon: "newspaper" },
+  { name: "قناة سامراء", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=samarratv1", groups: ["iraqi"] },
+  { name: "قناة الرافدين", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alrafidain", groups: ["iraqi"] },
+  { name: "القناة التاسعة", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alqanattv", groups: ["iraqi"] },
+  { name: "قناة الفلوجة", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alfallujah_tv", groups: ["iraqi"] },
+  { name: "قناة العراقية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=aliraqya_tv", groups: ["iraqi"] },
+  { name: "العراقية الاخبارية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=aliraqya_news", groups: ["iraqi"], icon: "newspaper" },
+  { name: "العراقية الرياضية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=aliraqya_sport", groups: ["iraqi"], icon: "futbol" },
+  { name: "Al Rabiaa one", url: "https://www.elahmad.ru/tv/watchtv.php?id=alrabiaa_one", groups: ["iraqi"] },
+  { name: "Al Rabiaa two", url: "https://www.elahmad.ru/tv/watchtv.php?id=alrabiaa_two", groups: ["iraqi"] },
+  { name: "قناة البغدادية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=albaghdadia1", groups: ["iraqi"] },
+  { name: "قناة الرشيد", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alrasheedtv", groups: ["iraqi"] },
+  { name: "قناة السومرية", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=alsumaria", groups: ["iraqi"] },
+  { name: "قناة افاق", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=afaqtv_1", groups: ["iraqi"] },
+  { name: "تلفزيون الشرقية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alsharqiya1", groups: ["iraqi"] },
+  { name: "الشرقية الاخبارية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=charkiyanews1", groups: ["iraqi"], icon: "newspaper" },
+  { name: "قناة الفرات", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alforat", groups: ["iraqi"] },
+  { name: "قناة التغيير", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=taghier", groups: ["iraqi"] },
+  { name: "قناة الموصلية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=almawsleya", groups: ["iraqi"] },
+  { name: "هنا بغداد", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=honabaghdad", groups: ["iraqi"] },
+  { name: "قناة دجلة", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=dijlahtv", groups: ["iraqi"] },
+  { name: "قناة ان ار تي", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=nrt_tv1", groups: ["iraqi"] },
+  { name: "KurdistanTV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=kurdistan_tv", groups: ["iraqi"] },
+  { name: "قناة زاكروس", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=zagrosnews", groups: ["iraqi"], icon: "newspaper" },
+  { name: "قناة الاتجاه", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=aletejahtv", groups: ["iraqi"] },
+  { name: "Rudaw TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=rudawtv", groups: ["iraqi"], icon: "newspaper" },
+  { name: "Ishtar TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=ishtartv", groups: ["iraqi"] },
+  { name: "قناة المسرى", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=almasra", groups: ["iraqi"] },
+  { name: "قناة بلادي", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=beladitv", groups: ["iraqi"] },
+  { name: "تلفزيون عراق 24", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=iraq24hd", groups: ["iraqi"] },
+  { name: "UTV العراق", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=utv_iraq", groups: ["iraqi"] },
+  { name: "SPI TV", url: "https://www.elahmad.ru/tv/spi-tv-live.php", groups: ["iraqi"] },
+  { name: "Kurdsat tv", url: "https://www.elahmad.ru/tv/live/channels.php?id=104", groups: ["iraqi"] },
+
+  // ───────── أخبار ─────────
+  { name: "الجزيرة", title: "قناة الجزيرة الإخبارية", url: "https://live-hls-web-aja-fa.getaj.net/AJA/05.m3u8", groups: ["news"], icon: "globe" },
+  { name: "BBC العربية", title: "قناة BBC العربية", url: "https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_arabic_tv/t=3840/v=pv10/b=1604032/main.m3u8", groups: ["news"], icon: "globe-europe" },
+  { name: "DW Arabic TV", groups: ["news"], icon: "globe",
+    servers: [
+      { name: "Server 1", url: "https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/index.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=dwtvarabia", type: "iframe" }
+    ] },
+  { name: "Al Ghad TV", url: "https://eazyvwqssi.erbvr.com/alghadtv/alghadtv.m3u8", groups: ["news"], icon: "globe" },
+  { name: "RT روسيا اليوم", url: "https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8", groups: ["news"], icon: "globe" },
+  { name: "Al Mayadeen", title: "Almayadeen", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://mdnlv.cdn.octivid.com/almdn/smil:mpegts.stream.smil/playlist.m3u8", groups: ["news"], icon: "globe" },
+  { name: "المنار", title: "قناة المنار", url: "https://www.elahmad.ru/tv/radiant.php?id=manartv3", groups: ["news"], icon: "globe" },
+  { name: "الحوار", title: "قناة الحوار", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://neorcqds.top:8080/7781759064930352/c5d40cbdf4d5/52815", type: "ts", groups: ["news"], icon: "globe" },
+  { name: "التلفزيون العربي", title: "Alaraby TV", url: "https://www.elahmad.ru/tv/radiant.php?id=alarabytv", groups: ["news"], icon: "globe" },
+
+  // ───────── رياضة ─────────
+  { name: "Bein Sport 1", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://edge22.358598.ir.cdn.ir/hls2/bein1.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://balance.footballii.ir/hls2/bein1.m3u8", type: "hls" },
+      { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein1", type: "iframe" },
+      { name: "Server 4", url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4828703&key=9f39972b67d6ce22189507d008acwc26", type: "iframe" }, 
+      { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein1/master.m3u8", type: "hls" },
+      { name: "Server 6", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9263", type: "ts" },
+      { name: "Server 7", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://castx.online/live/beinsports1/stream_5.m3u8", type: "hls" },
+      { name: "Server 8", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://1.jnjnil.qzz.io/live/kora1/index.m3u8", type: "hls" },
+    ] },
+  { name: "Bein Sport 2", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein2", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein2/master.m3u8", type: "hls" },
+      { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9262", type: "ts" },
+      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2.jnjnil.qzz.io/live/kora2/index.m3u8", type: "hls" },      
+    ] },
+  { name: "Bein Sport 3", groups: ["sports"], icon: "futbol",
+    servers: [ 
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein3", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein3/master.m3u8", type: "hls" },
+      { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9261", type: "ts" },
+      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://3.jnjnil.qzz.io/live/kora3/index.m3u8", type: "hls" }
+    ] },
+  { name: "Bein Sport 4", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein4", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein4/master.m3u8", type: "hls" },
+      { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9260", type: "ts" },
+      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://1sisi.s3.us-east-2.amazonaws.com/bein4/master.m3u8", type: "hls" },
+    ] },
+  { name: "Bein Sport 5", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein5", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein5/master.m3u8", type: "hls" },
+      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9259", type: "ts" },
+      { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://1sisi.s3.us-east-2.amazonaws.com/bein5/master.m3u8", type: "hls" },
+    ] },
+  { name: "Bein Sport 6", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein6", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein6/master.m3u8", type: "hls" },
+      { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9258", type: "ts" },
+      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://1sisi.s3.us-east-2.amazonaws.com/bein6/master.m3u8", type: "hls" },
+    ] },
+  { name: "Bein Sport 7", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein7", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9257", type: "ts" },
+    ] },
+  { name: "Bein Sport 8", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein8", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9256", type: "ts" },
+    ] },
+  { name: "Bein Sport 9", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein9", type: "iframe" }
+    ] },
+  { name: "Bein Sport 10", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein10", type: "iframe" }
+    ] },
+  { name: "Sport 1", url: "watch.html?id=sport1", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 2", url: "watch.html?id=sport2", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 3", url: "watch.html?id=sport3", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 4", url: "watch.html?id=sport4", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 5", url: "watch.html?id=sport5", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 6", url: "watch.html?id=sport6", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 7", url: "watch.html?id=sport7", groups: ["sports"], icon: "futbol" },
+  { name: "Sport 8", url: "watch.html?id=sport8", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 1", url: "{proxy}?r=alkass1", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 2", url: "{proxy}?r=alkass2", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 3", url: "{proxy}?r=alkass3", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 4", url: "{proxy}?r=alkass4", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 5", url: "{proxy}?r=alkass5", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 6", url: "{proxy}?r=alkass6", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 7", url: "{proxy}?r=alkass7", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Alkass 8", url: "{proxy}?r=alkass8", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "Thmanyah 1", url: "https://2cdn.syria-player.info/play.php?channel=ssc1", groups: ["sports"], icon: "futbol" },
+  { name: "Thmanyah 2", url: "https://2cdn.syria-player.info/play.php?channel=ssc2", groups: ["sports"], icon: "futbol" },
+  { name: "Thmanyah 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://1cdn.syria-player.info/proxy.php?stream=ssc3/master.m3u8", type: "hls", groups: ["sports"], icon: "futbol" },
+  // الفجر 1-5 (تظهر في فلسطينية + رياضة) والسلام — موضعها هنا ليأتي بعد Thmanyah في قسم الرياضة
+  { name: "الفجر 1", title: "قناة الفجر الفلسطينية الأولى", url: "watch.html?id=alfajertv1", groups: ["palestinian", "sports"] },
+  { name: "الفجر 2", title: "قناة الفجر الفلسطينية الثانية", groups: ["palestinian", "sports"],
+    servers: [
+      { name: "Server 1", url: "watch.html?id=alfajertv2", type: "iframe" },
+      { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://neorcqds.top:8080/7781759064930352/c5d40cbdf4d5/52730", type: "ts" },
+    ] },
+  { name: "الفجر 3", title: "قناة الفجر الفلسطينية الثالثة", url: "watch.html?id=alfajertv3", groups: ["palestinian", "sports"] },
+  { name: "الفجر 4", title: "قناة الفجر الفلسطينية الرابعة", url: "watch.html?id=alfajertv4", groups: ["palestinian", "sports"] },
+  { name: "الفجر 5", title: "قناة الفجر الفلسطينية الخامسة", url: "watch.html?id=alfajertv5", groups: ["palestinian", "sports"] },
+  { name: "السلام", title: "قناة السلام الفلسطينية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=salam_tv", groups: ["palestinian"] },
+  { name: "Duhok Sport", title: "DUHOK", url: "player.html", groups: ["sports"], icon: "futbol" },
+  { name: "SPORTS رياضية", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "http://4kgood.org/live/Ayouragadi_988033/wsyxICxa/1641618.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://zon.pooonflok.store/cema1.m3u8", type: "hls" }
+    ] },
+  { name: "IRIB Varzesh", title: "IRIB VARZESH", url: "https://www.elahmad.ru/tv/iran-tv-online.php?id=IRIBVarzesh", groups: ["sports"], icon: "futbol" },
+  { name: "Idman TV AZ", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/5KLVA2TCEWQTMK/2198/index.m3u8", groups: ["sports"], icon: "futbol" },
+  { name: "IRIB 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://cp11.adabmedia.com/hls2/tv3test.m3u8", groups: ["sports"], icon: "futbol" },
+  { name: "Koora Sport", groups: ["sports"], icon: "futbol",
+    servers: [
+      { name: "Server 1", url: "https://wp.machedge.site/tome1.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://wp.machedge.site/farda1.m3u8", type: "hls" },
+      { name: "Server 3", url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4858305&key=9f39972b67d6ce22189507d008acwc26", type: "iframe" }
+    ] },
+  { name: "MBC_ACTION", url: "http://149.100.11.252:8000/play/a029/index.m3u8", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "AD SPORT 1 HD", url: "http://149.62.183.134:9981/play/a04s", type: "ts", groups: ["sports"], icon: "futbol" },
+  { name: "AD SPORT 2 HD", url: "http://149.62.183.134:9981/play/a04t", type: "ts", groups: ["sports"], icon: "futbol" },
+  { name: "الشارقة الرياضية", url: "https://a16.kora-plus.li/live/b2.m3u8?token=NcZu-cIN0t0DMFoXDjZjFX3u-_g&exp=1793914742", type: "hls", groups: ["sports"], icon: "futbol" },
+
+  // ───────── رياضة فرنسية ───────── 
+  { name: "L'Equipe", url: "https://wideiptv.top/player/ER1FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "Eurosport 1 FR", url: "https://wideiptv.top/player/Euro1FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "Eurosport 2 FR", url: "https://wideiptv.top/player/Euro2FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "BEIN SPORT 1 FR", url: "https://wideiptv.top/player/BEINSPORT1FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "BEIN SPORT 2 FR", url: "https://wideiptv.top/player/BEINSPORT2FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "BEIN SPORT 3 FR", url: "https://wideiptv.top/player/BEINSPORT3FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "CANAL+ SPORT", url: "https://wideiptv.top/player/CANALSPORTFR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "CANAL+ SPORT 360", url: "https://wideiptv.top/player/CANALS360", groups: ["sports_fr"], icon: "futbol" },
+  { name: "CANAL+ FOOT", url: "https://wideiptv.top/player/FOOTPLUSFR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "DAZN 1 FR", url: "https://wideiptv.top/player/DAZN1FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "Canal+ Sport Afrique", url: "https://wideiptv.top/player/CNPLSP1AF", groups: ["sports_fr"], icon: "futbol" },
+  { name: "beIN MAX 4 FR", url: "https://wideiptv.top/player/beINMAX4FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "beIN MAX 5 FR", url: "https://wideiptv.top/player/beINMAX5FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "beIN MAX 6 FR", url: "https://wideiptv.top/player/beINMAX6FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "beIN MAX 7 FR", url: "https://wideiptv.top/player/beINMAX7FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "beIN MAX 8 FR", url: "https://wideiptv.top/player/beINMAX8FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "beIN MAX 9 FR", url: "https://wideiptv.top/player/beINMAX9FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "RMC SPORT 1 FR", url: "https://wideiptv.top/player/RMCSPORT1FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "RMC SPORT 2 FR", url: "https://wideiptv.top/player/RMCSPORT2FR", groups: ["sports_fr"], icon: "futbol" },
+
+  // ───────── رياضة أجنبية أخرى ─────────
+  { name: "Canal+ Sport HD PL", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/5KLVA2TCEWQTMK/6098/index.m3u8", groups: ["sports_other"], icon: "futbol" },
+  { name: "beIN Sports ENG 1", title: "beIN Sports ENG 1 (720p)", url: "https://bein-xtra-bein.amagi.tv/playlistR720P.m3u8", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + SPORT 2HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSPORT2HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + SPORT 3 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSPORT3HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + SPORT 4 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSPORT4HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + SPORT 5 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSPORT5HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + Sport 6 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSport6HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + Sport 7 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSport7HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "CANAL + Sport 8 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=CANAL%2BSport8HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "NOVA SPORT 1 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=NOVASPORT1HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "NOVA SPORT 2 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=NOVASPORT2HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "NOVA SPORT 3 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=NOVASPORT3HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "NOVA SPORT 4 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=NOVASPORT4HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "NOVA SPORT 5 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=NOVASPORT5HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+  { name: "NOVA SPORT 6 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?c=NOVASPORT6HD", type: "ts", groups: ["sports_other"], icon: "futbol" },
+
+  // ───────── إسلامية ─────────
+  { name: "القرآن الكريم", url: "https://www.elahmad.ru/tv/watchtv.php?id=qoran_tv", groups: ["islamic"], icon: "quran" },
+  { name: "السنة النبوية", url: "https://www.youtube.com/embed/live_stream?channel=UCROKYPep-UuODNwyipe6JMw&autoplay=1", groups: ["islamic"], icon: "mosque" },
+
+  // ───────── وثائقية ─────────
+  { name: "AD NAT GEO HD", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://149.62.183.134:9981/play/a04v", type: "ts", groups: ["docs"], icon: "film" },
+  { name: "Al Jazeera Documentary", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8", groups: ["docs"], icon: "film" },
+  { name: "الوثائقية المصرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alwathaeqya", groups: ["docs"], icon: "film" },
+
+  // ───────── أطفال ─────────
+  { name: "MBC 3", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc3", groups: ["kids"], icon: "child" },
+  { name: "Spacetoon", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=spacetoon_live", groups: ["kids"], icon: "rocket" },
+  { name: "أطفال ومواهب", url: "https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8", groups: ["kids"], icon: "child" },
+  { name: "براعم", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=baraem", groups: ["kids"], icon: "seedling" },
+  { name: "جيم", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=jscc1", groups: ["kids"], icon: "gamepad" },
+  { name: "طيور الجنة", url: "https://www.elahmad.ru/tv/radiant.php?id=toyoraljanah", groups: ["kids"], icon: "dove" },
+  { name: "المجد", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=majid_tv", groups: ["kids"], icon: "moon" },
+  { name: "Amou Yazid TV", url: "http://mkstream.servehttp.com:1940/AmouYazid/ay1/playlist.m3u8", groups: ["kids"], icon: "smile" },
+];

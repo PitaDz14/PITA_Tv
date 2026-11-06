@@ -1,0 +1,10 @@
+{
+  "channel": "Sport 3",
+  "id": "sport3",
+  "stream_url": null,
+  "source_url": null,
+  "updated_at": "2026-11-06T02:42:01Z",
+  "expires_at": null,
+  "status": "fallback",
+  "detail": "بث المصدر ميّت (سيرفر 1 من channelServers · ✗ HTTP 404) — يُعرض للمشاهد تنبيه فقط (بلا رابط المصدر)"
+}
