@@ -135,7 +135,7 @@ var CHANNELS = [
   // ───────── قنوات فرنسية ─────────
   { name: "TF1", groups: ["french"],
     servers: [
-      { name: "Server 1", url: "https://witv.eu/player/source2/?id=469&_t=1794084004633", type: "iframe" },
+      { name: "Server 1", url: "https://witv.eu/player/source2/?id=469", type: "iframe" },
       { name: "Server 2", url: "https://wideiptv.top/player/TF1FR", type: "iframe" },
     ] },
   { name: "France 2", url: "https://wideiptv.top/player/France2", groups: ["french"] },
