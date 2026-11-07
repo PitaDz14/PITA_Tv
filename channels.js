@@ -382,7 +382,7 @@ var CHANNELS = [
   { name: "beIN MAX 7 FR", url: "https://wideiptv.top/player/beINMAX7FR", groups: ["sports_fr"], icon: "futbol" },
   { name: "beIN MAX 8 FR", url: "https://wideiptv.top/player/beINMAX8FR", groups: ["sports_fr"], icon: "futbol" },
   { name: "beIN MAX 9 FR", url: "https://wideiptv.top/player/beINMAX9FR", groups: ["sports_fr"], icon: "futbol" },
-  { name: "RMC SPORT 1 FR", url: "https://wideiptv.top/player/RMCSPORT1FR", groups: ["sports_fr"], icon: "futbol" },
+  { name: "RMC SPORT 1 FR", url: "https://thedaddy.li/stream/stream-119.php", groups: ["sports_fr"], icon: "futbol" },
   { name: "RMC SPORT 2 FR", url: "https://wideiptv.top/player/RMCSPORT2FR", groups: ["sports_fr"], icon: "futbol" },
 
   // ───────── رياضة أجنبية أخرى ─────────
