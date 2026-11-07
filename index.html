@@ -53,7 +53,7 @@
   <div class="container main-shell">
     <div class="nav-scroller" id="topNav" role="tablist" aria-label="أقسام الموقع">
       <button type="button" class="nav-btn active" data-cat="home" onclick="filterCategory('home')">الرئيسية</button>
-      <button type="button" class="nav-btn" data-cat="matches" onclick="filterCategory('matches')">جدول اليوم</button>
+      <button type="button" class="nav-btn" data-cat="matches" onclick="filterCategory('matches')">جدول مباريات اليوم</button>
       <button type="button" class="nav-btn" data-cat="general" onclick="filterCategory('general')">عامة</button>
       <button type="button" class="nav-btn" data-cat="news" onclick="filterCategory('news')">أخبار</button>
       <button type="button" class="nav-btn" data-cat="sports" onclick="filterCategory('sports')">رياضة</button>
@@ -82,26 +82,45 @@
       <div id="home-rails" class="rails"></div>
     </div>
 
-    <!-- جدول مباريات اليوم (نفس مصدر البث السابق، بعرض مضمّن داخل القسم) -->
+    <!-- جدول مباريات اليوم + دليل السات والنتائج -->
     <div id="matches" class="category-section">
       <div class="matches-head">
         <div class="section-header">
           <h2>جدول مباريات اليوم</h2>
         </div>
-        <p class="matches-lead">مواعيد المباريات وروابط المشاهدة لليوم — يُحمَّل الجدول عند فتح هذا القسم.</p>
+        <p class="matches-lead" id="matchesLead">مواعيد المباريات وروابط المشاهدة لليوم — مرّر داخل الإطار لأسفل لرؤية كل المباريات.</p>
+        <div class="matches-tabs sub-nav" role="tablist" aria-label="أقسام جدول المباريات">
+          <button type="button" class="sub-btn active" role="tab" aria-selected="true" data-match-tab="live" id="matchTabLive">جدول البث المباشر</button>
+          <button type="button" class="sub-btn" role="tab" aria-selected="false" data-match-tab="sat" id="matchTabSat">دليل السات والنتائج</button>
+        </div>
         <div class="matches-actions">
-          <button type="button" class="btn-primary" id="matchesExpandBtn"><i class="fas fa-expand"></i> تكبير الجدول</button>
+          <button type="button" class="btn-primary" id="matchesExpandBtn"><i class="fas fa-expand"></i> تكبير الإطار</button>
           <button type="button" class="btn-ghost" onclick="filterCategory('sports')"><i class="fas fa-tv"></i> قنوات الرياضة</button>
         </div>
       </div>
-      <div class="matches-stage" id="matchesStage">
-        <div class="matches-loading" id="matchesLoading"><span class="loading-spinner" style="position:static;transform:none;margin:0 auto 10px"></span>جاري تحميل جدول اليوم…</div>
-        <iframe id="matchesFrame"
-          title="جدول مباريات اليوم"
-          data-src="https://href.li/?https://go.s96.net/p/s96.html?m=1"
-          scrolling="yes"
-          allowfullscreen
-          referrerpolicy="no-referrer"></iframe>
+
+      <div class="matches-stage is-active" id="matchesStageLive" data-match-pane="live">
+        <div class="matches-loading"><span class="loading-spinner matches-spin"></span>جاري تحميل جدول البث…</div>
+        <div class="matches-scroll">
+          <iframe id="matchesFrameLive"
+            title="جدول البث المباشر"
+            data-src="https://href.li/?https://go.s96.net/p/s96.html?m=1"
+            scrolling="yes"
+            allowfullscreen
+            referrerpolicy="no-referrer"></iframe>
+        </div>
+      </div>
+
+      <div class="matches-stage" id="matchesStageSat" data-match-pane="sat" hidden>
+        <div class="matches-loading"><span class="loading-spinner matches-spin"></span>جاري تحميل دليل السات والنتائج…</div>
+        <div class="matches-scroll">
+          <iframe id="matchesFrameSat"
+            title="دليل السات والنتائج"
+            data-src="https://fixturessat.blogspot.com/p/match1.html"
+            scrolling="yes"
+            allowfullscreen
+            referrerpolicy="no-referrer"></iframe>
+        </div>
       </div>
     </div>
 

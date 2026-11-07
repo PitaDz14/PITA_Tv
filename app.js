@@ -165,30 +165,71 @@
       if (sheet) sheet.hidden = true;
     }
 
-    function loadMatchesFrame() {
-      const frame = document.getElementById('matchesFrame');
-      const stage = document.getElementById('matchesStage');
+    var MATCH_LEADS = {
+      live: 'مواعيد المباريات وروابط المشاهدة لليوم — اسحب الإطار لأسفل لرؤية كل المباريات.',
+      sat: 'دليل القنوات الناقلة عبر السات، مع النتائج والإحصائيات — اسحب لأسفل لاستعراض الدليل كاملًا.'
+    };
+
+    function activeMatchPane() {
+      var tab = document.querySelector('.matches-tabs .sub-btn.active');
+      return (tab && tab.getAttribute('data-match-tab')) || 'live';
+    }
+
+    function matchesStageEl(pane) {
+      return document.getElementById(pane === 'sat' ? 'matchesStageSat' : 'matchesStageLive');
+    }
+
+    function matchesFrameEl(pane) {
+      return document.getElementById(pane === 'sat' ? 'matchesFrameSat' : 'matchesFrameLive');
+    }
+
+    function loadMatchesFrame(pane) {
+      pane = pane || activeMatchPane();
+      const frame = matchesFrameEl(pane);
+      const stage = matchesStageEl(pane);
       if (!frame || !stage) return;
       if (!frame.getAttribute('src') && frame.dataset.src) {
+        stage.classList.remove('is-ready');
         frame.src = frame.dataset.src;
         frame.addEventListener('load', function () { stage.classList.add('is-ready'); }, { once: true });
-        // إن تأخر التحميل نظهر الإطار بعد مهلة حتى لا يبقى غطاء دائمًا
-        setTimeout(function () { stage.classList.add('is-ready'); }, 8000);
+        setTimeout(function () { stage.classList.add('is-ready'); }, 10000);
       } else {
         stage.classList.add('is-ready');
       }
     }
 
+    function switchMatchTab(pane) {
+      pane = pane === 'sat' ? 'sat' : 'live';
+      document.querySelectorAll('.matches-tabs .sub-btn').forEach(function (b) {
+        var on = b.getAttribute('data-match-tab') === pane;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      document.querySelectorAll('.matches-stage').forEach(function (st) {
+        var on = st.getAttribute('data-match-pane') === pane;
+        st.hidden = !on;
+        st.classList.toggle('is-active', on);
+        if (!on) st.classList.remove('is-expanded');
+      });
+      var lead = document.getElementById('matchesLead');
+      if (lead) lead.textContent = MATCH_LEADS[pane] || MATCH_LEADS.live;
+      document.body.classList.remove('matches-expanded');
+      var btn = document.getElementById('matchesExpandBtn');
+      if (btn) btn.innerHTML = '<i class="fas fa-expand"></i> تكبير الإطار';
+      loadMatchesFrame(pane);
+    }
+    window.switchMatchTab = switchMatchTab;
+
     function setMatchesExpanded(on) {
-      const stage = document.getElementById('matchesStage');
+      const stage = matchesStageEl(activeMatchPane());
       const btn = document.getElementById('matchesExpandBtn');
-      if (!stage) return;
+      if (!stage || stage.hidden) return;
       stage.classList.toggle('is-expanded', !!on);
       document.body.classList.toggle('matches-expanded', !!on);
       if (btn) {
         btn.innerHTML = on
-          ? '<i class="fas fa-compress"></i> تصغير الجدول'
-          : '<i class="fas fa-expand"></i> تكبير الجدول';
+          ? '<i class="fas fa-compress"></i> تصغير الإطار'
+          : '<i class="fas fa-expand"></i> تكبير الإطار';
       }
     }
 
@@ -255,12 +296,15 @@
     var matchesExpandBtn = document.getElementById('matchesExpandBtn');
     if (matchesExpandBtn) {
       matchesExpandBtn.addEventListener('click', function () {
-        var stage = document.getElementById('matchesStage');
+        var stage = matchesStageEl(activeMatchPane());
         var on = !(stage && stage.classList.contains('is-expanded'));
         loadMatchesFrame();
         setMatchesExpanded(on);
       });
     }
+    document.querySelectorAll('.matches-tabs [data-match-tab]').forEach(function (b) {
+      b.addEventListener('click', function () { switchMatchTab(b.getAttribute('data-match-tab')); });
+    });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && document.body.classList.contains('matches-expanded')) setMatchesExpanded(false);
     });
