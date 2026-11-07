@@ -282,6 +282,7 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 4", groups: ["sports"], icon: "futbol",
     servers: [
+      { name: "Server 0", url: "https://matchora.to/embed/channel/1660407", type: "iframe" },
       { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein4", type: "iframe" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein4/master.m3u8", type: "hls" },
       { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9260", type: "ts" },
