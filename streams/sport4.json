@@ -1,10 +1,10 @@
 {
   "channel": "Sport 4",
   "id": "sport4",
-  "stream_url": null,
+  "stream_url": "https://plain-cell-3522.yusf-dara1000.workers.dev/?url=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_4_hd/tracks-v1a1/mono.ts.m3u8",
   "source_url": null,
-  "updated_at": "2026-11-06T02:42:02Z",
+  "updated_at": "2026-11-07T20:23:13Z",
   "expires_at": null,
-  "status": "fallback",
-  "detail": "بث المصدر ميّت (سيرفر 1 من channelServers · ✗ HTTP 404) — يُعرض للمشاهد تنبيه فقط (بلا رابط المصدر)"
+  "status": "ok",
+  "detail": "سيرفر 1 من channelServers · ✅ سليم"
 }
