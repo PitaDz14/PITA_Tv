@@ -252,6 +252,7 @@ var CHANNELS = [
   // ───────── رياضة ─────────
   { name: "Bein Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
+      { name: "Server 0", url: "https://matchora.to/embed/match/2506280", type: "iframe" },
       { name: "Server 1", url: "https://edge22.358598.ir.cdn.ir/hls2/bein1.m3u8", type: "hls" },
       { name: "Server 2", url: "https://balance.footballii.ir/hls2/bein1.m3u8", type: "hls" },
       { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein1", type: "iframe" },
