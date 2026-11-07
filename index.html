@@ -26,7 +26,7 @@
     jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
   </script>
 
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 
 <body>
@@ -88,7 +88,7 @@
         <div class="section-header">
           <h2>جدول مباريات اليوم</h2>
         </div>
-        <p class="matches-lead" id="matchesLead">مواعيد المباريات وروابط المشاهدة لليوم — استخدم شريط التمرير أو عجلة الفأرة للنزول والصعود داخل النافذة.</p>
+        <p class="matches-lead" id="matchesLead">مواعيد المباريات وروابط المشاهدة لليوم — مرّر داخل النافذة لأعلى/أسفل بعجلة الفأرة أو شريط التمرير كما في قارئ النصوص.</p>
         <div class="matches-tabs sub-nav" role="tablist" aria-label="أقسام جدول المباريات">
           <button type="button" class="sub-btn active" role="tab" aria-selected="true" data-match-tab="live" id="matchTabLive">جدول البث المباشر</button>
           <button type="button" class="sub-btn" role="tab" aria-selected="false" data-match-tab="sat" id="matchTabSat">دليل السات والنتائج</button>
@@ -118,8 +118,9 @@
         </div>
       </div>
 
-      <div class="matches-stage is-active" id="matchesStageLive" data-match-pane="live">
+      <div class="matches-stage is-active" id="matchesStageLive" data-match-pane="live" tabindex="0" aria-label="نافذة جدول البث المباشر — استخدم عجلة الفأرة أو شريط التمرير للتنقل">
         <div class="matches-loading"><span class="loading-spinner matches-spin"></span>جاري تحميل جدول البث…</div>
+        <div class="matches-scroll-catcher" data-matches-catcher hidden aria-hidden="true"></div>
         <iframe id="matchesFrameLive"
           class="matches-frame"
           title="جدول البث المباشر"
@@ -129,8 +130,9 @@
           referrerpolicy="no-referrer"></iframe>
       </div>
 
-      <div class="matches-stage" id="matchesStageSat" data-match-pane="sat" hidden>
+      <div class="matches-stage" id="matchesStageSat" data-match-pane="sat" hidden tabindex="0" aria-label="نافذة دليل السات والنتائج — استخدم عجلة الفأرة أو شريط التمرير للتنقل">
         <div class="matches-loading"><span class="loading-spinner matches-spin"></span>جاري تحميل دليل السات والنتائج…</div>
+        <div class="matches-scroll-catcher" data-matches-catcher hidden aria-hidden="true"></div>
         <iframe id="matchesFrameSat"
           class="matches-frame"
           title="دليل السات والنتائج"
@@ -265,7 +267,7 @@
     });
   </script>
   <script src="channels.js?v=3"></script>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=5"></script>
 </body>
 
 </html>

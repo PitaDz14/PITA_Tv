@@ -166,8 +166,8 @@
     }
 
     var MATCH_LEADS = {
-      live: 'مواعيد المباريات وروابط المشاهدة لليوم — مرّر لأسفل أو لأعلى داخل النافذة مثل قراءة ملف نصي.',
-      sat: 'دليل القنوات الناقلة عبر السات مع النتائج والإحصائيات — مرّر داخل النافذة لتصفح الدليل كاملًا.'
+      live: 'مواعيد المباريات وروابط المشاهدة لليوم — مرّر داخل النافذة لأعلى/أسفل بعجلة الفأرة أو شريط التمرير كما في قارئ النصوص.',
+      sat: 'دليل القنوات الناقلة عبر السات مع النتائج والإحصائيات — مرّر داخل النافذة لأعلى/أسفل لتصفح الدليل كاملًا.'
     };
 
     function activeMatchPane() {
@@ -334,6 +334,83 @@
     document.querySelectorAll('.matches-tabs [data-match-tab]').forEach(function (b) {
       b.addEventListener('click', function () { switchMatchTab(b.getAttribute('data-match-tab')); });
     });
+
+    /* تمرير نافذة المباريات كقارئ نصوص: عجلة الفأرة / سحب / لوحة مفاتيح */
+    (function bindMatchesReaderScroll() {
+      document.querySelectorAll('.matches-stage .matches-scroll-catcher').forEach(function (c) {
+        c.hidden = false;
+      });
+
+      document.querySelectorAll('.matches-stage').forEach(function (stage) {
+        var catcher = stage.querySelector('[data-matches-catcher]');
+        var drag = null;
+
+        stage.addEventListener('keydown', function (e) {
+          var step = Math.max(120, Math.round(stage.clientHeight * 0.85));
+          if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+            e.preventDefault();
+            stage.scrollBy({ top: e.key === 'ArrowDown' ? 80 : step, behavior: 'smooth' });
+          } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            stage.scrollBy({ top: e.key === 'ArrowUp' ? -80 : -step, behavior: 'smooth' });
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            stage.scrollTo({ top: 0, behavior: 'smooth' });
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            stage.scrollTo({ top: stage.scrollHeight, behavior: 'smooth' });
+          }
+        });
+
+        if (!catcher) return;
+
+        catcher.addEventListener('wheel', function (e) {
+          stage.scrollTop += e.deltaY;
+          e.preventDefault();
+          e.stopPropagation();
+        }, { passive: false });
+
+        catcher.addEventListener('pointerdown', function (e) {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          /* نقرة قصيرة → تفاعل مع الروابط داخل الإطار؛ سحب → تمرير */
+          drag = { id: e.pointerId, y: e.clientY, top: stage.scrollTop, moved: false, t: Date.now() };
+          try { catcher.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+        });
+
+        catcher.addEventListener('pointermove', function (e) {
+          if (!drag || drag.id !== e.pointerId) return;
+          var dy = e.clientY - drag.y;
+          if (!drag.moved && Math.abs(dy) < 5) return;
+          drag.moved = true;
+          stage.classList.add('is-dragging');
+          stage.scrollTop = drag.top - dy;
+          e.preventDefault();
+        });
+
+        function endDrag(e) {
+          if (!drag || (e && drag.id !== e.pointerId)) return;
+          var wasDrag = drag.moved;
+          var quickTap = !wasDrag && (Date.now() - drag.t) < 450;
+          drag = null;
+          stage.classList.remove('is-dragging');
+          if (quickTap) {
+            stage.classList.add('is-frame-interactive');
+          }
+        }
+        catcher.addEventListener('pointerup', endDrag);
+        catcher.addEventListener('pointercancel', endDrag);
+
+        stage.addEventListener('mouseleave', function () {
+          stage.classList.remove('is-frame-interactive', 'is-dragging');
+          drag = null;
+        });
+        stage.addEventListener('focusout', function () {
+          setTimeout(function () {
+            if (!stage.contains(document.activeElement)) stage.classList.remove('is-frame-interactive');
+          }, 0);
+        });
+      });
+    })();
 
     var matchesExpandBtn = document.getElementById('matchesExpandBtn');
     if (matchesExpandBtn) matchesExpandBtn.addEventListener('click', toggleMatchesExpand);
