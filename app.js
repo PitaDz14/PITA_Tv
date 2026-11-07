@@ -166,8 +166,8 @@
     }
 
     var MATCH_LEADS = {
-      live: 'مواعيد المباريات وروابط المشاهدة لليوم — اسحب الإطار لأسفل لرؤية كل المباريات.',
-      sat: 'دليل القنوات الناقلة عبر السات، مع النتائج والإحصائيات — اسحب لأسفل لاستعراض الدليل كاملًا.'
+      live: 'مواعيد المباريات وروابط المشاهدة لليوم — مرّر لأسفل أو لأعلى داخل النافذة مثل قراءة ملف نصي.',
+      sat: 'دليل القنوات الناقلة عبر السات مع النتائج والإحصائيات — مرّر داخل النافذة لتصفح الدليل كاملًا.'
     };
 
     function activeMatchPane() {
@@ -198,6 +198,61 @@
       }
     }
 
+    var MATCH_TITLES = {
+      live: 'جدول البث المباشر',
+      sat: 'دليل السات والنتائج'
+    };
+
+    function syncMatchesExpandUi(expanded) {
+      var btn = document.getElementById('matchesExpandBtn');
+      var chrome = document.getElementById('matchesExpandChrome');
+      var title = document.getElementById('matchesExpandTitle');
+      var pane = activeMatchPane();
+      var stage = matchesStageEl(pane);
+      if (title) title.textContent = MATCH_TITLES[pane] || MATCH_TITLES.live;
+      if (chrome) chrome.hidden = !expanded;
+      if (btn) {
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        if (stage) btn.setAttribute('aria-controls', stage.id);
+        var icon = btn.querySelector('i');
+        var label = btn.querySelector('.matches-expand-label');
+        if (icon) icon.className = expanded ? 'fas fa-compress' : 'fas fa-expand';
+        if (label) label.textContent = expanded ? 'تصغير العرض' : 'تكبير العرض';
+        btn.title = expanded ? 'العودة للصفحة السابقة' : 'تكبير عرض الصفحة';
+      }
+    }
+
+    function setMatchesExpanded(on, opts) {
+      var expanded = !!on;
+      var was = document.body.classList.contains('matches-expanded');
+      opts = opts || {};
+      if (expanded) loadMatchesFrame();
+      document.body.classList.toggle('matches-expanded', expanded);
+      syncMatchesExpandUi(expanded);
+      try {
+        if (expanded && !was) history.pushState({ matchesExpand: true }, '');
+        else if (!expanded && was && opts.clearHistory) history.replaceState(null, '');
+        else if (!expanded && was && !opts.fromPopstate && history.state && history.state.matchesExpand) history.back();
+      } catch (e) { /* ignore */ }
+    }
+
+    function expandMatchesView() {
+      setMatchesExpanded(true);
+    }
+
+    function collapseMatchesView(fromPopstate) {
+      if (!document.body.classList.contains('matches-expanded')) return;
+      setMatchesExpanded(false, { fromPopstate: !!fromPopstate });
+    }
+
+    function toggleMatchesExpand() {
+      if (document.body.classList.contains('matches-expanded')) collapseMatchesView();
+      else expandMatchesView();
+    }
+    window.expandMatchesView = expandMatchesView;
+    window.collapseMatchesView = collapseMatchesView;
+    window.toggleMatchesExpand = toggleMatchesExpand;
+
     function switchMatchTab(pane) {
       pane = pane === 'sat' ? 'sat' : 'live';
       document.querySelectorAll('.matches-tabs .sub-btn').forEach(function (b) {
@@ -209,34 +264,17 @@
         var on = st.getAttribute('data-match-pane') === pane;
         st.hidden = !on;
         st.classList.toggle('is-active', on);
-        if (!on) st.classList.remove('is-expanded');
       });
       var lead = document.getElementById('matchesLead');
       if (lead) lead.textContent = MATCH_LEADS[pane] || MATCH_LEADS.live;
-      document.body.classList.remove('matches-expanded');
-      var btn = document.getElementById('matchesExpandBtn');
-      if (btn) btn.innerHTML = '<i class="fas fa-expand"></i> تكبير الإطار';
       loadMatchesFrame(pane);
+      if (document.body.classList.contains('matches-expanded')) syncMatchesExpandUi(true);
     }
     window.switchMatchTab = switchMatchTab;
-
-    function setMatchesExpanded(on) {
-      const stage = matchesStageEl(activeMatchPane());
-      const btn = document.getElementById('matchesExpandBtn');
-      if (!stage || stage.hidden) return;
-      stage.classList.toggle('is-expanded', !!on);
-      document.body.classList.toggle('matches-expanded', !!on);
-      if (btn) {
-        btn.innerHTML = on
-          ? '<i class="fas fa-compress"></i> تصغير الإطار'
-          : '<i class="fas fa-expand"></i> تكبير الإطار';
-      }
-    }
 
     function filterCategory(catId) {
       closeMore();
       document.body.classList.remove('search-open');
-      if (catId !== 'matches') setMatchesExpanded(false);
       setActiveBtn('.nav-btn', catId);
       syncBottomNav(catId);
       document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
@@ -293,21 +331,33 @@
         if (sheet) sheet.hidden = !sheet.hidden;
       });
     }
-    var matchesExpandBtn = document.getElementById('matchesExpandBtn');
-    if (matchesExpandBtn) {
-      matchesExpandBtn.addEventListener('click', function () {
-        var stage = matchesStageEl(activeMatchPane());
-        var on = !(stage && stage.classList.contains('is-expanded'));
-        loadMatchesFrame();
-        setMatchesExpanded(on);
-      });
-    }
     document.querySelectorAll('.matches-tabs [data-match-tab]').forEach(function (b) {
       b.addEventListener('click', function () { switchMatchTab(b.getAttribute('data-match-tab')); });
     });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && document.body.classList.contains('matches-expanded')) setMatchesExpanded(false);
+
+    var matchesExpandBtn = document.getElementById('matchesExpandBtn');
+    if (matchesExpandBtn) matchesExpandBtn.addEventListener('click', toggleMatchesExpand);
+    var matchesCollapseBtn = document.getElementById('matchesCollapseBtn');
+    if (matchesCollapseBtn) matchesCollapseBtn.addEventListener('click', function () { collapseMatchesView(); });
+    var matchesShrinkBtn = document.getElementById('matchesShrinkBtn');
+    if (matchesShrinkBtn) matchesShrinkBtn.addEventListener('click', function () { collapseMatchesView(); });
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('matches-expanded')) {
+        e.preventDefault();
+        collapseMatchesView();
+      }
     });
+    window.addEventListener('popstate', function () {
+      if (document.body.classList.contains('matches-expanded')) collapseMatchesView(true);
+    });
+    var _filterCategory = filterCategory;
+    filterCategory = function (catId) {
+      if (catId !== 'matches' && document.body.classList.contains('matches-expanded')) {
+        setMatchesExpanded(false, { clearHistory: true });
+      }
+      _filterCategory(catId);
+    };
+    window.filterCategory = filterCategory;
 
     // Player Logic
     // رابط الوسيط HTTPS (Cloudflare Worker) — ضع هنا رابط الـ Worker الخاص بك بعد النشر
@@ -1156,7 +1206,6 @@ async function playElahmad(title, pageUrl) {
       const railList = document.getElementById('theaterRailList');
       if (railList) railList.innerHTML = '';
       setTheaterRail(false);
-      setMatchesExpanded(false);
 
 
       // Clean up only the player div, not the entire container

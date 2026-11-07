@@ -26,7 +26,7 @@
     jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
   </script>
 
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 
 <body>
@@ -88,39 +88,56 @@
         <div class="section-header">
           <h2>جدول مباريات اليوم</h2>
         </div>
-        <p class="matches-lead" id="matchesLead">مواعيد المباريات وروابط المشاهدة لليوم — مرّر داخل الإطار لأسفل لرؤية كل المباريات.</p>
+        <p class="matches-lead" id="matchesLead">مواعيد المباريات وروابط المشاهدة لليوم — استخدم شريط التمرير أو عجلة الفأرة للنزول والصعود داخل النافذة.</p>
         <div class="matches-tabs sub-nav" role="tablist" aria-label="أقسام جدول المباريات">
           <button type="button" class="sub-btn active" role="tab" aria-selected="true" data-match-tab="live" id="matchTabLive">جدول البث المباشر</button>
           <button type="button" class="sub-btn" role="tab" aria-selected="false" data-match-tab="sat" id="matchTabSat">دليل السات والنتائج</button>
         </div>
         <div class="matches-actions">
-          <button type="button" class="btn-primary" id="matchesExpandBtn"><i class="fas fa-expand"></i> تكبير الإطار</button>
           <button type="button" class="btn-ghost" onclick="filterCategory('sports')"><i class="fas fa-tv"></i> قنوات الرياضة</button>
+          <button type="button" class="btn-ghost matches-expand-btn" id="matchesExpandBtn" aria-expanded="false" aria-controls="matchesStageLive" title="تكبير عرض الصفحة">
+            <i class="fas fa-expand" aria-hidden="true"></i>
+            <span class="matches-expand-label">تكبير العرض</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="matches-expand-chrome" id="matchesExpandChrome" hidden>
+        <div class="matches-expand-bar" role="toolbar" aria-label="أدوات العرض الكامل">
+          <button type="button" class="matches-back-btn" id="matchesCollapseBtn" title="العودة للصفحة السابقة">
+            <span class="matches-back-ico" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+            <span class="matches-back-txt">
+              <strong>العودة</strong>
+              <small>إلى جدول المباريات</small>
+            </span>
+          </button>
+          <div class="matches-expand-title" id="matchesExpandTitle">جدول البث المباشر</div>
+          <button type="button" class="matches-shrink-btn" id="matchesShrinkBtn" aria-label="تصغير العرض" title="تصغير">
+            <i class="fas fa-compress" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
 
       <div class="matches-stage is-active" id="matchesStageLive" data-match-pane="live">
         <div class="matches-loading"><span class="loading-spinner matches-spin"></span>جاري تحميل جدول البث…</div>
-        <div class="matches-scroll">
-          <iframe id="matchesFrameLive"
-            title="جدول البث المباشر"
-            data-src="https://href.li/?https://go.s96.net/p/s96.html?m=1"
-            scrolling="yes"
-            allowfullscreen
-            referrerpolicy="no-referrer"></iframe>
-        </div>
+        <iframe id="matchesFrameLive"
+          class="matches-frame"
+          title="جدول البث المباشر"
+          data-src="https://href.li/?https://go.s96.net/p/s96.html?m=1"
+          scrolling="yes"
+          allowfullscreen
+          referrerpolicy="no-referrer"></iframe>
       </div>
 
       <div class="matches-stage" id="matchesStageSat" data-match-pane="sat" hidden>
         <div class="matches-loading"><span class="loading-spinner matches-spin"></span>جاري تحميل دليل السات والنتائج…</div>
-        <div class="matches-scroll">
-          <iframe id="matchesFrameSat"
-            title="دليل السات والنتائج"
-            data-src="https://fixturessat.blogspot.com/p/match1.html"
-            scrolling="yes"
-            allowfullscreen
-            referrerpolicy="no-referrer"></iframe>
-        </div>
+        <iframe id="matchesFrameSat"
+          class="matches-frame"
+          title="دليل السات والنتائج"
+          data-src="https://fixturessat.blogspot.com/p/match1.html"
+          scrolling="yes"
+          allowfullscreen
+          referrerpolicy="no-referrer"></iframe>
       </div>
     </div>
 
@@ -248,7 +265,7 @@
     });
   </script>
   <script src="channels.js?v=3"></script>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 
 </html>
