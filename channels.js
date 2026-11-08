@@ -29,13 +29,14 @@
 
 var CHANNELS = [
   // ───────── قنوات جزائرية ─────────
-  { name: "الأرضية الجزائرية", title: "قناة الأرضية الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=entv_algerie", groups: ["algerian"] },
-  { name: "الجزائرية الثالثة", title: "قناة الجزائرية الثالثة", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algeria3", groups: ["algerian"] },
-  { name: "الفجر الجزائرية", title: "قناة الفجر الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=el_fadjr_tv", groups: ["algerian"] },
-  { name: "النهار تي في", title: "Ennahar Tv النهار تي في", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=alnahartvnews", groups: ["algerian"] },
+  { name: "الأرضية الجزائرية", title: "قناة الأرضية الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=entv_algerie", groups: ["algerian"], icon: "globe" },
+  { name: "الجزائرية الثالثة", title: "قناة الجزائرية الثالثة", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algeria3", groups: ["algerian"], icon: "globe" },
+  { name: "الجزائرية السادسة", title: "قناة الجزائرية السادسة", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algerie6", groups: ["algerian"], icon: "globe" },
+  { name: "الفجر الجزائرية", title: "قناة الفجر الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=el_fadjr_tv", groups: ["algerian"], icon: "globe" },
+  { name: "النهار تي في", title: "Ennahar Tv النهار تي في", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=alnahartvnews", groups: ["algerian"], icon: "newspaper" },
   { name: "الشروق نيوز", title: "EchoroukNews الشروق نيوز", url: "https://www.elahmad.ru/tv/algeria_live.php?id=echorouk_news", groups: ["algerian"], icon: "newspaper" },
   { name: "الشروق تي في", title: "EchoroukHD الشروق تي في", url: "https://www.elahmad.ru/tv/algeria_live.php?id=echorouk_tvhd", groups: ["algerian"] },
-  { name: "AL24News", title: "قناة AL24News الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=al24news", groups: ["algerian"], icon: "globe" },
+  { name: "AL24News", title: "قناة AL24News الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=al24news", groups: ["algerian"], icon: "newspaper" },
   { name: "الهداف الجزائرية", title: "قناة الهداف الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=elheddaf", groups: ["algerian"], icon: "futbol" },
   { name: "البلاد الجزائرية", title: "قناة البلاد الجزائرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elbilad1", groups: ["algerian"], icon: "globe" },
   { name: "Samira TV", title: "قناة Samira TV الجزائرية", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=samiratv", groups: ["algerian"], icon: "utensils" },
