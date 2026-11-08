@@ -436,6 +436,7 @@ var CHANNELS = [
   { name: "الوثائقية المصرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alwathaeqya", groups: ["docs"], icon: "film" },
 
   // ───────── أطفال ─────────
+  { name: "طيور الجنة", url: "https://www.elahmad.ru/tv/youtube.php?id=toyoraljanahtv, groups: ["kids"], icon: "child" },
   { name: "MBC 3", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=mbc3", groups: ["kids"], icon: "child" },
   { name: "Spacetoon", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=spacetoon_live", groups: ["kids"], icon: "rocket" },
   { name: "أطفال ومواهب", url: "https://5aafcc5de91f1.streamlock.net/atfal1.com/atfal2/chunklist_w464148250.m3u8", groups: ["kids"], icon: "child" },
