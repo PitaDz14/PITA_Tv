@@ -40,6 +40,7 @@ var CHANNELS = [
   { name: "AL24News", title: "قناة AL24News الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=al24news", groups: ["algerian"], icon: "newspaper" },
   { name: "الهداف الجزائرية", title: "قناة الهداف الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=elheddaf", groups: ["algerian"], icon: "futbol" },
   { name: "البلاد الجزائرية", title: "قناة البلاد الجزائرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elbilad1", groups: ["algerian"], icon: "globe" },
+  { name: "El Djazair N1", title: "Dzair TV", url: "https://www.elahmad.ru/tv/algeria_live.php?id=dzair_tv", groups: ["algerian"], icon: "globe" },
   { name: "Samira TV", title: "قناة Samira TV الجزائرية", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=samiratv", groups: ["algerian"], icon: "utensils" },
 
   // ───────── قنوات مغربية ─────────
