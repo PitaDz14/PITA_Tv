@@ -431,7 +431,7 @@ var CHANNELS = [
   { name: "السنة النبوية", url: "https://www.youtube.com/embed/live_stream?channel=UCROKYPep-UuODNwyipe6JMw&autoplay=1", groups: ["islamic"], icon: "mosque" },
 
   // ───────── وثائقية ─────────
-  { name: "AD NAT GEO HD", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://149.62.183.134:9981/play/a04v", type: "ts", groups: ["docs"], icon: "film" },
+  { name: "AD NAT GEO HD", url: "https://www.elahmad.ru/tv/live/shahid_shaka.php?id=national_geo", groups: ["docs"], icon: "film" },
   { name: "Al Jazeera Documentary", url: "https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8", groups: ["docs"], icon: "film" },
   { name: "الوثائقية المصرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alwathaeqya", groups: ["docs"], icon: "film" },
 
