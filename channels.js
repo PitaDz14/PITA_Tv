@@ -31,6 +31,7 @@ var CHANNELS = [
   // ───────── قنوات جزائرية ─────────
   { name: "الأرضية الجزائرية", title: "قناة الأرضية الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=entv_algerie", groups: ["algerian"], icon: "globe" },
   { name: "الجزائرية الثالثة", title: "قناة الجزائرية الثالثة", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algeria3", groups: ["algerian"], icon: "globe" },
+  { name: "الجزائرية الثانية", title: "قناة الجزائرية الثانية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algerie", groups: ["algerian"], icon: "globe" },
   { name: "الجزائرية السادسة", title: "قناة الجزائرية السادسة", url: "https://www.elahmad.ru/tv/algeria_live.php?id=algerie6", groups: ["algerian"], icon: "globe" },
   { name: "الفجر الجزائرية", title: "قناة الفجر الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=el_fadjr_tv", groups: ["algerian"], icon: "globe" },
   { name: "النهار تي في", title: "Ennahar Tv النهار تي في", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=alnahartvnews", groups: ["algerian"], icon: "newspaper" },
