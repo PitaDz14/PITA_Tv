@@ -37,6 +37,7 @@ var CHANNELS = [
   { name: "الشروق تي في", title: "EchoroukHD الشروق تي في", url: "https://www.elahmad.ru/tv/algeria_live.php?id=echorouk_tvhd", groups: ["algerian"] },
   { name: "AL24News", title: "قناة AL24News الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=al24news", groups: ["algerian"], icon: "globe" },
   { name: "الهداف الجزائرية", title: "قناة الهداف الجزائرية", url: "https://www.elahmad.ru/tv/algeria_live.php?id=elheddaf", groups: ["algerian"], icon: "futbol" },
+  { name: "البلاد الجزائرية", title: "قناة البلاد الجزائرية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=elbilad1", groups: ["algerian"], icon: "globe" },
   { name: "Samira TV", title: "قناة Samira TV الجزائرية", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=samiratv", groups: ["algerian"], icon: "utensils" },
 
   // ───────── قنوات مغربية ─────────
