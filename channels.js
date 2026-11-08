@@ -387,7 +387,7 @@ var CHANNELS = [
   { name: "AD SPORT 1 HD", url: "http://149.62.183.134:9981/play/a04s", type: "ts", groups: ["sports"], icon: "futbol" },
   { name: "AD SPORT 2 HD", url: "http://149.62.183.134:9981/play/a04t", type: "ts", groups: ["sports"], icon: "futbol" },
   { name: "الشارقة الرياضية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=al_sharjah_sport1", groups: ["sports"], icon: "futbol" },
- { name: "الشارقة الرياضية 2", url: "https://www.elahmad.ru/tv/watchtv.php?id=al_sharjah_sport2", groups: ["sports"], icon: "futbol" },
+  { name: "الشارقة الرياضية 2", url: "https://www.elahmad.ru/tv/watchtv.php?id=al_sharjah_sport2", groups: ["sports"], icon: "futbol" },
 
   // ───────── رياضة فرنسية ───────── 
   { name: "L'Equipe", url: "https://wideiptv.top/player/ER1FR", groups: ["sports_fr"], icon: "futbol" },
