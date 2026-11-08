@@ -257,6 +257,10 @@ var CHANNELS = [
   { name: "التلفزيون العربي", title: "Alaraby TV", url: "https://www.elahmad.ru/tv/radiant.php?id=alarabytv", groups: ["news"], icon: "globe" },
 
   // ───────── رياضة ─────────
+  { name: "Bein Sport Global", groups: ["sports"], icon: "futbol",
+       servers: [
+      { name: "Server 0", url: "http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+    ] },
   { name: "Bein Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
       { name: "Server 0", url: "https://matchora.pro/embed/channel/1806555", type: "iframe" },
