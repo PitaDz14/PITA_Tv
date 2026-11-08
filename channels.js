@@ -264,7 +264,7 @@ var CHANNELS = [
       { name: "Server 6", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9263", type: "ts" },
       { name: "Server 7", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://castx.online/live/beinsports1/stream_5.m3u8", type: "hls" },
       { name: "Server 8", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://1.jnjnil.qzz.io/live/kora1/index.m3u8", type: "hls" },
-      { name: "Server 9", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.m3u8", type: "ts" },
+      { name: "Server 9", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.m3u8", type: "hls" },
     ] },
   { name: "Bein Sport 2", groups: ["sports"], icon: "futbol",
     servers: [
