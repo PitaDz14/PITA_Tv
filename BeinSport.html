@@ -96,6 +96,9 @@
         iframe.allowFullscreen = true;
         iframe.referrerPolicy = "no-referrer-when-downgrade";
         iframe.setAttribute("allowfullscreen", "");
+        // حماية من الإعلانات: بدون allow-popups و allow-top-navigation
+        // تُمنع النوافذ الجديدة وتحويل الصفحة الأم إلى صفحات إعلانية.
+        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
         playerEl.appendChild(iframe);
         document.title = channel.name;
       }
