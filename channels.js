@@ -260,6 +260,7 @@ var CHANNELS = [
   { name: "Bein Sport News", groups: ["sports"], icon: "futbol",
        servers: [
       { name: "Server 0", url: "https://channel.aflam4you.net/playeraf.php?vid=31&aflam_s=1&aflam_k=forex121", type: "iframe" },
+    ] },
   { name: "Bein Sport Global", groups: ["sports"], icon: "futbol",
        servers: [
       { name: "Server 0", url: "http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_hd/tracks-v1a1/mono.m3u8", type: "hls" },
