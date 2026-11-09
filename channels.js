@@ -349,8 +349,10 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 10", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_10_hd/tracks-v1a1/mono.m3u8", type: "hls" },
-      { name: "Server 1", url: "https://2cdn.syria-player.info/play.php?channel=bein10", type: "iframe" }
+      { name: "Server 0", url: "https://matchora.to/embed/channel/1660393", type: "iframe" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_10_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://matchora.to/embed/channel/1660394", type: "iframe" },
+      { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein10", type: "iframe" }
     ] },
   { name: "Sport 1", url: "watch.html?id=sport1", groups: ["sports"], icon: "futbol" },
   { name: "Sport 2", url: "watch.html?id=sport2", groups: ["sports"], icon: "futbol" },
