@@ -285,7 +285,8 @@ var CHANNELS = [
       { name: "Server 2", url: "https://2cdn.syria-player.info/play.php?channel=bein2", type: "iframe" },
       { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein2/master.m3u8", type: "hls" },
       { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9262", type: "ts" },
-      { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2.jnjnil.qzz.io/live/kora2/index.m3u8", type: "hls" },      
+      { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2.jnjnil.qzz.io/live/kora2/index.m3u8", type: "hls" }, 
+      { name: "Server 6", url: "https://channel.aflam4you.net/zzremb472.php?vid=2&aflam_s=1&aflam_w=360&aflam_h=250&aflam_k=11zhzz623324", type: "iframe" }, 
     ] },
   { name: "Bein Sport 3", groups: ["sports"], icon: "futbol",
     servers: [ 
