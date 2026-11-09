@@ -259,8 +259,7 @@ var CHANNELS = [
   // ───────── رياضة ─────────
   { name: "Bein Sport News", groups: ["sports"], icon: "futbol",
        servers: [
-      { name: "Server 0", url: "https://channel.aflam4you.net/playerae.php?vid=31", type: "hls" },
-      { name: "Server 1", url: "https://channel.aflam4you.net/playeraf.php?vid=31&aflam_s=1&aflam_k=forex121", type: "iframe" },
+      { name: "Server 0", url: "bein_sports_news.html", type: "iframe" },
     ] },
   { name: "Bein Sport Global", groups: ["sports"], icon: "futbol",
        servers: [
