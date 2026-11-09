@@ -326,10 +326,11 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 7", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_7_hd/tracks-v1a1/mono.m3u8", type: "hls" },
-      { name: "Server 1", url: "https://matchora.to/embed/channel/1660401", type: "iframe" },
-      { name: "Server 2", url: "https://2cdn.syria-player.info/play.php?channel=bein7", type: "iframe" },
-      { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9257", type: "ts" },
+      { name: "Server 0", url: "https://matchora.to/embed/channel/1660402", type: "iframe" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_7_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://matchora.to/embed/channel/1660401", type: "iframe" },
+      { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein7", type: "iframe" },
+      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9257", type: "ts" },
     ] },
   { name: "Bein Sport 8", groups: ["sports"], icon: "futbol",
     servers: [
