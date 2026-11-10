@@ -265,6 +265,7 @@ var CHANNELS = [
   { name: "Bein Sport Global", groups: ["sports"], icon: "futbol",
        servers: [
       { name: "Server 0", url: "http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+      { name: "Server 0", url: "http://falcon-sa.xyz:80/5987441942/3275942594/212311", type: "ts" },
     ] },
   { name: "Bein Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
