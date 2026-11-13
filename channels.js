@@ -423,7 +423,7 @@ var CHANNELS = [
   { name: "IRIB 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://cp11.adabmedia.com/hls2/tv3test.m3u8", groups: ["sports"], icon: "futbol" },
   { name: "Koora Sport", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 0", url: "https://m.yalla4live.live/bsez1.m3u8", type: "hls" },
+      { name: "Server 0", url: "https://7fe49507916bb069ad1020f07a325cc2.dynbush.net/e/2vrrwa6daukfj"},
       { name: "Server 1", url: "https://matchora.to/embed/channel/1660411", type: "iframe" },
       { name: "Server 2", url: "https://wp.machedge.site/farda1.m3u8", type: "hls" },
       { name: "Server 3", url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4858305&key=9f39972b67d6ce22189507d008acwc26", type: "iframe" }
