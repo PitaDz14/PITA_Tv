@@ -380,3 +380,6 @@ footer{margin-top:12px;padding:36px 18px calc(36px + var(--safe-b));border-top:1
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* إخفاء زر "البث الرسمي" (يُنشأ من app.js في موضعين) */
+.open-source-btn { display: none !important; }
