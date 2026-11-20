@@ -151,7 +151,7 @@ var CHANNELS = [
   { name: "L'Equipe", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/8.m3u8", type: "hls", groups: ["french"], icon: "futbol" },
 
   // ───────── القنوات السعودية ─────────
-  { name: "القرآن الكريم", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=qoran_tv1", groups: ["saudi"], icon: "quran" },
+  { name: "القرآن الكريم", url: "https://cdn-globecast.akamaized.net/live/eds/saudi_quran/hls_roku/saudi_quran-avc1_600000=2-mp4a_145600_ara=3.m3u8", groups: ["saudi"], icon: "quran" },
   { name: "السنة النبوية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=suna_tv1", groups: ["saudi"], icon: "mosque" },
   { name: "الأولى السعودية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=saudi_1", groups: ["saudi"] },
   { name: "القناة الإخبارية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=ekhbariyatv", groups: ["saudi"], icon: "newspaper" },
