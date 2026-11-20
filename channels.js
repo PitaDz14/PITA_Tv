@@ -413,7 +413,7 @@ var CHANNELS = [
     ] },
   { name: "السلام", title: "قناة السلام الفلسطينية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=salam_tv", groups: ["palestinian"] },
   { name: "Duhok Sport", title: "DUHOK", url: "player.html", groups: ["sports"], icon: "futbol" },
-  { name: "SPORTS رياضية", groups: ["sports"], icon: "futbol",
+  { name: "SPORTS رياضية", title: "قناة الرياضية", url: "https://k3.baranewssumsel.online/hls/kora5/480p/index.m3u8", groups: ["sports"], icon: "futbol",
     servers: [
       { name: "Server 1", url: "http://4kgood.org/live/Ayouragadi_988033/wsyxICxa/1641618.m3u8", type: "hls" },
       { name: "Server 2", url: "https://zon.pooonflok.store/cema1.m3u8", type: "hls" }
