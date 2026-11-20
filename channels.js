@@ -258,7 +258,7 @@ var CHANNELS = [
   // ───────── رياضة ─────────
   { name: "Bein Sport News", groups: ["sports"], icon: "futbol",
        servers: [
-      { name: "Server test", url: "https://shifter.io/cn/web-proxy/browse?url=https://www.youtube.com/embed/j4mTqxp2txU?autoplay=1&rel=0&modestbranding=1&country=dz", type: "iframe" },
+      { name: "Server test", url: "bN.html" },
       { name: "Server 1", url: "BeinSport.html?id=bein_sport_News", type: "iframe" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://falcon-sa.xyz:80/5987441942/3275942594/212312", type: "ts" },
     ] },
