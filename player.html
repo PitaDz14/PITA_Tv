@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Duhok Sport</title>
+  <style>
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000;font-family:Arial,sans-serif}
+    #site{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}
+    #status{position:fixed;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#fff;background:#000;font-size:15px}
+    #bar{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:5;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;pointer-events:none}
+    #bar a{pointer-events:auto;display:inline-block;padding:9px 18px;border-radius:999px;background:#e11d48e6;color:#fff;
+      text-decoration:none;font-size:14px;box-shadow:0 4px 14px #0008}
+    #bar a.alt{background:#334155e6}
+    #hint{position:fixed;top:10px;left:10px;right:10px;z-index:4;text-align:center;color:#cbd5e1;background:#000b;
+      padding:8px 12px;border-radius:10px;font-size:13px;line-height:1.6}
+    [hidden]{display:none!important}
+  </style>
+</head>
+<body>
+  <div id="status">جاري البحث عن البث الحالي…</div>
+  <iframe id="site" hidden referrerpolicy="no-referrer"
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+  <div id="hint" hidden></div>
+  <div id="bar">
+    <a id="openOk" class="alt" href="https://ok.ru/" target="_blank" rel="noopener" hidden>فتح على ok.ru ↗</a>
+    <a id="open" href="https://duhoksport.net/" target="_blank" rel="noopener">فتح الموقع الرسمي ↗</a>
+  </div>
+  <script>
+    (function () {
+      "use strict";
+      // بث Duhok فيديو على ok.ru يتغيّر رقمه كل أيام. الرقم الحالي يُقرأ من config/duhok.json في مستودعك
+      // (غيّره من GitHub في ثوانٍ عند بدء بث جديد) فنضمّن ok.ru مباشرة؛ المتصفح هو من يفتحه
+      // فلا مشكلة ربط بالـ IP ولا حاجة لاستخراج آلي من موقعهم المحمي.
+      var CONFIG_URL = "config/duhok.json";
+      var LAST_KNOWN_ID = "15891924131507";     // احتياط إن تعذّر قراءة الملف
+      var RECHECK_MS = 3 * 60 * 1000;           // نعيد قراءة الملف كل 3 دقائق: إن تغيّر الرقم نبدّل البث دون إعادة تحميل
+
+      var frame = document.getElementById("site");
+      var statusBox = document.getElementById("status");
+      var hint = document.getElementById("hint");
+      var openOk = document.getElementById("openOk");
+      var current = "";
+
+      function showHint(text, ms) {
+        hint.textContent = text; hint.hidden = !text;
+        if (text && ms) setTimeout(function () { hint.hidden = true; }, ms);
+      }
+
+      function show(id, note) {
+        if (!/^\d{9,}$/.test(id)) return;
+        if (id !== current) {
+          current = id;
+          frame.src = "https://ok.ru/videoembed/" + id + "?nochat=1&autoplay=1";
+          openOk.href = "https://ok.ru/video/" + id;
+          openOk.hidden = false;
+        }
+        frame.hidden = false; statusBox.hidden = true;
+        showHint(note || "", 15000);
+      }
+
+      function check() {
+        fetch(CONFIG_URL + "?t=" + Date.now(), { cache: "no-store" })
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+          .then(function (d) { show(String((d && d.id) || ""), ""); })
+          .catch(function (err) {
+            console.warn("duhok config unavailable:", err);
+            if (!current) show(LAST_KNOWN_ID, "تعذّر قراءة إعداد البث — يُعرض آخر بث معروف. إن لم يعمل اضغط «فتح الموقع الرسمي».");
+          });
+      }
+
+      check();
+      setInterval(check, RECHECK_MS);
+    })();
+  </script>
+</body>
+</html>

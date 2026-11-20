@@ -1,0 +1,10 @@
+{
+  "channel": "Sport 7",
+  "id": "sport7",
+  "stream_url": null,
+  "source_url": null,
+  "updated_at": "2026-11-20T12:27:10Z",
+  "expires_at": null,
+  "status": "fallback",
+  "detail": "بث المصدر ميّت (سيرفر 2 من channelServers · ✗ HTTP 530) — يُعرض للمشاهد تنبيه فقط (بلا رابط المصدر)"
+}

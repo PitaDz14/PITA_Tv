@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>قنواتي الفرنسية (استخدام شخصي)</title>
+<style>
+  :root{--bg:#fff;--fg:#1a1a1a;--card:#f1f1f1;--bd:#d0d0d0;--ac:#0b6bcb}
+  @media (prefers-color-scheme:dark){:root{--bg:#121212;--fg:#eee;--card:#1e1e1e;--bd:#333;--ac:#5aa9ff}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,Segoe UI,Tahoma,sans-serif}
+  header{padding:12px 16px;border-bottom:1px solid var(--bd)}
+  h1{margin:0 0 6px;font-size:1.1rem}
+  .note{font-size:.8rem;opacity:.75;margin:0 0 8px}
+  input{width:100%;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+  .tabs{display:flex;gap:8px;margin-top:8px}
+  .tabs button{padding:5px 12px;border:1px solid var(--bd);border-radius:16px;background:var(--card);color:var(--fg);cursor:pointer;font:inherit;font-size:.85rem}
+  .tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+  #list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;padding:12px 16px}
+  .ch{padding:12px 8px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--fg);cursor:pointer;font:inherit;font-weight:600}
+  .ch:hover{border-color:var(--ac)}
+  #modal{display:none;position:fixed;inset:0;background:#000;z-index:10;flex-direction:column}
+  #modal.show{display:flex}
+  #bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#111;color:#fff;gap:8px}
+  #bar button,#bar a{padding:4px 12px;border-radius:14px;border:1px solid #555;background:#222;color:#fff;text-decoration:none;font:inherit;font-size:.85rem;cursor:pointer}
+  iframe{flex:1;border:0;width:100%}
+</style>
+</head>
+<body>
+<header>
+  <h1>قنواتي الفرنسية — ملف شخصي خارج المشروع</h1>
+  <p class="note">هذه الصفحات تعرض إعلانات من المصدر؛ استعمل هذا الملف على أجهزتك التي فيها مانع إعلانات فقط.</p>
+  <input id="q" type="search" placeholder="ابحث عن قناة…">
+  <div class="tabs">
+    <button data-g="all" class="on">الكل</button>
+    <button data-g="french">عامة</button>
+    <button data-g="sports_fr">رياضة</button>
+  </div>
+</header>
+<div id="list"></div>
+<div id="modal">
+  <div id="bar"><span id="t"></span><span><a id="ext" target="_blank" rel="noopener noreferrer">فتح في تبويب ↗</a> <button id="x">إغلاق ✕</button></span></div>
+</div>
+<script>
+const CH = [
+ {
+  "n": "TF1",
+  "u": "https://wideiptv.top/player/TF1FR",
+  "g": "french"
+ },
+ {
+  "n": "France 2",
+  "u": "https://wideiptv.top/player/France2",
+  "g": "french"
+ },
+ {
+  "n": "France 3",
+  "u": "https://wideiptv.top/player/France3",
+  "g": "french"
+ },
+ {
+  "n": "France 4",
+  "u": "https://wideiptv.top/player/France4",
+  "g": "french"
+ },
+ {
+  "n": "France 5",
+  "u": "https://wideiptv.top/player/France5",
+  "g": "french"
+ },
+ {
+  "n": "M6",
+  "u": "https://wideiptv.top/player/M6FR",
+  "g": "french"
+ },
+ {
+  "n": "ARTE",
+  "u": "https://wideiptv.top/player/ARTEFR",
+  "g": "french"
+ },
+ {
+  "n": "CNEWS",
+  "u": "https://wideiptv.top/player/CNEWSFR",
+  "g": "french"
+ },
+ {
+  "n": "CANAL",
+  "u": "https://wideiptv.top/player/CANALPLFR",
+  "g": "french"
+ },
+ {
+  "n": "L'Equipe",
+  "u": "https://wideiptv.top/player/ER1FR",
+  "g": "french"
+ },
+ {
+  "n": "L'Equipe",
+  "u": "https://wideiptv.top/player/ER1FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "Eurosport 1 FR",
+  "u": "https://wideiptv.top/player/Euro1FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "Eurosport 2 FR",
+  "u": "https://wideiptv.top/player/Euro2FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "BEIN SPORT 1 FR",
+  "u": "https://wideiptv.top/player/BEINSPORT1FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "BEIN SPORT 2 FR",
+  "u": "https://wideiptv.top/player/BEINSPORT2FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "BEIN SPORT 3 FR",
+  "u": "https://wideiptv.top/player/BEINSPORT3FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "CANAL+ SPORT",
+  "u": "https://wideiptv.top/player/CANALSPORTFR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "CANAL+ SPORT 360",
+  "u": "https://wideiptv.top/player/CANALS360",
+  "g": "sports_fr"
+ },
+ {
+  "n": "CANAL+ FOOT",
+  "u": "https://wideiptv.top/player/FOOTPLUSFR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "DAZN 1 FR",
+  "u": "https://wideiptv.top/player/DAZN1FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "Canal+ Sport Afrique",
+  "u": "https://wideiptv.top/player/CNPLSP1AF",
+  "g": "sports_fr"
+ },
+ {
+  "n": "beIN MAX 4 FR",
+  "u": "https://wideiptv.top/player/beINMAX4FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "beIN MAX 5 FR",
+  "u": "https://wideiptv.top/player/beINMAX5FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "beIN MAX 6 FR",
+  "u": "https://wideiptv.top/player/beINMAX6FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "beIN MAX 7 FR",
+  "u": "https://wideiptv.top/player/beINMAX7FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "beIN MAX 8 FR",
+  "u": "https://wideiptv.top/player/beINMAX8FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "beIN MAX 9 FR",
+  "u": "https://wideiptv.top/player/beINMAX9FR",
+  "g": "sports_fr"
+ },
+ {
+  "n": "RMC SPORT 1 FR",
+  "u": "https://thedaddy.li/stream/stream-119.php",
+  "g": "sports_fr"
+ },
+ {
+  "n": "RMC SPORT 2 FR",
+  "u": "https://wideiptv.top/player/RMCSPORT2FR",
+  "g": "sports_fr"
+ }
+];
+let g='all';
+const list=document.getElementById('list'), q=document.getElementById('q'), modal=document.getElementById('modal');
+function render(){
+  const k=q.value.trim().toLowerCase();
+  list.textContent='';
+  CH.filter(c=>(g==='all'||c.g===g)&&c.n.toLowerCase().includes(k)).forEach(c=>{
+    const b=document.createElement('button');b.className='ch';b.textContent=c.n;b.onclick=()=>play(c);list.appendChild(b);
+  });
+}
+function play(c){
+  closeP();
+  document.getElementById('t').textContent=c.n;
+  document.getElementById('ext').href=c.u;
+  const f=document.createElement('iframe');
+  f.src=c.u;f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;
+  modal.appendChild(f);modal.classList.add('show');
+}
+function closeP(){const f=modal.querySelector('iframe');if(f)f.remove();modal.classList.remove('show')}
+document.getElementById('x').onclick=closeP;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeP()});
+q.oninput=render;
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');g=b.dataset.g;render();
+});
+render();
+</script>
+</body>
+</html>

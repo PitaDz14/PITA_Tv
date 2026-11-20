@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PITA TV — فحص رابط بث</title>
+<style>
+  body{margin:0;background:#0b0f14;color:#e8eef5;font:16px/1.7 system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;padding:16px}
+  main{max-width:820px;margin:0 auto}
+  h1{font-size:1.3rem;margin:.2em 0 .6em}
+  input[type=text]{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #2a3644;background:#121a24;color:#fff;direction:ltr;text-align:left;font:15px monospace}
+  .row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+  button{padding:10px 16px;border-radius:10px;border:0;background:#1fb57a;color:#04150e;font:700 15px inherit;cursor:pointer}
+  button.alt{background:#2a3644;color:#fff}
+  label{display:inline-flex;align-items:center;gap:6px;margin-inline-end:14px}
+  pre{background:#121a24;border:1px solid #2a3644;border-radius:10px;padding:12px;white-space:pre-wrap;word-break:break-all;direction:ltr;text-align:left;font:13px/1.6 monospace;min-height:3em}
+  video{width:100%;background:#000;border-radius:10px;aspect-ratio:16/9}
+  .ok{color:#4ade80}.bad{color:#f87171}.warn{color:#fbbf24}
+  small{color:#8da0b5}
+</style>
+</head>
+<body>
+<main>
+  <h1>فحص رابط بث</h1>
+  <small>افتح هذه الصفحة من موقعك نفسه (pitadz14.github.io/…/test.html) وإلا سيرفض الوسيط الطلب بسبب الحماية.</small>
+  <p><input id="p" type="text" placeholder="رابط الوسيط" value="https://pita-proxy.khaled26101992.workers.dev/"></p>
+  <p><input id="u" type="text" placeholder="http://server:port/user/pass/12345" value="http://131.123.40.197:2095/mrt6666tv/mrt0302cc00mm55/76054"></p>
+  <div class="row">
+    <label><input type="checkbox" id="viaProxy" checked> عبر الوسيط</label>
+    <button id="bCheck">1) فحص الرد</button>
+    <button id="bTs" class="alt">2) تشغيل كـ TS (mpegts.js)</button>
+    <button id="bHls" class="alt">3) تشغيل كـ HLS</button>
+    <button id="bStop" class="alt">إيقاف</button>
+  </div>
+  <pre id="log">اضغط «فحص الرد» أولًا.</pre>
+  <video id="v" controls playsinline muted></video>
+</main>
+
+<script src="vendor/mpegts.js"></script>
+<script src="vendor/hls.min.js"></script>
+<script>
+const proxyBase = () => { let b = $('p').value.trim(); return b.endsWith('/') ? b : b + '/'; };
+const $ = (id) => document.getElementById(id);
+const logEl = $('log'), video = $('v');
+let ts = null, hls = null;
+
+function log(msg, cls) { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = msg; logEl.appendChild(d); }
+function reset() { logEl.textContent = ''; }
+function finalUrl() {
+  const raw = $('u').value.trim();
+  return $('viaProxy').checked ? proxyBase() + '?u=' + encodeURIComponent(raw) : raw;
+}
+function stop() {
+  try { if (ts) { ts.pause(); ts.unload(); ts.detachMediaElement(); ts.destroy(); } } catch (e) { }
+  try { if (hls) hls.destroy(); } catch (e) { }
+  ts = hls = null; video.removeAttribute('src'); video.load();
+}
+const hex = (u8) => [...u8.subarray(0, 16)].map((b) => b.toString(16).padStart(2, '0')).join(' ');
+
+$('bCheck').onclick = async () => {
+  stop(); reset();
+  const url = finalUrl();
+  log('الطلب: ' + url.replace(/\/\/[^/]+/, (m) => m));
+  const t0 = performance.now();
+  try {
+    const ac = new AbortController(); const timer = setTimeout(() => ac.abort(), 15000);
+    const r = await fetch(url, { signal: ac.signal });
+    log('HTTP ' + r.status + '  |  Content-Type: ' + (r.headers.get('Content-Type') || '(لا يوجد)'), r.ok ? 'ok' : 'bad');
+    const reader = r.body.getReader();
+    let got = new Uint8Array(0);
+    // نقرأ حتى ~100KB كحد أقصى لنرى هل يتدفق البث فعلًا
+    while (got.length < 100000) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const n = new Uint8Array(got.length + value.length); n.set(got); n.set(value, got.length); got = n;
+      if (performance.now() - t0 > 12000) break;
+    }
+    try { ac.abort(); } catch (e) { } clearTimeout(timer);
+    log('وصل ' + got.length + ' بايت خلال ' + Math.round(performance.now() - t0) + ' مللي ثانية');
+    const text = new TextDecoder().decode(got.subarray(0, 300));
+    log('أول البايتات: ' + hex(got));
+    if (!r.ok) log('السيرفر رفض: ' + text.replace(/\s+/g, ' ').slice(0, 250), 'bad');
+    else if (/^\s*#EXTM3U/.test(text)) log('النتيجة: قائمة HLS ← استعمل الزر 3', 'ok');
+    else if (got[0] === 0x47 && got[188] === 0x47) log('النتيجة: بثّ MPEG-TS سليم ← استعمل الزر 2', 'ok');
+    else if (got.length === 0) log('النتيجة: لا بيانات (السيرفر أغلق الاتصال أو لا يوجد بث)', 'bad');
+    else log('النتيجة: ليس بثًّا معروفًا. النص: ' + text.replace(/[^\x20-\x7E]/g, ' ').replace(/\s+/g, ' ').slice(0, 250), 'warn');
+  } catch (e) {
+    log('فشل الاتصال: ' + (e.name === 'AbortError' ? 'انتهت المهلة (15 ثانية)' : e.message), 'bad');
+    log('إن كان الوسيط يرفض: تأكد أن الصفحة مفتوحة من pitadz14.github.io، وأن الـ Worker المحدَّث منشور.', 'warn');
+  }
+};
+
+$('bTs').onclick = () => {
+  stop(); reset();
+  if (!mpegts.isSupported()) { log('المتصفح لا يدعم MSE/mpegts', 'bad'); return; }
+  ts = mpegts.createPlayer({ type: 'mpegts', isLive: true, url: finalUrl() }, { enableWorker: true, liveBufferLatencyChasing: true });
+  ts.attachMediaElement(video);
+  ts.on(mpegts.Events.MEDIA_INFO, (mi) => log('الترميز: فيديو=' + mi.videoCodec + '  صوت=' + mi.audioCodec + '  ' + (mi.width || '?') + 'x' + (mi.height || '?'), 'ok'));
+  ts.on(mpegts.Events.ERROR, (t, d, info) => {
+    log('خطأ mpegts: ' + t + ' / ' + d + (info && info.msg ? ' / ' + info.msg : ''), 'bad');
+    if (d === 'MediaMSEError') log('المتصفح فشل في فك ترميز البث (البيانات وصلت لكن لم تُفكّ). تحقق من ترميز الصوت: إن كان MPEG Audio Layer 2 (MP2) فلن يعمل في المتصفح.', 'warn');
+    try { ts.pause(); ts.unload(); } catch (e) { }      // نتوقف عند أول خطأ بدل تكراره
+  });
+  ts.on(mpegts.Events.STATISTICS_INFO, (() => { let shown = false; return (s) => { if (!shown && s.speed > 0) { shown = true; log('البيانات تصل (سرعة ≈ ' + Math.round(s.speed) + ' KB/s)', 'ok'); } }; })());
+  ts.load(); video.muted = true;
+  const p = ts.play(); if (p && p.catch) p.catch((e) => log('تعذّر التشغيل التلقائي: ' + e.message, 'warn'));
+  log('جارٍ التشغيل… (الفيديو بدون صوت مبدئيًا؛ ارفع الصوت من المشغّل)');
+};
+
+$('bHls').onclick = () => {
+  stop(); reset();
+  if (!window.Hls || !Hls.isSupported()) { log('hls.js غير مدعوم', 'bad'); return; }
+  hls = new Hls();
+  hls.on(Hls.Events.ERROR, (e, d) => log('خطأ hls: ' + d.type + ' / ' + d.details + (d.response && d.response.code ? ' / HTTP ' + d.response.code : ''), d.fatal ? 'bad' : 'warn'));
+  hls.on(Hls.Events.MANIFEST_PARSED, () => log('تم تحليل قائمة HLS', 'ok'));
+  hls.loadSource(finalUrl()); hls.attachMedia(video); video.muted = true;
+  video.play().catch(() => { });
+  log('جارٍ التشغيل…');
+};
+$('bStop').onclick = () => { stop(); log('أُوقف.'); };
+</script>
+</body>
+</html>
