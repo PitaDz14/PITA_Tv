@@ -417,7 +417,7 @@ var CHANNELS = [
     servers: [
       { name: "Server 0", url: "http://4kgood.org/live/Ayouragadi_988033/wsyxICxa/1641618.m3u8", type: "hls" },
       { name: "Server 1", url: "https://15m2c7.5gkygx509kqv.net:8443/hls/lav3hitu5yyum-51129090.ts", type: "ts" },
-      { name: "Server 2", url: "https://zon.pooonflok.store/cema1.m3u8", type: "hls" }
+      { name: "Server 2", url: "https://waterera.net/e/5sctwxzk79won" }
     ] },
   { name: "IRIB Varzesh", title: "IRIB VARZESH", url: "https://cp11.adabmedia.com/hls2/varzeshtest.m3u8", groups: ["sports"], icon: "futbol" },
   { name: "Idman TV AZ", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/5KLVA2TCEWQTMK/2198/index.m3u8", groups: ["sports"], icon: "futbol" },
