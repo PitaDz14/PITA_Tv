@@ -1,5 +1,5 @@
 // PITA TV service worker — شبكة أولًا لصفحة الموقع حتى تصل التحديثات فورًا، وتخزين احتياطي عند انقطاع الإنترنت.
-const CACHE_NAME = 'pita-tv-v8';
+const CACHE_NAME = 'pita-tv-v9';
 const SHELL = ['./', './index.html', './style.css', './app.js', './channels.js', './manifest.json'];
 
 self.addEventListener('install', event => {
