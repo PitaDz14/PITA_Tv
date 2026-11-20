@@ -425,7 +425,7 @@ var CHANNELS = [
     servers: [
       { name: "Server 0", url: "https://sportsoonline.click/channels/hd/hd4.php"},
       { name: "Server 1", url: "https://matchora.to/embed/channel/1660411", type: "iframe" },
-      { name: "Server 2", url: "https://wp.machedge.site/farda1.m3u8", type: "hls" },
+      { name: "Server 2", url: "https://15m2c7.5gkygx509kqv.net:8443/hls/lav3hitu5yyum-3789090.ts" },
       { name: "Server 3", url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4858305&key=9f39972b67d6ce22189507d008acwc26", type: "iframe" }
     ] },
   { name: "MBC_ACTION", url: "http://149.100.11.252:8000/play/a029/index.m3u8", type: "hls", groups: ["sports"], icon: "futbol" },
