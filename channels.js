@@ -273,7 +273,7 @@ var CHANNELS = [
       { name: "Server 1", url: "https://edge22.358598.ir.cdn.ir/hls2/bein1.m3u8", type: "hls" },
       { name: "Server 2", url: "https://balance.footballii.ir/hls2/bein1.m3u8", type: "hls" },
       { name: "Server 3", url: "https://cp11.adabmedia.com/hls2/sport.m3u8", type: "hls" },
-      { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+      { name: "Server 4", url: "https://ayassport.776740.ir.cdn.ir/hls2/sport.m3u8", type: "hls" },
       { name: "Server 5", url: "https://2cdn.syria-player.info/play.php?channel=bein1", type: "iframe" },
       { name: "Server 6", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9263", type: "ts" },
       { name: "Server 7", url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4828703&key=9f39972b67d6ce22189507d008acwc26", type: "iframe" }, 
