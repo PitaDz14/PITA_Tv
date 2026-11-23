@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فحص سيرفرات Sport</title>
+<style>
+  body{font-family:Arial,sans-serif;background:#0b1220;color:#e8eef8;margin:0;padding:16px}
+  h1{font-size:18px;margin:0 0 10px}
+  button{background:#1679bd;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+  button:disabled{opacity:.5}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
+  th,td{border-bottom:1px solid #223;padding:7px 6px;text-align:right;vertical-align:top}
+  .ok{color:#45c99a;font-weight:bold}.bad{color:#ff8585;font-weight:bold}.wait{color:#9bb}
+  code{direction:ltr;unicode-bidi:embed;font-size:11px;color:#9ab;word-break:break-all}
+  .note{color:#9ab;font-size:12px;margin:6px 0}
+</style>
+</head>
+<body>
+<h1>فحص سيرفرات Sport 1 – 8 عبر الـ Worker</h1>
+<p class="note">افتح هذه الصفحة من موقعك المنشور (ليس من ملف محلي)، ثم اضغط «ابدأ الفحص». الحالة تأتي من الـ Worker وتعني: هل استجاب سيرفر البث له أم لا.</p>
+<button id="go">ابدأ الفحص</button>
+<table id="t"><thead><tr><th>القناة</th><th>السيرفر</th><th>النتيجة</th><th>التفاصيل</th></tr></thead><tbody></tbody></table>
+<script src="channels.js"></script>
+<script>
+(function(){
+  var rows=[];
+  (window.CHANNELS||CHANNELS).forEach(function(c){
+    if(!/^Sport [1-8]$/.test(c.name)||!c.servers) return;
+    c.servers.forEach(function(s){ rows.push({ch:c.name,sv:s.name,url:s.url}); });
+  });
+  var tb=document.querySelector('#t tbody');
+  rows.forEach(function(r){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td>'+r.ch+'</td><td>'+r.sv+'</td><td class="wait">—</td><td><code></code></td>';
+    tr.lastChild.firstChild.textContent=r.url.replace(/^https:\/\/[^/]+\/\?u=/,'');
+    tb.appendChild(tr); r.tr=tr;
+  });
+  function show(r,cls,txt,extra){
+    var td=r.tr.children[2]; td.className=cls; td.textContent=txt;
+    if(extra){ var d=document.createElement('div'); d.className='note'; d.textContent=extra; r.tr.children[3].appendChild(d); }
+  }
+  async function check(r){
+    show(r,'wait','...');
+    var ctl=new AbortController(), to=setTimeout(function(){ctl.abort()},25000);
+    try{
+      var res=await fetch(r.url+'&debug=stream',{signal:ctl.signal,cache:'no-store'});
+      var txt=await res.text(), j=null; try{j=JSON.parse(txt)}catch(e){}
+      if(j&&j.ok){
+        show(r,j.detected_playlist?'ok':'bad',(j.detected_playlist?'يعمل (HLS) ':'ردّ لكنه ليس HLS ')+j.upstream_status,'content-type: '+(j.content_type||'-'));
+      }else{
+        show(r,'bad','فشل '+res.status,txt.replace(/\s+/g,' ').slice(0,220));
+      }
+    }catch(e){
+      show(r,'bad','لا اتصال',e.name==='AbortError'?'انتهت المهلة (25 ثانية)':String(e.message||e));
+    }finally{clearTimeout(to)}
+  }
+  document.getElementById('go').onclick=async function(){
+    var b=this; b.disabled=true;
+    var i=0;
+    async function worker(){ while(i<rows.length){ await check(rows[i++]); } }
+    await Promise.all([worker(),worker(),worker()]);
+    b.disabled=false; b.textContent='أعد الفحص';
+  };
+})();
+</script>
+</body>
+</html>

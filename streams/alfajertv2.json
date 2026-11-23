@@ -1,0 +1,10 @@
+{
+  "channel": "Alfajer TV 2",
+  "id": "alfajertv2",
+  "stream_url": "https://raw.githubusercontent.com/gmswf/hls/main/master.m3u8",
+  "source_url": "https://www.elahmad.ru/tv/watchtv.php?id=alfajertv2",
+  "updated_at": "2026-11-20T07:49:02Z",
+  "expires_at": null,
+  "status": "ok",
+  "detail": "Alfajer TV 2 · فُكّ من AES-CBC · ✅ سليم"
+}
