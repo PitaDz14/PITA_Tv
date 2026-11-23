@@ -269,6 +269,7 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
+      { name: "Bein1", url: "https://live12.ir/sp/hls.html?link=https://cp11.adabmedia.com/hls2/bein1.m3u8&title=ayastv", type: "iframe" },
       { name: "Server 0", url: "https://matchora.pro/embed/channel/1660413", type: "iframe" },
       { name: "Server 1", url: "https://edge22.358598.ir.cdn.ir/hls2/bein1.m3u8", type: "hls" },
       { name: "Server 2", url: "https://balance.footballii.ir/hls2/bein1.m3u8", type: "hls" },
