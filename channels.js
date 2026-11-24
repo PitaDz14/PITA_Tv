@@ -256,7 +256,7 @@ var CHANNELS = [
   // ───────── رياضة ─────────
   { name: "Bein Sport News", groups: ["sports"], icon: "futbol",
        servers: [
-      { name: "Server 1", url: "https://channel.aflam4you.net/playerae.php?vid=31&aflam_s=1&aflam_k=forex55", type: "iframe" },
+      { name: "Server 1", url: "https://channel.aflam4you.net/playeraf.php?vid=31&aflam_s=1&aflam_k=forex121", type: "iframe" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://falcon-sa.xyz:80/5987441942/3275942594/212312", type: "ts" },
     ] },
   { name: "Bein Sport Global", groups: ["sports"], icon: "futbol",
