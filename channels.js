@@ -378,7 +378,6 @@ var CHANNELS = [
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://blcco.linkip.org/live/3460_.m3u8", type: "hls" },
       { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://lbgo.bozztv.com/ssh101/ssh101/alwan6websitealwanlive6/chunks.m3u8", type: "hls" },
       { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://lbgo.bozztv.com/ssh101/ssh101/yusfdara1371523/chunks.m3u8", type: "hls" },
-      { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://lbgo.bozztv.com/ssh101/ssh101/avasport123/chunks.m3u8", type: "hls" },
     ] },
   { name: "Sport 3", groups: ["sports"], icon: "futbol",
     servers: [
@@ -391,7 +390,6 @@ var CHANNELS = [
     servers: [
       { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_4_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://lbgo.bozztv.com/ssh101/live/biner-zaxo/playlist.m3u8", type: "hls" },
-      { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://lbgo.bozztv.com/ssh101/ssh101/avasport123/chunks.m3u8", type: "hls" },
       { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://lbgo.bozztv.com/ssh101/ssh101/alwan4websitealwanlive2/chunks.m3u8", type: "hls" },
     ] },
   { name: "Sport 5", groups: ["sports"], icon: "futbol",
@@ -419,6 +417,7 @@ var CHANNELS = [
       { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_8_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/cZvRNpyhu0XHzkGqKKaJzIqadoXMIDs4usw58wXS90tf1_eUQ9UHD2lb0w4e0oMssvI0QAUSy_mS-GsGyrqlow/transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ18xMDgwcDMwXzEwIiwiSGVpZ2h0IjoxMDgwLCJLYnBzIjo1NTAwLCJXaWR0aCI6MTkyMH0.OImMZabKYJ0cs9CnIapU-4aBk6KNBiJxi1hh-6l4BZ4/dynamic_delta.m3u8?type=live", type: "hls" },
     ] },
+  { name: "AVA SPORT", url: "https://183.giatvcdn.com/giatv/giatv-yusfstoreavasport/yusfstoreavasport/chunks.m3u8", groups: ["sports"], icon: "futbol" },
   { name: "Alkass 1", url: "{proxy}?r=alkass1", type: "hls", groups: ["sports"], icon: "futbol" },
   { name: "Alkass 2", url: "{proxy}?r=alkass2", type: "hls", groups: ["sports"], icon: "futbol" },
   { name: "Alkass 3", url: "{proxy}?r=alkass3", type: "hls", groups: ["sports"], icon: "futbol" },
