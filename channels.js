@@ -283,7 +283,8 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 2", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_2_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_2_hd/tracks-v1a1/mono.m3u8", type: "hls" },
+      { name: "Server 1", url: "https://k3.baranewssumsel.online/hls/kora2/480p/index.m3u8", type: "hls" },
       { name: "Server 2", url: "https://matchora.to/embed/channel/1660411", type: "iframe" },
       { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein2", type: "iframe" },
       { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein2/master.m3u8", type: "hls" },
