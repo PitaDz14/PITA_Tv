@@ -1,10 +1,10 @@
 {
   "channel": "Sport 8",
   "id": "sport8",
-  "stream_url": "https://ameditv.ai.studio/api/proxy?url=https://df11.mp4.ir/video/2026/11/321750-569311593/m3u8/360p/out.m3u8",
+  "stream_url": "https://tessss.yusf-dara1000.workers.dev/bein8.m3u8",
   "source_url": null,
-  "updated_at": "2026-11-16T16:43:34Z",
+  "updated_at": "2026-11-25T15:22:06Z",
   "expires_at": null,
   "status": "ok",
-  "detail": "سيرفر 2 من channelServers · ✅ سليم"
+  "detail": "سيرفر 1 من channelServers · ✅ سليم"
 }
