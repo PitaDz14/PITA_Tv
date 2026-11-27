@@ -93,7 +93,7 @@ var CHANNELS = [
   { name: "Extra Live", groups: ["egyptian"], icon: "newspaper",
     servers: [
       { name: "Server 1", url: "https://www.youtube-nocookie.com/embed/live_stream?channel=UCXw5vClfMWccw-OocfhQHiA&autoplay=1", type: "iframe" },
-      { name: "Server 2", url: "https://www.elahmad.ru/tv/youtube.php?id=extralivetv", type: "open", type: "iframe" }
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/youtube.php?id=extralivetv", type: "iframe" }
     ] },
   { name: "CBC Sofra", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=cbc_sofra", type: "open", groups: ["egyptian"], icon: "utensils" },
   { name: "Al Ahly TV", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=alahly_tv", type: "open", groups: ["egyptian"], icon: "futbol" },
@@ -129,16 +129,17 @@ var CHANNELS = [
   { name: "الوطنية 1", title: "alWataniya الوطنية التونسية 1", groups: ["tunisian"],
     servers: [
       { name: "Server 1", url: "https://sw1.tanitweb.net/TunisiaTV/_definst_/watania1/chunklist.m3u8", type: "hls" },
-      { name: "Server 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watania1", type: "open", type: "iframe" }
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watania1", type: "iframe" }
     ] },
   { name: "الوطنية 2", title: "alWataniya الوطنية التونسية 2", groups: ["tunisian"],
     servers: [
       { name: "Server 1", url: "https://sw1.tanitweb.net/TunisiaTV/_definst_/watania2/playlist.m3u8?DVR", type: "hls" },
-      { name: "Server 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watania2", type: "open", type: "iframe" }
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=watania2", type: "iframe" }
     ] },
 
   // ───────── قنوات فرنسية ─────────
-  { name: "TF1", url: "https://cdn.hdm1.net/TF1FR/tracks-v1a1/mono.m3u8?token=VEYxRlJ8bm9fY2hlY2tfaXB8MTc5NTIwMDEwMQ%3D%3D.2d9f44236ea02467618c05c550414912b8a6a7ced3ecc1841f47d406e153770e", groups: ["french"] },
+  { name: "TF1", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1/live.livx/playlist.m3u8", groups: ["french"] },
+  { name: "TF1 Series Films", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1_series_films/live.livx/playlist.m3u8", groups: ["french"] },
   { name: "France 2", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/34.m3u8", type: "hls", groups: ["french"] },
   { name: "France 3", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/35.m3u8", type: "hls", groups: ["french"] },
   { name: "France 4", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/36.m3u8", type: "hls", groups: ["french"] },
@@ -244,7 +245,7 @@ var CHANNELS = [
   { name: "DW Arabic TV", groups: ["news"], icon: "globe",
     servers: [
       { name: "Server 1", url: "https://dwamdstream103.akamaized.net/hls/live/2015526/dwstream103/index.m3u8", type: "hls" },
-      { name: "Server 2", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=dwtvarabia", type: "open", type: "iframe" }
+      { name: "Server 2", url: "https://www.elahmad.ru/tv/arabic-tv-online.php?id=dwtvarabia", type: "iframe" }
     ] },
   { name: "Al Ghad TV", url: "https://eazyvwqssi.erbvr.com/alghadtv/alghadtv.m3u8", groups: ["news"], icon: "globe" },
   { name: "RT روسيا اليوم", url: "https://rt-arb.rttv.com/live/rtarab/playlist_4500Kb.m3u8", groups: ["news"], icon: "globe" },
@@ -366,7 +367,7 @@ var CHANNELS = [
       { name: "Server 2", url: "https://matchora.to/embed/channel/1660394", type: "iframe" },
       { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein10", type: "iframe" }
     ] },
-  { name": "Bein 4k",", groups: ["sports"], icon: "futbol",
+  { name: "Bein 4k", groups: ["sports"], icon: "futbol",
     servers: [   
       { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://tectonbrand.com/F3ANK5Z/7W11KJR/1441958", type: "ts" },
     ] },
