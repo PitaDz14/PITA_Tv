@@ -139,7 +139,8 @@ var CHANNELS = [
     ] },
 
   // ───────── قنوات فرنسية ─────────
-  { name: "TF1", url: "https://cdn.hdm1.net/TF1FR/tracks-v1a1/mono.m3u8?token=VEYxRlJ8bm9fY2hlY2tfaXB8MTc5NTIwMDEwMQ%3D%3D.2d9f44236ea02467618c05c550414912b8a6a7ced3ecc1841f47d406e153770e", groups: ["french"] },
+  { name: "TF1", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1/live.livx/playlist.m3u8", groups: ["french"] },
+  { name: "TF1 Series Films", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1_series_films/live.livx/playlist.m3u8", groups: ["french"] },
   { name: "France 2", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/34.m3u8", type: "hls", groups: ["french"] },
   { name: "France 3", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/35.m3u8", type: "hls", groups: ["french"] },
   { name: "France 4", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/36.m3u8", type: "hls", groups: ["french"] },
