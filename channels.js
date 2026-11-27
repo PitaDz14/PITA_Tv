@@ -25,6 +25,7 @@
      2) فاصلة , بعد كل حقل وبعد كل } 
      3) لا تحذف [ أو ] أو { أو } بالخطأ.
    إذا أخطأت: يظهر شريط أحمر أعلى الموقع يخبرك بالقناة/السطر الخطأ، ويبقى الموقع يعمل.
+   ▶ إيقاف سيرفر أو موقع مؤقتاً بدون حذفه: انظر قسم DISABLED_DOMAINS في آخر الملف.
    رمز {proxy} داخل الرابط يعني عنوان الوسيط (PROXY_BASE) تلقائياً.
    ========================================================================== */
 
@@ -138,8 +139,7 @@ var CHANNELS = [
     ] },
 
   // ───────── قنوات فرنسية ─────────
-  { name: "TF1", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1/live.livx/playlist.m3u8", groups: ["french"] },
-  { name: "TF1 Series Films", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1_series_films/live.livx/playlist.m3u8", groups: ["french"] },
+  { name: "TF1", url: "https://cdn.hdm1.net/TF1FR/tracks-v1a1/mono.m3u8?token=VEYxRlJ8bm9fY2hlY2tfaXB8MTc5NTIwMDEwMQ%3D%3D.2d9f44236ea02467618c05c550414912b8a6a7ced3ecc1841f47d406e153770e", groups: ["french"] },
   { name: "France 2", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/34.m3u8", type: "hls", groups: ["french"] },
   { name: "France 3", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/35.m3u8", type: "hls", groups: ["french"] },
   { name: "France 4", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/36.m3u8", type: "hls", groups: ["french"] },
@@ -532,3 +532,35 @@ var CHANNELS = [
   { name: "المجد", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=majid_tv", type: "open", groups: ["kids"], icon: "moon" },
   { name: "Amou Yazid TV", url: "http://mkstream.servehttp.com:1940/AmouYazid/ay1/playlist.m3u8", groups: ["kids"], icon: "smile" },
 ];
+
+/* ==========================================================================
+   إيقاف السيرفرات مؤقتاً (بدون حذفها)
+   --------------------------------------------------------------------------
+   ▶ لإيقاف موقع كامل (كل روابطه في كل القنوات): أضف اسمه في القائمة التالية.
+     لإعادته: احذف اسمه من القائمة (أو اتركها فارغة هكذا [] ).
+   ▶ لإيقاف سيرفر واحد فقط: أضف  off: true,  داخل سطره، مثال:
+       { name: "Server 1", off: true, url: "https://...", type: "iframe" },
+     لإعادته: احذف  off: true,
+   ▶ القناة التي تتوقف كل سيرفراتها تختفي تلقائياً، وتعود حين يعود أحدها.
+   ========================================================================== */
+var DISABLED_DOMAINS = [
+  "matchora.to",
+];
+
+(function () {
+  function isOff(item) {
+    if (!item || item.off === true) return true;
+    var url = String(item.url || "");
+    for (var i = 0; i < DISABLED_DOMAINS.length; i++) {
+      if (DISABLED_DOMAINS[i] && url.indexOf(DISABLED_DOMAINS[i]) !== -1) return true;
+    }
+    return false;
+  }
+  CHANNELS = CHANNELS.filter(function (ch) {
+    if (Array.isArray(ch.servers)) {
+      ch.servers = ch.servers.filter(function (s) { return !isOff(s); });
+      return ch.servers.length > 0;
+    }
+    return !isOff(ch);
+  });
+})();
