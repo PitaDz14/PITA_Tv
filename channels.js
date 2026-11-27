@@ -141,16 +141,15 @@ var CHANNELS = [
   // ───────── قنوات فرنسية ─────────
   { name: "TF1", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1/live.livx/playlist.m3u8", groups: ["french"] },
   { name: "TF1 Series Films", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1_series_films/live.livx/playlist.m3u8", groups: ["french"] },
-  { name: "France 2", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/34.m3u8", type: "hls", groups: ["french"] },
-  { name: "France 3", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/35.m3u8", type: "hls", groups: ["french"] },
-  { name: "France 4", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/36.m3u8", type: "hls", groups: ["french"] },
-  { name: "France 5", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/37.m3u8", type: "hls", groups: ["french"] },
-  { name: "M6", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/15.m3u8", type: "hls", groups: ["french"] },
-  { name: "W9", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/23.m3u8", type: "hls", groups: ["french"] },
+  { name: "France 2", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_2/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
+  { name: "France 3", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_3/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
+  { name: "France 4", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_4/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
+  { name: "France 5", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_5/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
+  { name: "M6", url: "https://n-5-2.eu.cdn-redge.media/livehls/oeu/mt/live/m6_fr/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
+  { name: "W9", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/w9_fr/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
   { name: "ARTE", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/22.m3u8", type: "hls", groups: ["french"] },
-  { name: "CNEWS", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/54.m3u8", type: "hls", groups: ["french"] },
-  { name: "CANAL+", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/41.m3u8", type: "hls", groups: ["french"] },
-  { name: "L'Equipe", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/8.m3u8", type: "hls", groups: ["french"], icon: "futbol" },
+  { name: "CNEWS", url: "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cnews-dm.m3u8", type: "hls", groups: ["french"] },
+  { name: "L'Equipe", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://tv.streamboxtv.cc/live/testlivestream/testlivestream/8.m3u8", type: "hls", groups: ["french"], icon: "futbol" },
 
   // ───────── القنوات السعودية ─────────
   { name: "القرآن الكريم", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=qoran_tv1", type: "open", groups: ["saudi"], icon: "quran" },
@@ -474,7 +473,7 @@ var CHANNELS = [
   { name: "الشارقة الرياضية 2", url: "https://www.elahmad.ru/tv/watchtv.php?id=al_sharjah_sport2", groups: ["sports"], icon: "futbol" },
 
   // ───────── رياضة فرنسية ───────── 
-  { name: "L'Equipe", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/8.m3u8", type: "hls", groups: ["sports_fr"], icon: "futbol" },
+  { name: "L'Equipe", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://tv.streamboxtv.cc/live/testlivestream/testlivestream/8.m3u8", type: "hls", groups: ["sports_fr"], icon: "futbol" },
   { name: "BEIN SPORT 1 FR", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/50.m3u8", type: "hls", groups: ["sports_fr"], icon: "futbol" },
   { name: "BEIN SPORT 2 FR", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/27.m3u8", type: "hls", groups: ["sports_fr"], icon: "futbol" },
   { name: "BEIN SPORT 3 FR", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/28.m3u8", type: "hls", groups: ["sports_fr"], icon: "futbol" },
