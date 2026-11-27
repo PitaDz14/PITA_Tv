@@ -147,7 +147,7 @@ var CHANNELS = [
   { name: "France 5", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_5/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
   { name: "M6", url: "https://n-5-2.eu.cdn-redge.media/livehls/oeu/mt/live/m6_fr/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
   { name: "W9", url: "https://r.eu.cdn-redge.media/livehls/oeu/mt/live/w9_fr/live.livx/playlist.m3u8", type: "hls", groups: ["french"] },
-  { name: "ARTE", url: "https://tv.streamboxtv.cc/live/testlivestream/testlivestream/22.m3u8", type: "hls", groups: ["french"] },
+  { name: "ARTE", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://tv.streamboxtv.cc/live/testlivestream/testlivestream/22.m3u8", type: "hls", groups: ["french"] },
   { name: "CNEWS", url: "https://raw.githubusercontent.com/Paradise-91/ParaTV/main/streams/canalplus/cnews-dm.m3u8", type: "hls", groups: ["french"] },
   { name: "L'Equipe", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://tv.streamboxtv.cc/live/testlivestream/testlivestream/8.m3u8", type: "hls", groups: ["french"], icon: "futbol" },
 
