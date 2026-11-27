@@ -461,9 +461,9 @@ var CHANNELS = [
       { name: "Server 3", url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4858305&key=9f39972b67d6ce22189507d008acwc26", type: "iframe" }
     ] },
   { name: "MBC_ACTION", url: "http://149.100.11.252:8000/play/a029/index.m3u8", type: "hls", groups: ["sports"], icon: "futbol" },
-  { name: "AD SPORT 1 HD", url: "http://149.62.183.134:9981/play/a04s", type: "ts", groups: ["sports"], icon: "futbol" },
-  { name: "AD SPORT 2 HD", url: "http://149.62.183.134:9981/play/a04t", type: "ts", groups: ["sports"], icon: "futbol" },
-  { name: "الشارقة الرياضية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=al_sharjah_sport1", groups: ["sports"], icon: "futbol" },
+  { name: "AD SPORT 1 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/sa/admn/abu_dhabi_sports_1_hd/tracks-v1a1/mono.ts.m3u8", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "AD SPORT 2 HD", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/sa/admn/abu_dhabi_sports_2_hd/tracks-v1a1/mono.ts.m3u8", type: "hls", groups: ["sports"], icon: "futbol" },
+  { name: "1 الشارقة الرياضية", url: "https://www.elahmad.ru/tv/mobiletv/glarb.php?id=al_sharjah_sport1", groups: ["sports"], icon: "futbol" },
   { name: "الشارقة الرياضية 2", url: "https://www.elahmad.ru/tv/watchtv.php?id=al_sharjah_sport2", groups: ["sports"], icon: "futbol" },
 
   // ───────── رياضة فرنسية ───────── 
