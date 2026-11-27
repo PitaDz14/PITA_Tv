@@ -281,7 +281,7 @@ var CHANNELS = [
     servers: [
       { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_2_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://2cdn.syria-player.info/play.php?channel=bein2", type: "iframe" },
-#     { name: "Server 3", url: "https://matchora.to/embed/channel/1660411", type: "iframe" },
+      { name: "Server 3", url: "https://matchora.to/embed/channel/1660411", type: "iframe" },
       { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein2/master.m3u8", type: "hls" },
       { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9262", type: "ts" },
       { name: "Server 6", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2.jnjnil.qzz.io/live/kora2/index.m3u8", type: "hls" },
@@ -290,7 +290,7 @@ var CHANNELS = [
   { name: "Bein Sport 3", groups: ["sports"], icon: "futbol",
     servers: [ 
       { name: "Server 0 720p", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://ylp.akhbarnewscdn.store/cdn/native/live1_720p/index-timed.m3u8", type: "hls" },
-#     { name: "Server 1", url: "https://matchora.to/embed/channel/1660409", type: "iframe" },
+      { name: "Server 1", url: "https://matchora.to/embed/channel/1660409", type: "iframe" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_3_hd/tracks-v1a1/mono.m3u8", type: "hls" },
       { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein3", type: "iframe" },
       { name: "Server 4", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein3/master.m3u8", type: "hls" },
@@ -300,9 +300,9 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 4", groups: ["sports"], icon: "futbol",
     servers: [
-#     { name: "Server 1", url: "https://matchora.to/embed/channel/1660408", type: "iframe" },
+      { name: "Server 1", url: "https://matchora.to/embed/channel/1660408", type: "iframe" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_4_hd/tracks-v1a1/mono.m3u8", type: "hls" },
-#     { name: "Server 3", url: "https://matchora.to/embed/channel/1660407", type: "iframe" },
+      { name: "Server 3", url: "https://matchora.to/embed/channel/1660407", type: "iframe" },
       { name: "Server 4", url: "https://2cdn.syria-player.info/play.php?channel=bein4", type: "iframe" },
       { name: "Server 5", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://2cdn.syria-player.info/proxy.php?stream=bein4/master.m3u8", type: "hls" },
       { name: "Server 6", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://vlcdc.org:80/lYG1EKR6m8/uXcRu8sQ2S/9260", type: "ts" },
