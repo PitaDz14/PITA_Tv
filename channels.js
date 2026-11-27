@@ -266,6 +266,7 @@ var CHANNELS = [
   { name: "Bein Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
       { name: "Bein1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://cp11.adabmedia.com/hls2/bein1.m3u8" },
+      { name: "Bein Sport 1 hd", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.ts.m3u8" },
       { name: "Server 0", url: "https://matchora.pro/embed/channel/1660413", type: "iframe" },
       { name: "Server 1", url: "https://edge22.358598.ir.cdn.ir/hls2/bein1.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://balance.footballii.ir/hls2/bein1.m3u8" },
@@ -366,40 +367,40 @@ var CHANNELS = [
     ] },
   { name: "Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
     ] },
   { name: "Sport 2", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_2_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_2_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://blcco.linkip.org/live/3460_.m3u8", type: "hls" },
     ] },
   { name: "Sport 3", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_3_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_3_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
     ] },
   { name: "Sport 4", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_4_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_4_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
     ] },
   { name: "Sport 5", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_5_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_5_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/c0SRpXiS7CTLEugVirw4otUVSV_spbkA5-jnYTmpA4sUuTFWYcWwI7jQ5IYhFP5LXKkQ4zasZn74-x8Wv0FZYg/transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiS2JwcyI6Mjc1MCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE/dynamic_playlist.m3u8?type=live", type: "hls" },
     ] },
   { name: "Sport 6", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_6_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_6_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://hidden-water-bf2b.emana-ahmad11-eeb.workers.dev/playlist.m3u8?url=https://ok.ru/video/17384839782073", type: "hls" },
       { name: "Server 3", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/piCwtvWjqmtjEd1lF4U6kytw9PxvDsP5S4JIDFqzxLIok4YP-abtPQQ-5jFjBjj9ot-_5A8RIJh3asFdP80HjQ/transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiS2JwcyI6Mjc1MCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE/dynamic_playlist.m3u8?type=live", type: "hls" },
     ] },
   { name: "Sport 7", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_7_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_7_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://maten-tv-proxy.matenarif2.workers.dev/playlist.m3u8?url=https://ok.ru/video/16523148860981", type: "hls" },
     ] },
   { name: "Sport 8", groups: ["sports"], icon: "futbol",
     servers: [
-      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://dashclloudflare.ddns.net/live/ar/qa/bein/bein_sport_8_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
+      { name: "Server 1", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_8_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://prod-fastly-us-west-2.video.pscp.tv/Transcoding/v1/hls/cZvRNpyhu0XHzkGqKKaJzIqadoXMIDs4usw58wXS90tf1_eUQ9UHD2lb0w4e0oMssvI0QAUSy_mS-GsGyrqlow/transcode/us-west-2/periscope-replay-direct-prod-us-west-2-public/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ18xMDgwcDMwXzEwIiwiSGVpZ2h0IjoxMDgwLCJLYnBzIjo1NTAwLCJXaWR0aCI6MTkyMH0.OImMZabKYJ0cs9CnIapU-4aBk6KNBiJxi1hh-6l4BZ4/dynamic_delta.m3u8?type=live", type: "hls" },
     ] },
   { name: "AVA SPORT", url: "https://183.giatvcdn.com/giatv/giatv-yusfstoreavasport/yusfstoreavasport/chunks.m3u8", groups: ["sports"], icon: "futbol" },
