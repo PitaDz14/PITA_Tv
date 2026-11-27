@@ -365,6 +365,10 @@ var CHANNELS = [
       { name: "Server 2", url: "https://matchora.to/embed/channel/1660394", type: "iframe" },
       { name: "Server 3", url: "https://2cdn.syria-player.info/play.php?channel=bein10", type: "iframe" }
     ] },
+  { name": "Bein 4k",", groups: ["sports"], icon: "futbol",
+    servers: [   
+      { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://tectonbrand.com/F3ANK5Z/7W11KJR/1441958", type: "ts" },
+    ] },
   { name: "Sport 1", groups: ["sports"], icon: "futbol",
     servers: [
       { name: "Server 0", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://viptvptv.ddns.net/live/ar/qa/bein/bein_sport_1_hd/tracks-v1a1/mono.ts.m3u8", type: "hls" },
