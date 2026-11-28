@@ -292,6 +292,7 @@ var CHANNELS = [
     ] },
   { name: "Bein Sport 3", groups: ["sports"], icon: "futbol",
     servers: [ 
+      { name: "test", url: "https://mkaasii.blogspot.com/p/m.html?id=3", type: "iframe" },
       { name: "Server 0 720p", url: "https://pita-proxy.khaled26101992.workers.dev/?u=https://ylp.akhbarnewscdn.store/cdn/native/live1_720p/index-timed.m3u8", type: "hls" },
       { name: "Server 1", url: "https://matchora.to/embed/channel/1660409", type: "iframe" },
       { name: "Server 2", url: "https://pita-proxy.khaled26101992.workers.dev/?u=http://yusftsoreforver.ddns.net/live/ar/qa/bein/bein_sport_3_hd/tracks-v1a1/mono.m3u8", type: "hls" },
